@@ -465,18 +465,14 @@ module.exports = function registerAdminRoutes(app, ctx) {
         return res.redirect('/admin/withdrawals')
       }
 
-      const user = users.find(u => u.id === withdrawal.userId)
-      if (!user) {
+      const user = users.find(u => u.id === withdrawal.userId)
+
+      if (!user) {
         setToast(req, 'error', 'User not found')
         return res.redirect('/admin/withdrawals')
       }
 
-      if (Number(user.deposit || 0) < withdrawal.amount) {
-        setToast(req, 'error', 'User has insufficient total deposit')
-        return res.redirect('/admin/withdrawals')
-      }
-
-      user.deposit = Number(user.deposit || 0) - Number(withdrawal.amount)
+      withdrawal.debitedFrom = withdrawal.debitedFrom || 'balance'
       withdrawal.status = 'approved'
       withdrawal.approvedAt = new Date().toISOString()
 
@@ -517,7 +513,15 @@ module.exports = function registerAdminRoutes(app, ctx) {
       saveJson('./database/withdrawals.json', withdrawals)
 
       const user = users.find(u => u.id === withdrawal.userId)
-      logAdminAction(req, 'withdrawal_rejected', { withdrawalId, userId: withdrawal.userId, amount: withdrawal.amount })
+      if (user && !withdrawal.refundedAt) {
+        user.balance = Number(user.balance || 0) + Number(withdrawal.amount || 0)
+        withdrawal.refundedAt = new Date().toISOString()
+        withdrawal.refundedTo = 'balance'
+        saveUsers(users)
+        saveJson('./database/withdrawals.json', withdrawals)
+      }
+
+      logAdminAction(req, 'withdrawal_rejected', { withdrawalId, userId: withdrawal.userId, amount: withdrawal.amount })
 
       if (user) {
         await notifyActivity(

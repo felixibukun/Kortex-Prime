@@ -541,7 +541,7 @@ module.exports = function registerUserRoutes(app, ctx) {
     }
   })
 
-  // Withdrawal deducts from total deposit only when admin approves.
+  // Withdrawal requests debit the user's balance immediately.
   app.post('/withdraw', requireLogin, async (req, res) => {
     try {
       const { amount, wallet, network } = req.body
@@ -550,8 +550,8 @@ module.exports = function registerUserRoutes(app, ctx) {
       const user = users.find(u => u.id === req.session.user.id)
       const amt = Number(amount)
 
-      if (amt <= 0 || amt > Number(user.deposit || 0)) {
-        setToast(req, 'error', 'Invalid amount or insufficient total deposit')
+      if (!user || amt <= 0 || amt > Number(user.balance || 0)) {
+        setToast(req, 'error', 'Invalid amount or insufficient balance')
         return res.redirect('/withdraw')
       }
 
@@ -562,7 +562,7 @@ module.exports = function registerUserRoutes(app, ctx) {
         return res.redirect('/withdraw')
       }
 
-      // Reserve the amount as pending. Total deposit is deducted on admin approval.
+      user.balance = Number(user.balance || 0) - amt
       withdrawals.push({
         id: Date.now(),
         userId: user.id,
@@ -570,17 +570,20 @@ module.exports = function registerUserRoutes(app, ctx) {
         amount: amt,
         wallet,
         network,
-        status: 'pending',
+        status: 'pending',
+        debitedFrom: 'balance',
+        debitedAt: new Date().toISOString(),
         date: new Date().toISOString()
       })
 
-      saveJson('./database/withdrawals.json', withdrawals)
-      // Note: total deposit is NOT deducted here; admin approval route must do it.
+      saveUsers(users)
+      saveJson('./database/withdrawals.json', withdrawals)
+      // Amount has already been reserved from balance.
 
       await notifyActivity(
         user,
         "Withdrawal Submitted",
-        `Your withdrawal request for ${money(amt)} on ${network || 'your selected network'} has been received and is pending review. Funds are deducted from total deposit only after approval.`
+        `Your withdrawal request for ${money(amt)} on ${network || 'your selected network'} has been received and is pending review. The amount has been debited from your balance.`
       )
 
       setToast(req, 'success', 'Withdrawal submitted')
@@ -605,7 +608,7 @@ module.exports = function registerUserRoutes(app, ctx) {
   })
 
   app.post('/account/update', requireLogin, async (req, res) => {
-    const { name, username, email, phone, country } = req.body
+    const { name, username, email, phone, country, timezone, password } = req.body
     const users = loadUsers()
     const user = users.find(u => u.id === req.session.user.id)
 
@@ -645,7 +648,16 @@ module.exports = function registerUserRoutes(app, ctx) {
     user.email = cleanEmail
 
     user.phone = phone
-    user.country = country
+    user.country = country
+    user.timezone = timezone
+
+    if (password && String(password).trim()) {
+      if (String(password).length < 6) {
+        setToast(req, 'error', 'Password must be at least 6 characters')
+        return res.redirect('/account')
+      }
+      user.password = await bcrypt.hash(String(password), 12)
+    }
 
     saveUsers(users)
 
@@ -653,6 +665,9 @@ module.exports = function registerUserRoutes(app, ctx) {
     req.session.user.name = name
 
     req.session.user.email = cleanEmail
+    req.session.user.phone = phone
+    req.session.user.country = country
+    req.session.user.timezone = timezone
 
     await notifyActivity(
       user,
@@ -661,7 +676,7 @@ module.exports = function registerUserRoutes(app, ctx) {
     )
 
     setToast(req, 'success', 'Profile updated successfully')
-    res.redirect('/account')
+    req.session.save(() => res.redirect('/account'))
   })
 
   // ===========================

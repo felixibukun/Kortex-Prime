@@ -137,7 +137,8 @@
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
             padding: 16px 20px;
-            color: white;
+            color: #FFFFFF !important;
+            caret-color: #FFFFFF;
             font-size: 16px;
             transition: all 0.3s ease;
         }
@@ -151,6 +152,13 @@
 
         .form-control::placeholder {
             color: rgba(255,255,255,0.4);
+        }
+
+        .form-control:-webkit-autofill,
+        .form-control:-webkit-autofill:hover,
+        .form-control:-webkit-autofill:focus {
+            -webkit-text-fill-color: #FFFFFF;
+            box-shadow: 0 0 0 1000px var(--kortex-card) inset;
         }
 
         .input-with-icon {
@@ -568,7 +576,7 @@
 </div>
 
 <footer class="footer">
-    <p class="footer-text">© 2024 Kortex Prime. All rights reserved. | Licensed and regulated trading platform.</p>
+    <p class="footer-text">© 2026 Kortex Prime. All rights reserved. | Licensed and regulated trading platform.</p>
 </footer>
 
 <script>

@@ -211,9 +211,22 @@ label, input::placeholder {
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 10px;
     padding: 14px 16px;
-    color: white;
+    color: #FFFFFF !important;
+    caret-color: #FFFFFF;
     font-size: 15px;
     transition: all 0.3s ease;
+}
+
+.form-control option {
+    background: var(--kortex-card);
+    color: #FFFFFF;
+}
+
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill:hover,
+.form-control:-webkit-autofill:focus {
+    -webkit-text-fill-color: #FFFFFF;
+    box-shadow: 0 0 0 1000px var(--kortex-card) inset;
 }
 
 .form-control:focus {
@@ -715,7 +728,7 @@ label, input::placeholder {
 <!-- Footer Note -->
 <div style="text-align: center; padding: 20px; background: var(--kortex-darker); border-top: 1px solid rgba(255,255,255,0.05);">
     <p style="color: #B0B5C2; font-size: 12px; margin: 0;">
-        © 2024 Kortex Prime. All rights reserved. | Licensed and regulated trading platform.
+        © 2026 Kortex Prime. All rights reserved. | Licensed and regulated trading platform.
     </p>
 </div>
 
@@ -740,6 +753,54 @@ const dialCodes = {
     KE: '+254',
     MX: '+52'
 };
+
+const isoCountries = [
+    'AF','AX','AL','DZ','AS','AD','AO','AI','AQ','AG','AR','AM','AW','AU','AT','AZ','BS','BH','BD','BB','BY','BE','BZ','BJ','BM','BT','BO','BQ','BA','BW','BV','BR','IO','BN','BG','BF','BI','CV','KH','CM','CA','KY','CF','TD','CL','CN','CX','CC','CO','KM','CG','CD','CK','CR','CI','HR','CU','CW','CY','CZ','DK','DJ','DM','DO','EC','EG','SV','GQ','ER','EE','SZ','ET','FK','FO','FJ','FI','FR','GF','PF','TF','GA','GM','GE','DE','GH','GI','GR','GL','GD','GP','GU','GT','GG','GN','GW','GY','HT','HM','VA','HN','HK','HU','IS','IN','ID','IR','IQ','IE','IM','IL','IT','JM','JP','JE','JO','KZ','KE','KI','KP','KR','KW','KG','LA','LV','LB','LS','LR','LY','LI','LT','LU','MO','MG','MW','MY','MV','ML','MT','MH','MQ','MR','MU','YT','MX','FM','MD','MC','MN','ME','MS','MA','MZ','MM','NA','NR','NP','NL','NC','NZ','NI','NE','NG','NU','NF','MK','MP','NO','OM','PK','PW','PS','PA','PG','PY','PE','PH','PN','PL','PT','PR','QA','RE','RO','RU','RW','BL','SH','KN','LC','MF','PM','VC','WS','SM','ST','SA','SN','RS','SC','SL','SG','SX','SK','SI','SB','SO','ZA','GS','SS','ES','LK','SD','SR','SJ','SE','CH','SY','TW','TJ','TZ','TH','TL','TG','TK','TO','TT','TN','TR','TM','TC','TV','UG','UA','AE','GB','US','UM','UY','UZ','VU','VE','VN','VG','VI','WF','EH','YE','ZM','ZW'
+];
+
+function populateCountrySelect() {
+    const country = document.getElementById('country');
+    if (!country || country.dataset.populated === 'true') return;
+
+    const names = typeof Intl !== 'undefined' && Intl.DisplayNames
+        ? new Intl.DisplayNames(['en'], { type: 'region' })
+        : null;
+
+    const current = country.value;
+    country.innerHTML = '<option value="">Choose your country</option>';
+    isoCountries
+        .map(code => ({ code, name: names ? names.of(code) : code }))
+        .filter(item => item.name)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.code;
+            option.textContent = item.name;
+            if (dialCodes[item.code]) option.dataset.dial = dialCodes[item.code];
+            country.appendChild(option);
+        });
+    country.value = current;
+    country.dataset.populated = 'true';
+}
+
+function populateTimezoneSelect() {
+    const timezone = document.getElementById('timezone');
+    if (!timezone || timezone.dataset.populated === 'true') return;
+
+    const current = timezone.value || Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    const zones = Intl.supportedValuesOf ? Intl.supportedValuesOf('timeZone') : [];
+    if (!zones.length) return;
+
+    timezone.innerHTML = '<option value="">Select your time zone</option>';
+    zones.forEach(zone => {
+        const option = document.createElement('option');
+        option.value = zone;
+        option.textContent = zone.replace(/_/g, ' ');
+        timezone.appendChild(option);
+    });
+    timezone.value = current;
+    timezone.dataset.populated = 'true';
+}
 
 function selectedDialCode() {
     return document.getElementById('phoneCode')?.value || '+1';
@@ -777,6 +838,8 @@ function syncPhoneCodeFromCountry() {
 
 // Initialize form validation
 document.addEventListener('DOMContentLoaded', function() {
+    populateCountrySelect();
+    populateTimezoneSelect();
     // Password validation
     const passwordInput = document.getElementById('password');
     const confirmPasswordInput = document.getElementById('confirmPassword');

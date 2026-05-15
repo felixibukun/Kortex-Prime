@@ -288,17 +288,18 @@ function setToast(req, type, message) {
 }
 
 function loadJson(filePath, fallback) {
+  const backupPath = filePath + '.backup'
+
   try {
     const raw = fs.readFileSync(filePath, 'utf8')
     if (!raw.trim()) {
       return fallback
     }
-    
-    const backupPath = filePath + '.backup'
-    fs.copyFileSync(filePath, backupPath)
-    
+
     try {
-      return JSON.parse(raw)
+      const parsed = JSON.parse(raw)
+      fs.copyFileSync(filePath, backupPath)
+      return parsed
     } catch (parseError) {
       console.error(`JSON parse error in ${filePath}:`, parseError)
       try {
@@ -315,7 +316,7 @@ function loadJson(filePath, fallback) {
       const fixed = raw.replace(/,\s*}/g, '}').replace(/,\s*]/g, ']').replace(/'/g, '"')
       try {
         const recovered = JSON.parse(fixed)
-        fs.writeFileSync(filePath, JSON.stringify(recovered, null, 2))
+        saveJson(filePath, recovered)
         console.log(`Recovered ${filePath} by fixing JSON`)
         return recovered
       } catch (recoveryError) {
@@ -325,7 +326,6 @@ function loadJson(filePath, fallback) {
     }
   } catch (readError) {
     console.error(`Error reading ${filePath}:`, readError)
-    const backupPath = filePath + '.backup'
     if (fs.existsSync(backupPath)) {
       try {
         const backupData = fs.readFileSync(backupPath, 'utf8')
@@ -342,19 +342,28 @@ function loadJson(filePath, fallback) {
 }
 
 function saveJson(filePath, data) {
+  const backupPath = filePath + '.backup'
+  const tempPath = `${filePath}.${process.pid}.${Date.now()}.tmp`
+
   try {
+    const jsonString = JSON.stringify(data, null, 2)
+    fs.writeFileSync(tempPath, jsonString)
+    const verifyData = fs.readFileSync(tempPath, 'utf8')
+    JSON.parse(verifyData)
     if (fs.existsSync(filePath)) {
-      const backupPath = filePath + '.backup'
       fs.copyFileSync(filePath, backupPath)
     }
-    const jsonString = JSON.stringify(data, null, 2)
-    fs.writeFileSync(filePath, jsonString)
-    const verifyData = fs.readFileSync(filePath, 'utf8')
-    JSON.parse(verifyData)
+    fs.renameSync(tempPath, filePath)
     return true
   } catch (error) {
     console.error(`Error saving ${filePath}:`, error)
-    const backupPath = filePath + '.backup'
+    if (fs.existsSync(tempPath)) {
+      try {
+        fs.unlinkSync(tempPath)
+      } catch (cleanupError) {
+        console.error(`Failed to remove temp JSON file ${tempPath}:`, cleanupError)
+      }
+    }
     if (fs.existsSync(backupPath)) {
       try {
         fs.copyFileSync(backupPath, filePath)
@@ -830,28 +839,30 @@ function requireAdminIP(req, res, next) {
 // ===========================
 // LIVE DATA SIMULATION
 // ===========================
-setInterval(() => {
-  try {
-    const stocks = loadJson('./database/stocks.json', [])
-    let changed = false
-    if (stocks && stocks.length > 0) {
-      stocks.forEach(s => {
-        const change = (Math.random() * 2 - 1).toFixed(2)
-        let newPrice = s.price + Number(change)
-        if (newPrice < 1) newPrice = 1
-        if (s.price !== Number(newPrice.toFixed(2))) {
-          s.price = Number(newPrice.toFixed(2))
-          changed = true
+if (process.env.ENABLE_STOCK_SIMULATION === 'true') {
+  setInterval(() => {
+    try {
+      const stocks = loadJson('./database/stocks.json', [])
+      let changed = false
+      if (stocks && stocks.length > 0) {
+        stocks.forEach(s => {
+          const change = (Math.random() * 2 - 1).toFixed(2)
+          let newPrice = s.price + Number(change)
+          if (newPrice < 1) newPrice = 1
+          if (s.price !== Number(newPrice.toFixed(2))) {
+            s.price = Number(newPrice.toFixed(2))
+            changed = true
+          }
+        })
+        if (changed) {
+          saveJson('./database/stocks.json', stocks)
         }
-      })
-      if (changed) {
-        saveJson('./database/stocks.json', stocks)
       }
+    } catch (e) {
+      console.error('Stock update error:', e)
     }
-  } catch (e) {
-    console.error('Stock update error:', e)
-  }
-}, 10000)
+  }, 10000)
+}
 
 // ===========================
 // AUTHENTICATION ROUTES

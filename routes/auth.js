@@ -102,9 +102,9 @@ module.exports = function registerAuthRoutes(app, ctx) {
 
   app.post('/signup', authLimit, async (req, res) => {
     try {
-      const { username, name, email, phone, phoneCode, country, password } = req.body
+      const { username, name, email, phone, phoneCode, country, timezone, password } = req.body
 
-      if (!username || !name || !email || !phone || !country || !password) {
+      if (!username || !name || !email || !phone || !country || !timezone || !password) {
         setToast(req, 'error', 'All fields are required')
         return res.redirect('/signup')
       }
@@ -147,7 +147,8 @@ module.exports = function registerAuthRoutes(app, ctx) {
         phone: normalizedPhone,
 
         phoneCode: cleanPhoneCode || null,
-        country,
+        country,
+        timezone,
         password: hashedPassword,
         balance: 0,
         profit: 0,
