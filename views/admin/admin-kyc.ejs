@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KYC Requests</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body class="bg-slate-950 text-white min-h-screen">
+<%- include('admin-sidebar') %>
+
+  <div class="w-full bg-slate-900 border-b border-slate-800 p-4 flex items-center justify-between">
+    <div>
+      <p class="text-sm font-semibold">KYC Requests</p>
+      <p class="text-xs text-slate-400">Review and approve user verification</p>
+    </div>
+    <a href="/admin" class="bg-slate-800 px-4 py-2 rounded text-sm">Back to dashboard</a>
+  </div>
+
+  <div class="p-6 max-w-6xl mx-auto">
+
+    <div class="mb-4 text-xs text-slate-400">
+      Total requests:
+      <span class="text-slate-100 font-semibold"><%= kycRequests.length %></span>
+      · Pending:
+      <span class="text-amber-400 font-semibold">
+        <%= kycRequests.filter(r => r.status === 'pending').length %>
+      </span>
+    </div>
+
+    <div class="overflow-x-auto bg-slate-900 border border-slate-800 rounded-2xl shadow-lg text-xs">
+      <table class="w-full text-left">
+        <thead class="bg-slate-800 text-slate-300">
+          <tr>
+            <th class="px-4 py-3">User</th>
+            <th class="px-4 py-3">Document</th>
+            <th class="px-4 py-3">Number</th>
+            <th class="px-4 py-3">Note</th>
+            <th class="px-4 py-3">Status</th>
+            <th class="px-4 py-3">Date</th>
+            <th class="px-4 py-3">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% if (!kycRequests || kycRequests.length === 0) { %>
+            <tr>
+              <td colspan="7" class="text-center py-6 text-slate-500">No KYC requests found.</td>
+            </tr>
+          <% } %>
+
+          <% kycRequests.forEach(r => { %>
+            <tr class="border-t border-slate-800">
+              <td class="px-4 py-3"><%= r.userName %></td>
+              <td class="px-4 py-3"><%= r.documentType %></td>
+              <td class="px-4 py-3"><%= r.documentNumber %></td>
+              <td class="px-4 py-3 text-slate-400"><%= r.note || '—' %></td>
+
+              <td class="px-4 py-3">
+                <% if (r.status === 'approved') { %>
+                  <span class="text-emerald-400 font-semibold">Approved</span>
+                <% } else if (r.status === 'rejected') { %>
+                  <span class="text-red-400 font-semibold">Rejected</span>
+                <% } else { %>
+                  <span class="text-amber-400 font-semibold">Pending</span>
+                <% } %>
+              </td>
+
+              <td class="px-4 py-3"><%= new Date(r.createdAt).toLocaleString() %></td>
+
+              <td class="px-4 py-3">
+                <% if (r.status === 'pending') { %>
+                  <div class="flex gap-2">
+                    <button
+                      onclick="handleKyc('approve', <%= r.id %>, '<%= r.userName %>')"
+                      class="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white transition">
+                      Approve
+                    </button>
+                    <button
+                      onclick="handleKyc('reject', <%= r.id %>, '<%= r.userName %>')"
+                      class="px-3 py-1 rounded bg-red-600 hover:bg-red-500 text-white transition">
+                      Reject
+                    </button>
+                  </div>
+                <% } else { %>
+                  <span class="text-slate-500">No actions</span>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    async function handleKyc(action, kycId, username) {
+      const isApprove = action === 'approve'
+
+      const confirm = await Swal.fire({
+        title: isApprove ? 'Approve KYC?' : 'Reject KYC?',
+        html: `User: <b>${username}</b>`,
+        icon: isApprove ? 'question' : 'warning',
+        showCancelButton: true,
+        confirmButtonColor: isApprove ? '#10b981' : '#ef4444',
+        cancelButtonColor: '#475569',
+        confirmButtonText: isApprove ? 'Yes, Approve' : 'Yes, Reject',
+        cancelButtonText: 'Cancel',
+        background: '#0f172a',
+        color: '#f1f5f9'
+      })
+
+      if (!confirm.isConfirmed) return
+
+      try {
+        const res = await fetch(`/admin/kyc/${action}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ kycId })
+        })
+
+        const data = await res.json()
+
+        await Swal.fire({
+          icon: data.success ? 'success' : 'error',
+          title: data.success ? (isApprove ? 'Approved!' : 'Rejected!') : 'Error',
+          text: data.message,
+          timer: 2500,
+          showConfirmButton: false,
+          background: '#0f172a',
+          color: '#f1f5f9'
+        })
+
+        if (data.success) location.reload()
+
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Network Error',
+          text: 'Could not reach the server. Please try again.',
+          background: '#0f172a',
+          color: '#f1f5f9'
+        })
+      }
+    }
+  </script>
+
+  <% if (typeof toast !== 'undefined' && toast) { %>
+  <script>
+    Swal.fire({
+      icon: '<%= toast.type %>',
+      title: '<%= toast.message %>',
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 2500
+    })
+  </script>
+  <% } %>
+
+</body>
+</html>

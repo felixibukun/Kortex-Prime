@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trading History | Kortex Prime</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/premium-ui.css">
+  <link rel="icon" type="image/png" href="/img/favicon-32.png?v=20260509">
+  <style>
+    @keyframes marketPulse {
+      0%, 100% { transform: translateY(0); opacity: .82; }
+      50% { transform: translateY(-8px); opacity: 1; }
+    }
+    @keyframes priceFloat {
+      0% { transform: translateY(18px); opacity: 0; }
+      18% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(-34px); opacity: 0; }
+    }
+    @keyframes scan {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .glass {
+      background: rgba(15, 23, 42, .72);
+      border: 1px solid rgba(255,255,255,.09);
+      backdrop-filter: blur(18px);
+    }
+    .live-line {
+      position: relative;
+      overflow: hidden;
+    }
+    .live-line:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(34, 211, 238, .16), transparent);
+      animation: scan 2.8s linear infinite;
+    }
+    .float-money {
+      position: absolute;
+      right: 18px;
+      bottom: 12px;
+      color: #4ade80;
+      font-weight: 900;
+      font-size: 12px;
+      animation: priceFloat 2.8s ease-in-out infinite;
+    }
+    .float-money.down {
+      color: #fb7185;
+      animation-delay: 1.2s;
+      right: 72px;
+    }
+    .bar {
+      width: 7px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #22d3ee, #2563eb);
+      animation: marketPulse 1.7s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-slate-950 text-white">
+  <div class="fixed inset-0 -z-10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.18),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(34,197,94,0.12),transparent_35%)]"></div>
+    <div class="absolute inset-0 bg-slate-950/85"></div>
+  </div>
+
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
+    <div class="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4">
+      <a href="/dashboard" class="flex items-center gap-3">
+        <img src="/img/logo.png?v=20260509" alt="Kortex Prime" class="h-9 w-9 rounded-xl object-contain">
+        <div>
+          <p class="text-sm font-bold tracking-wide text-white">Kortex Prime</p>
+          <p class="text-[11px] text-slate-400">Trading History</p>
+        </div>
+      </a>
+
+      <a href="/dashboard" class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:border-cyan-400/40 hover:bg-cyan-400/10">
+        Back to Dashboard
+      </a>
+    </div>
+  </header>
+
+  <main class="mx-auto w-full max-w-6xl px-4 py-8">
+    <section class="mb-6 grid gap-4 lg:grid-cols-[1.1fr_.9fr]">
+      <div class="glass rounded-3xl p-6 shadow-2xl shadow-black/30">
+        <p class="mb-2 inline-flex rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-300">
+          Live Trade Records
+        </p>
+        <h1 class="text-2xl font-black tracking-tight text-white md:text-4xl">Trading History</h1>
+        <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-400">
+          Review executed stock trades and active copy-trading positions. The live panel shows simulated market movement so the page feels like trading activity is in motion.
+        </p>
+        <div class="mt-6 grid grid-cols-3 gap-3">
+          <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+            <p class="text-[10px] uppercase tracking-[0.14em] text-slate-500">Trades</p>
+            <p class="mt-1 text-2xl font-black"><%= trades ? trades.length : 0 %></p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+            <p class="text-[10px] uppercase tracking-[0.14em] text-slate-500">Copying</p>
+            <p class="mt-1 text-2xl font-black text-cyan-300"><%= activeCopyTrades ? activeCopyTrades.length : 0 %></p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+            <p class="text-[10px] uppercase tracking-[0.14em] text-slate-500">Allocated</p>
+            <p class="mt-1 text-2xl font-black text-emerald-300">$<%= (activeCopyTrades || []).reduce((sum, t) => sum + Number(t.amount || 0), 0).toFixed(0) %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass live-line relative min-h-[260px] overflow-hidden rounded-3xl p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs uppercase tracking-[0.18em] text-cyan-300">Market Motion</p>
+            <h2 class="mt-2 text-xl font-black">Live trading pulse</h2>
+          </div>
+          <span class="rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-bold text-emerald-300">LIVE</span>
+        </div>
+        <div class="mt-8 flex h-32 items-end gap-2">
+          <% for (let i = 0; i < 24; i++) { %>
+            <span class="bar" style="height:<%= 28 + ((i * 17) % 86) %>px; animation-delay:<%= (i % 7) * 0.13 %>s"></span>
+          <% } %>
+        </div>
+        <span class="float-money">+$<%= (82 + ((trades || []).length * 7)).toFixed(2) %></span>
+        <span class="float-money down">-$<%= (18 + ((activeCopyTrades || []).length * 3)).toFixed(2) %></span>
+      </div>
+    </section>
+
+    <section class="mb-6 overflow-hidden rounded-3xl border border-white/10 bg-slate-900/80 shadow-2xl shadow-black/30">
+      <div class="flex flex-col gap-3 border-b border-white/10 px-6 py-5 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 class="text-base font-bold text-white">Copied Traders</h2>
+          <p class="mt-1 text-xs text-slate-500">Active traders you are currently copying.</p>
+        </div>
+        <a href="/copy-trader" class="rounded-xl border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-xs font-bold text-cyan-300 hover:bg-cyan-400/20">Manage Copy Trading</a>
+      </div>
+
+      <% if (!activeCopyTrades || activeCopyTrades.length === 0) { %>
+        <div class="px-6 py-10 text-center">
+          <h3 class="text-lg font-bold">No active copied traders</h3>
+          <p class="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">When you follow a trader, their active copy position will appear here with allocation, win rate, and live movement.</p>
+          <a href="/copy-trader" class="mt-5 inline-flex rounded-xl bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 hover:bg-cyan-300">Find Traders</a>
+        </div>
+      <% } else { %>
+        <div class="grid gap-4 p-5 md:grid-cols-2">
+          <% activeCopyTrades.forEach((copy, index) => {
+            const projected = Number(copy.amount || 0) * (1 + (Number(copy.winRate || 0) / 1000));
+          %>
+            <article class="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/50 p-5">
+              <div class="absolute right-4 top-4 h-2 w-2 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/60"></div>
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <h3 class="text-lg font-black text-white"><%= copy.traderName %></h3>
+                  <p class="mt-1 text-xs text-slate-500">Started <%= copy.startedAt ? new Date(copy.startedAt).toLocaleDateString() : 'recently' %></p>
+                </div>
+                <span class="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-bold text-emerald-300">Copying</span>
+              </div>
+
+              <div class="mt-5 grid grid-cols-3 gap-3 text-sm">
+                <div class="rounded-xl bg-white/[0.03] p-3">
+                  <p class="text-[10px] uppercase tracking-wider text-slate-500">Allocated</p>
+                  <p class="mt-1 font-black">$<%= Number(copy.amount || 0).toFixed(2) %></p>
+                </div>
+                <div class="rounded-xl bg-white/[0.03] p-3">
+                  <p class="text-[10px] uppercase tracking-wider text-slate-500">Win Rate</p>
+                  <p class="mt-1 font-black text-cyan-300"><%= Number(copy.winRate || 0).toFixed(0) %>%</p>
+                </div>
+                <div class="rounded-xl bg-white/[0.03] p-3">
+                  <p class="text-[10px] uppercase tracking-wider text-slate-500">Live Value</p>
+                  <p class="mt-1 font-black text-emerald-300">$<span class="live-value" data-base="<%= projected.toFixed(2) %>"><%= projected.toFixed(2) %></span></p>
+                </div>
+              </div>
+
+              <div class="mt-5 h-16 rounded-xl border border-white/10 bg-slate-900/70 p-3">
+                <div class="flex h-full items-end gap-1">
+                  <% for (let i = 0; i < 18; i++) { %>
+                    <span class="bar" style="height:<%= 14 + ((i * 11 + index * 9) % 48) %>px; animation-delay:<%= (i % 6) * 0.11 %>s"></span>
+                  <% } %>
+                </div>
+              </div>
+            </article>
+          <% }) %>
+        </div>
+      <% } %>
+    </section>
+
+    <section class="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/80 shadow-2xl shadow-black/30">
+      <div class="flex flex-col gap-3 border-b border-white/10 px-6 py-5 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 class="text-base font-bold text-white">Stock Trade Activity</h2>
+          <p class="mt-1 text-xs text-slate-500">Executed buy and sell records from your account.</p>
+        </div>
+      </div>
+
+      <% if (!trades || trades.length === 0) { %>
+        <div class="flex min-h-[240px] flex-col items-center justify-center px-6 py-12 text-center">
+          <h3 class="text-lg font-bold text-white">No stock trades found</h3>
+          <p class="mt-2 max-w-sm text-sm leading-6 text-slate-500">Your stock trade records will appear here after you buy or sell a market asset.</p>
+          <a href="/stocks" class="mt-6 rounded-xl bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300">Open Markets</a>
+        </div>
+      <% } else { %>
+        <div class="hidden md:block">
+          <div class="grid grid-cols-12 border-b border-white/10 bg-slate-950/50 px-6 py-3 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">
+            <div class="col-span-2">Side</div>
+            <div class="col-span-4">Asset</div>
+            <div class="col-span-2 text-right">Quantity</div>
+            <div class="col-span-2 text-right">Price</div>
+            <div class="col-span-2 text-right">P/L</div>
+          </div>
+          <div class="divide-y divide-white/10">
+            <% trades.forEach(t => {
+              const profit = Number(t.profit || 0);
+              const isProfit = profit >= 0;
+              const side = String(t.side || '').toLowerCase();
+              const isBuy = side === 'buy';
+            %>
+              <div class="grid grid-cols-12 items-center px-6 py-4 text-sm transition hover:bg-white/[0.03]">
+                <div class="col-span-2"><span class="inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide <%= isBuy ? 'bg-emerald-400/10 text-emerald-300 border border-emerald-400/20' : 'bg-rose-400/10 text-rose-300 border border-rose-400/20' %>"><%= t.side %></span></div>
+                <div class="col-span-4"><p class="font-semibold text-white"><%= t.stockName %></p><p class="mt-1 text-xs text-slate-500"><%= t.symbol %></p></div>
+                <div class="col-span-2 text-right text-slate-300"><%= t.quantity %></div>
+                <div class="col-span-2 text-right font-semibold text-slate-200">$<%= Number(t.price || 0).toFixed(2) %></div>
+                <div class="col-span-2 text-right font-black <%= isProfit ? 'text-emerald-300' : 'text-rose-300' %>"><%= isProfit ? '+' : '-' %>$<%= Math.abs(profit).toFixed(2) %></div>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+        <div class="divide-y divide-white/10 md:hidden">
+          <% trades.forEach(t => {
+            const profit = Number(t.profit || 0);
+            const isProfit = profit >= 0;
+            const side = String(t.side || '').toLowerCase();
+            const isBuy = side === 'buy';
+          %>
+            <div class="p-5">
+              <div class="mb-4 flex items-start justify-between gap-4">
+                <div><p class="font-bold text-white"><%= t.stockName %></p><p class="mt-1 text-xs text-slate-500"><%= t.symbol %></p></div>
+                <span class="rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide <%= isBuy ? 'bg-emerald-400/10 text-emerald-300 border border-emerald-400/20' : 'bg-rose-400/10 text-rose-300 border border-rose-400/20' %>"><%= t.side %></span>
+              </div>
+              <div class="grid grid-cols-3 gap-3 rounded-2xl border border-white/10 bg-slate-950/50 p-4 text-xs">
+                <div><p class="text-slate-500">Qty</p><p class="mt-1 font-bold text-white"><%= t.quantity %></p></div>
+                <div><p class="text-slate-500">Price</p><p class="mt-1 font-bold text-white">$<%= Number(t.price || 0).toFixed(2) %></p></div>
+                <div><p class="text-slate-500">P/L</p><p class="mt-1 font-black <%= isProfit ? 'text-emerald-300' : 'text-rose-300' %>"><%= isProfit ? '+' : '-' %>$<%= Math.abs(profit).toFixed(2) %></p></div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+    </section>
+  </main>
+
+  <script>
+    setInterval(() => {
+      document.querySelectorAll('.live-value').forEach((node, index) => {
+        const base = Number(node.dataset.base || 0)
+        const wave = Math.sin(Date.now() / 900 + index) * 8
+        const drift = Math.cos(Date.now() / 1300 + index) * 3
+        node.textContent = (base + wave + drift).toFixed(2)
+      })
+    }, 900)
+  </script>
+
+  <%- include('mobile-downbar') %>
+</body>
+</html>

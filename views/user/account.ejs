@@ -1,0 +1,165 @@
+<!DOCTYPE html> <html lang="en" class="dark"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>Account</title> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"> <script src="https://cdn.tailwindcss.com"></script> <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> <script> tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: { 600: '#4F46E5' } }, fontFamily: { sans: ['Inter', 'sans-serif'] } } } } </script> <link rel="stylesheet" href="/css/premium-ui.css">
+</head> <body class="bg-slate-950 text-white font-sans"> <header class="h-16 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl flex items-center"> <div class="w-full max-w-6xl mx-auto px-4 flex items-center justify-between"> <div class="flex items-center gap-3"> <button onclick="history.back()" class="h-8 w-8 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center"> <i data-lucide="arrow-left" class="w-4 h-4"></i> </button> <div> <p class="text-xs text-slate-400">Account</p> <p class="text-sm font-semibold text-slate-100">Profile and settings</p> </div> </div>
+  <a href="/dashboard" class="text-xs text-slate-300 hover:text-white">
+    Back to dashboard
+  </a>
+</div>
+
+</header> <main class="max-w-6xl mx-auto px-4 py-8 space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+  <!-- PROFILE SUMMARY -->
+  <section class="md:col-span-1 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl">
+    <div class="flex flex-col items-center text-center gap-3">
+
+      <div class="h-16 w-16 rounded-full bg-primary-600/10 border border-primary-600/40 flex items-center justify-center text-lg font-semibold">
+        <%= (user.name || user.username || '?').slice(0,1).toUpperCase() %>
+      </div>
+
+      <div>
+        <p class="text-sm font-semibold text-slate-100">
+          <%= user.name || user.username %>
+        </p>
+        <p class="text-xs text-slate-400 mt-0.5">
+          <%= user.username %>
+        </p>
+      </div>
+
+      <div class="w-full mt-4 space-y-3 text-xs text-left">
+
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400">Email</span>
+          <span class="text-slate-100">
+            <%= user.email || 'Not set' %>
+          </span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400">Account type</span>
+          <span class="inline-flex items-center gap-1 text-emerald-400 font-medium">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            Standard
+          </span>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400">KYC status</span>
+          <% if (user.kycStatus === 'verified') { %>
+            <span class="text-emerald-400 font-medium">Verified</span>
+          <% } else if (user.kycStatus === 'rejected') { %>
+            <span class="text-red-400 font-medium">Rejected</span>
+          <% } else { %>
+            <span class="text-amber-400 font-medium">Not verified</span>
+          <% } %>
+        </div>
+
+      </div>
+
+      <p class="mt-4 text-[11px] text-slate-500">
+        Update your personal information on the right panel and save changes.
+      </p>
+    </div>
+  </section>
+
+  <!-- EDIT FORM -->
+  <section class="md:col-span-2 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <p class="text-sm font-semibold text-slate-100">Edit profile</p>
+        <p class="text-xs text-slate-400 mt-1">
+          You can update your name, username, phone and country here.
+        </p>
+      </div>
+    </div>
+
+<form action="/account/update" method="POST" class="space-y-4 text-sm">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="text-xs text-slate-400 mb-1 block">Full name</label>
+          <input
+            type="text"
+            name="name"
+            value="<%= user.name %>"
+            class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600">
+        </div>
+
+        <div>
+          <label class="text-xs text-slate-400 mb-1 block">Username</label>
+          <input
+            type="text"
+            name="username"
+            value="<%= user.username %>"
+            class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="text-xs text-slate-400 mb-1 block">Email</label>
+          <input
+            type="email"
+            name="email"
+            value="<%= user.email || '' %>"
+            class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600">
+          <p class="mt-1 text-[11px] text-slate-500">
+            Email status updates after account verification is completed.
+          </p>
+        </div>
+
+        <div>
+          <label class="text-xs text-slate-400 mb-1 block">Phone</label>
+          <input
+            type="text"
+            name="phone"
+            value="<%= user.phone || '' %>"
+            class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="text-xs text-slate-400 mb-1 block">Country</label>
+          <input
+            type="text"
+            name="country"
+            value="<%= user.country || '' %>"
+            class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600">
+        </div>
+
+        <div>
+          <label class="text-xs text-slate-400 mb-1 block">New password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Leave blank to keep current password"
+            class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600">
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-800 mt-4">
+        <a href="/dashboard" class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-semibold text-slate-200">
+          Cancel
+        </a>
+        <button
+          type="submit"
+          class="px-5 py-2 rounded-xl bg-primary-600 text-xs font-semibold">
+          Save changes
+        </button>
+      </div>
+
+    </form>
+  </section>
+
+</div>
+
+</main> <script> if (typeof lucide !== 'undefined') { lucide.createIcons() } </script> <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<% if (toast) { %>
+
+<script> Swal.fire({ icon: '<%= toast.type %>', title: '<%= toast.message %>', toast: true, position: 'top', showConfirmButton: false, timer: 2500 }) </script>
+
+<% } %>
+
+  <%- include('mobile-downbar') %>
+</body> </html>

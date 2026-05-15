@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" class="dark h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Login</title>
+    
+    <!-- Correct Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- SweetAlert2 CSS (optional but recommended) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    
+    <!-- Font Awesome for eye icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.2s;
+        }
+        
+        .toggle-password:hover {
+            color: #fff;
+        }
+        
+        .toggle-password:focus {
+            outline: none;
+        }
+    </style>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center h-screen">
+    <div class="w-full max-w-sm bg-gray-800 p-8 rounded-xl shadow-xl">
+        <div class="flex justify-center mb-6">
+            <!-- Fixed logo path - changed from /temp/custom/img/logo.png to /img/logo.png -->
+            <img src="/img/logo.png?v=20260509" width="80" alt="Kortex Prime Logo">
+        </div>
+        
+        <h2 class="text-center text-2xl font-semibold mb-6">Admin Login</h2>
+        
+        <form action="/admin-login" method="POST">
+            <div class="mb-4">
+                <label class="block mb-1 text-sm font-medium">Username</label>
+                <input 
+                    type="text" 
+                    name="username" 
+                    class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" 
+                    required
+                    autocomplete="username"
+                >
+            </div>
+            
+            <div class="mb-6">
+                <label class="block mb-1 text-sm font-medium">Password</label>
+                <div class="password-container">
+                    <input 
+                        type="password" 
+                        name="password" 
+                        id="password-input"
+                        class="w-full p-3 pr-10 bg-gray-700 border border-gray-600 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" 
+                        required
+                        autocomplete="current-password"
+                    >
+                    <button 
+                        type="button" 
+                        id="toggle-password"
+                        class="toggle-password"
+                        aria-label="Show password"
+                    >
+                        <i class="far fa-eye" id="eye-icon"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <button 
+                type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-lg text-center font-semibold transition duration-200"
+            >
+                Login
+            </button>
+        </form>
+    </div>
+    
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        // Password toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password-input');
+            const toggleButton = document.getElementById('toggle-password');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (toggleButton && passwordInput) {
+                toggleButton.addEventListener('click', function() {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    // Toggle eye icon
+                    if (type === 'text') {
+                        eyeIcon.classList.remove('fa-eye');
+                        eyeIcon.classList.add('fa-eye-slash');
+                        toggleButton.setAttribute('aria-label', 'Hide password');
+                    } else {
+                        eyeIcon.classList.remove('fa-eye-slash');
+                        eyeIcon.classList.add('fa-eye');
+                        toggleButton.setAttribute('aria-label', 'Show password');
+                    }
+                });
+                
+                // Optional: Hide password when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!toggleButton.contains(event.target) && !passwordInput.contains(event.target)) {
+                        passwordInput.setAttribute('type', 'password');
+                        eyeIcon.classList.remove('fa-eye-slash');
+                        eyeIcon.classList.add('fa-eye');
+                        toggleButton.setAttribute('aria-label', 'Show password');
+                    }
+                });
+            }
+        });
+    </script>
+    
+    <% if (toast) { %>
+    <script>
+        Swal.fire({
+            icon: '<%= toast.type %>',
+            title: '<%= toast.message %>',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true
+        });
+    </script>
+    <% } %>
+</body>
+</html>

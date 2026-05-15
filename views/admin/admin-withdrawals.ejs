@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Withdrawals</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen">
+<%- include('admin-sidebar') %>
+
+  <!-- Top Bar -->
+  <div class="w-full bg-gray-800 p-4 flex items-center justify-between shadow">
+    <h1 class="text-xl font-semibold">Withdrawal Requests</h1>
+    <a href="/admin" class="bg-blue-600 px-4 py-2 rounded">Back</a>
+  </div>
+
+  <div class="p-6">
+    <h2 class="text-2xl font-semibold mb-6">All Requests</h2>
+
+    <div class="overflow-x-auto rounded-xl border border-gray-800 shadow-lg">
+
+      <table class="w-full text-left bg-gray-800 rounded-lg overflow-hidden">
+        <thead class="bg-gray-700">
+          <tr>
+            <th class="px-4 py-3">User</th>
+            <th class="px-4 py-3">Amount</th>
+            <th class="px-4 py-3">Status</th>
+            <th class="px-4 py-3">Date</th>
+            <th class="px-4 py-3">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <% withdrawals.forEach(w => { %>
+
+            <tr class="border-b border-gray-700 hover:bg-gray-750 transition">
+
+              <!-- Username -->
+              <td class="px-4 py-3 font-medium text-slate-200">
+                <%= w.userName || w.username || w.user || 'User' %>
+              </td>
+
+              <!-- Amount -->
+              <td class="px-4 py-3">
+                $<%= Number(w.amount || 0).toFixed(2) %>
+              </td>
+
+              <!-- Status -->
+              <td class="px-4 py-3">
+
+                <% if (String(w.status).toLowerCase() === 'pending') { %>
+                  <span class="text-yellow-400 font-semibold">Pending</span>
+
+                <% } else if (String(w.status).toLowerCase() === 'approved') { %>
+                  <span class="text-emerald-400 font-semibold">Approved</span>
+
+                <% } else { %>
+                  <span class="text-red-400 font-semibold">Rejected</span>
+
+                <% } %>
+
+              </td>
+
+              <!-- Date -->
+              <td class="px-4 py-3 text-slate-300">
+                <%= new Date(w.date || w.createdAt || w.requestedAt || w.id).toLocaleString() %>
+              </td>
+
+              <!-- Action Buttons -->
+              <td class="px-4 py-3 flex gap-2 items-center">
+
+                <% if (String(w.status).toLowerCase() === 'pending') { %>
+
+                  <!-- Approve -->
+                  <form action="/admin/withdrawals/approve/<%= w.id %>" method="POST" class="inline">
+                    <button class="px-3 py-2 bg-emerald-600 rounded-lg text-sm hover:bg-emerald-700 transition">
+                      Approve
+                    </button>
+                  </form>
+
+                  <!-- Reject -->
+                  <form action="/admin/withdrawals/reject/<%= w.id %>" method="POST" class="inline">
+                    <button class="px-3 py-2 bg-red-600 rounded-lg text-sm hover:bg-red-700 transition">
+                      Reject
+                    </button>
+                  </form>
+
+                <% } else { %>
+
+                  <span class="text-xs text-slate-500">No action</span>
+
+                <% } %>
+
+              </td>
+
+            </tr>
+
+          <% }) %>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <% if (toast) { %>
+    <script>
+      Swal.fire({
+        icon: '<%= toast.type %>',
+        title: '<%= toast.message %>',
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 2500
+      })
+    </script>
+  <% } %>
+
+</body>
+</html>

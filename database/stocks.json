@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Apple",
+    "symbol": "AAPL",
+    "price": 396.56
+  },
+  {
+    "id": 2,
+    "name": "Tesla",
+    "symbol": "TSLA",
+    "price": 216.53
+  },
+  {
+    "id": 3,
+    "name": "Amazon",
+    "symbol": "AMZN",
+    "price": 127.57
+  },
+  {
+    "id": 4,
+    "name": "Nvidia",
+    "symbol": "NVDA",
+    "price": 653.61
+  },
+  {
+    "id": 5,
+    "name": "Microsoft",
+    "symbol": "MSFT",
+    "price": 422.14
+  },
+  {
+    "id": 6,
+    "name": "Meta",
+    "symbol": "META",
+    "price": 98.07
+  },
+  {
+    "id": 7,
+    "name": "Google",
+    "symbol": "GOOGL",
+    "price": 197.51
+  },
+  {
+    "id": 8,
+    "name": "Netflix",
+    "symbol": "NFLX",
+    "price": 290.82
+  },
+  {
+    "id": 9,
+    "name": "Coca Cola",
+    "symbol": "KO",
+    "price": 332.34
+  },
+  {
+    "id": 10,
+    "name": "Pepsi",
+    "symbol": "PEP",
+    "price": 58.03
+  },
+  {
+    "id": 11,
+    "name": "JP Morgan",
+    "symbol": "JPM",
+    "price": 281.97
+  },
+  {
+    "id": 12,
+    "name": "Bank of America",
+    "symbol": "BAC",
+    "price": 363.48
+  },
+  {
+    "id": 13,
+    "name": "Intel",
+    "symbol": "INTC",
+    "price": 336.07
+  },
+  {
+    "id": 14,
+    "name": "AMD",
+    "symbol": "AMD",
+    "price": 218.61
+  },
+  {
+    "id": 15,
+    "name": "Adobe",
+    "symbol": "ADBE",
+    "price": 810.77
+  },
+  {
+    "id": 16,
+    "name": "Salesforce",
+    "symbol": "CRM",
+    "price": 371.04
+  },
+  {
+    "id": 17,
+    "name": "Shopify",
+    "symbol": "SHOP",
+    "price": 110.06
+  },
+  {
+    "id": 18,
+    "name": "Uber",
+    "symbol": "UBER",
+    "price": 232.14
+  },
+  {
+    "id": 19,
+    "name": "Airbnb",
+    "symbol": "ABNB",
+    "price": 30.57
+  },
+  {
+    "id": 20,
+    "name": "PayPal",
+    "symbol": "PYPL",
+    "price": 11.33
+  }
+]

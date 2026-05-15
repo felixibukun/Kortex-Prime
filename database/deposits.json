@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1778359070579,
+    "userId": 1778358306561,
+    "username": "Richard tega ",
+    "amount": 3000,
+    "method": "Bitcoin",
+    "status": "approved",
+    "proofUrl": "/uploads/1778359070570-339499395.jpg",
+    "createdAt": "2026-05-09T20:37:50.579Z",
+    "approvedAt": "2026-05-09T20:38:21.083Z"
+  },
+  {
+    "id": 1778358556158,
+    "userId": 1778358306561,
+    "username": "Richard tega ",
+    "amount": 1500,
+    "method": "Bitcoin",
+    "status": "approved",
+    "proofUrl": "/uploads/1778358556148-958726785.jpg",
+    "createdAt": "2026-05-09T20:29:16.158Z",
+    "approvedAt": "2026-05-09T20:29:50.008Z"
+  },
+  {
+    "id": 1778337772196,
+    "userId": 1778337681896,
+    "username": "Alaga",
+    "amount": 1000,
+    "method": "Bitcoin",
+    "status": "approved",
+    "proofUrl": "/uploads/1778337772191-995940513.jpeg",
+    "createdAt": "2026-05-09T14:42:52.196Z",
+    "approvedAt": "2026-05-09T14:44:17.198Z"
+  }
+]

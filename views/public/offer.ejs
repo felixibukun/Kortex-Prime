@@ -1,0 +1,55 @@
+<%
+const page = {
+  slug: 'offer',
+  title: 'Account Plans',
+  kicker: 'Plans And Access',
+  heading: 'Flexible trading access for every account stage',
+  summary: 'Choose account packages that fit your trading goals, then manage subscriptions, deposits, and activity from the same Kortex Prime dashboard.',
+  primaryText: 'View Packages',
+  primaryHref: '/packages',
+  secondaryText: 'Ask Support',
+  secondaryHref: '/contact',
+  sectionTitle: 'Plan Benefits',
+  sectionIntro: 'Kortex Prime packages are built around platform access, market tools, account support, and clear subscription history.',
+  marketRows: [
+    { name: 'Starter Access', detail: 'Core dashboard and trading tools', value: 'Ready' },
+    { name: 'Advanced Access', detail: 'More account features and support', value: 'Upgrade' },
+    { name: 'Premium Desk', detail: 'Priority account workflow', value: 'Pro' }
+  ],
+  cards: [
+    { icon: 'fas fa-layer-group', title: 'Tiered Packages', body: 'Offer multiple account levels so users can move from basic access to stronger trading support.' },
+    { icon: 'fas fa-receipt', title: 'Subscription Records', body: 'Every package activation is logged so users can review subscription dates and package status.' },
+    { icon: 'fas fa-wallet', title: 'Deposit Funded Upgrades', body: 'Package purchases use total deposit funds, keeping the funding model consistent across the platform.' },
+    { icon: 'fas fa-bell', title: 'Activation Emails', body: 'Users receive email confirmation when package activity is recorded on their account.' },
+    { icon: 'fas fa-user-shield', title: 'Admin Management', body: 'Administrators can review and manage packages from the admin section.' },
+    { icon: 'fas fa-headset', title: 'Guided Support', body: 'Support routes help users choose the right account level before upgrading.' }
+  ],
+  stats: [
+    { value: '24/7', label: 'Account visibility across trading, funding, and support records' },
+    { value: '100%', label: 'Deposit-funded spending logic for core account actions' },
+    { value: 'Multi-layer', label: 'User, admin, email, KYC, and transaction workflows' }
+  ],
+  workflowKicker: 'Account Flow',
+  workflowTitle: 'From registration to account activity, every step is tracked',
+  workflowIntro: 'The platform is built around the full broker journey: onboarding, verification, deposits, trading, copy trading, subscriptions, withdrawals, history, and support.',
+  steps: [
+    { title: 'Open and verify the account', body: 'A trader creates an account, completes profile details, and submits KYC when verification is required for stronger account trust.' },
+    { title: 'Fund with approved deposit methods', body: 'Deposit requests are recorded, reviewed from admin, and reflected in total deposit once approved.' },
+    { title: 'Trade, subscribe, or copy a strategy', body: 'Stocks, packages, and copy-trade allocations use deposit funds and write clear records into account history.' },
+    { title: 'Review outcomes and request withdrawals', body: 'Users can inspect transactions, P/L, packages, withdrawal history, and email confirmations before taking the next action.' }
+  ],
+  proofTitle: 'Professional Details That Make The Page Feel Real',
+  proofIntro: 'This page explains how Kortex Prime works as a connected account platform with funding, trading, support, and admin-backed review.',
+  notes: [
+    { title: 'Clear money model', body: 'The public content now explains that total deposit is the operational funding source for purchases, package upgrades, copy trading, and withdrawal checks.' },
+    { title: 'Connected account records', body: 'Trading history, P/L records, package history, withdrawal history, and transaction history are presented as part of one broker-grade account record.' },
+    { title: 'Admin-backed operations', body: 'Deposits, withdrawals, KYC, user details, password updates, and admin account entry are described as managed workflows rather than loose pages.' },
+    { title: 'Communication built in', body: 'The copy explains email updates for important user actions including deposits, withdrawals, trades, copy trading, KYC, profile changes, and package activity.' }
+  ],
+  ctaTitle: 'Upgrade from the dashboard',
+  ctaBody: 'Fund your account, choose a package, and keep all subscriptions visible in package history.',
+  ctaText: 'Open Dashboard',
+  ctaHref: '/dashboard'
+}
+%>
+<%- include('_broker-page', { page }) %>

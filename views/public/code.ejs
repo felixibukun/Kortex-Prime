@@ -1,0 +1,2290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kortex Prime - Professional Trading Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Advanced trading platform for Forex, Cryptocurrencies, Indices, and Commodities. Experience institutional-grade trading tools.">
+<meta name="keywords" content="forex trading, crypto trading, trading platform, online trading, investment, Kortex Prime">
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+:root {
+    --kortex-primary: #0066FF;
+    --kortex-secondary: #00D4FF;
+    --kortex-accent: #7B3FE4;
+    --kortex-dark: #0A0F2B;
+    --kortex-darker: #070B1F;
+    --kortex-card: #111837;
+    --kortex-green: #00C853;
+    --kortex-red: #FF3B30;
+    --kortex-yellow: #FFCC00;
+    --kortex-orange: #FF6B00;
+}
+
+* {
+    color: #FFFFFF !important;
+}
+
+body {
+    background: var(--kortex-dark);
+    color: #FFFFFF !important;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Force white text on all elements */
+h1, h2, h3, h4, h5, h6,
+p, span, div, a:not(.btn),
+li, td, th, small, strong,
+label, .text-muted {
+    color: #FFFFFF !important;
+}
+
+.text-muted {
+    color: #B0B5C2 !important;
+}
+
+/* Trading Terminal Style Header - FIXED SIZE */
+#trading-header {
+    background: var(--kortex-darker);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 6px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    height: 36px;
+    overflow: hidden;
+}
+
+.market-ticker {
+    white-space: nowrap;
+    overflow: hidden;
+    height: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.ticker-item {
+    display: inline-block;
+    padding: 0 15px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.ticker-item:last-child {
+    border-right: none;
+}
+
+.ticker-item .price {
+    color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+.ticker-item .change {
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.change.positive { color: var(--kortex-green) !important; }
+.change.negative { color: var(--kortex-red) !important; }
+
+/* Enhanced Navigation - MORE COMPACT */
+.navbar {
+    background: rgba(10, 15, 43, 0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 102, 255, 0.1);
+    padding: 8px 0 !important;
+    height: 70px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 !important;
+}
+
+.navbar-brand img {
+    height: 42px;
+    width: auto;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.brand-text .main {
+    font-size: 22px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.brand-text .tagline {
+    font-size: 10px;
+    color: #B0B5C2 !important;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    color: #FFFFFF !important;
+    font-weight: 500;
+    margin: 0 4px !important;
+    padding: 6px 12px !important;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.nav-link:hover {
+    background: rgba(0, 102, 255, 0.1);
+}
+
+.nav-link.active {
+    background: rgba(0, 102, 255, 0.15);
+    color: var(--kortex-primary) !important;
+}
+
+/* Section Styling */
+.section-padding {
+    padding: 80px 0;
+}
+
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 50px 0;
+    }
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-subtitle {
+    color: var(--kortex-primary) !important;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+
+.section-description {
+    font-size: 1rem;
+    color: #B0B5C2 !important;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, rgba(10,15,43,0.95) 0%, rgba(7,11,31,0.98) 100%);
+    min-height: 85vh;
+    position: relative;
+    overflow: hidden;
+    padding-top: 120px !important;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(0,102,255,0.1) 0%, transparent 70%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.glow-text {
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Advanced Trading Terminal */
+.trading-terminal {
+    background: var(--kortex-darker);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    height: 480px;
+    position: relative;
+}
+
+.terminal-header {
+    background: rgba(0,0,0,0.3);
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.terminal-tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.terminal-tab {
+    background: rgba(255,255,255,0.05);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.terminal-tab.active {
+    background: var(--kortex-primary);
+}
+
+.chart-container {
+    height: 280px;
+    background: rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    background: rgba(0,0,0,0.2);
+}
+
+.timeframe-btn {
+    padding: 4px 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.timeframe-btn.active {
+    background: var(--kortex-primary);
+}
+
+.order-panel {
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    height: 100%;
+}
+
+.order-form {
+    background: var(--kortex-card);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.order-type-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.order-type {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.order-type.active {
+    background: var(--kortex-primary);
+}
+
+.input-group {
+    margin-bottom: 12px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 11px;
+    color: #B0B5C2 !important;
+}
+
+.input-group input {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 8px;
+    color: white !important;
+    font-size: 13px;
+}
+
+/* Market Data Widgets */
+.market-widget {
+    background: var(--kortex-card);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.market-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+}
+
+.market-row:last-child {
+    border-bottom: none;
+}
+
+.market-row .symbol {
+    color: #B0B5C2 !important;
+}
+
+.market-row .bid {
+    color: var(--kortex-green) !important;
+}
+
+.market-row .ask {
+    color: var(--kortex-red) !important;
+}
+
+/* Trading Cards */
+.trading-card {
+    background: var(--kortex-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.trading-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0,102,255,0.3);
+    box-shadow: 0 20px 40px rgba(0,102,255,0.15);
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.card-icon i {
+    font-size: 24px;
+    color: white !important;
+}
+
+/* Trading Plans */
+.trading-plan-card {
+    background: var(--kortex-card);
+    border: 2px solid rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 30px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.trading-plan-card.featured {
+    border-color: var(--kortex-primary);
+    transform: scale(1.05);
+    box-shadow: 0 25px 50px rgba(0,102,255,0.2);
+}
+
+.plan-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-accent));
+    color: white !important;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.plan-price {
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+
+.plan-feature {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    color: #B0B5C2 !important;
+    font-size: 14px;
+}
+
+.plan-feature i {
+    color: var(--kortex-green) !important;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+/* Trading Stats */
+.stats-card {
+    background: linear-gradient(135deg, var(--kortex-card), var(--kortex-darker));
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(0,102,255,0.1);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* About Section */
+.about-section {
+    background: var(--kortex-darker);
+}
+
+.about-content {
+    background: var(--kortex-card);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.about-feature {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+.about-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-accent));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.about-icon i {
+    font-size: 20px;
+    color: white !important;
+}
+
+/* FAQ Section */
+.faq-section {
+    background: var(--kortex-darker);
+}
+
+.faq-accordion .accordion-item {
+    background: var(--kortex-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.faq-accordion .accordion-button {
+    background: var(--kortex-card);
+    color: white !important;
+    font-weight: 600;
+    padding: 18px;
+    border: none;
+    box-shadow: none;
+    font-size: 15px;
+}
+
+.faq-accordion .accordion-button:not(.collapsed) {
+    background: rgba(0,102,255,0.1);
+    color: var(--kortex-primary) !important;
+}
+
+.faq-accordion .accordion-button::after {
+    filter: brightness(0) invert(1);
+}
+
+.faq-accordion .accordion-body {
+    background: rgba(0,0,0,0.2);
+    color: #B0B5C2 !important;
+    padding: 18px;
+}
+
+/* Testimonials Section */
+.testimonial-card {
+    background: var(--kortex-card);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    height: 100%;
+}
+
+.testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    font-size: 60px;
+    color: var(--kortex-primary);
+    opacity: 0.2;
+    font-family: serif;
+}
+
+.testimonial-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #B0B5C2 !important;
+    margin-bottom: 25px;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.author-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Blog Section */
+.blog-card {
+    background: var(--kortex-card);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.05);
+    height: 100%;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--kortex-primary);
+}
+
+.blog-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.blog-content {
+    padding: 20px;
+}
+
+.blog-meta {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    color: #B0B5C2 !important;
+}
+
+.blog-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Contact Section */
+.contact-section {
+    background: var(--kortex-darker);
+}
+
+.contact-info {
+    background: var(--kortex-card);
+    border-radius: 20px;
+    padding: 30px;
+    height: 100%;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.contact-icon {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-accent));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.contact-icon i {
+    font-size: 18px;
+    color: white !important;
+}
+
+.contact-form {
+    background: var(--kortex-card);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.form-control {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 12px;
+    color: white !important;
+    width: 100%;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--kortex-primary);
+    background: rgba(255,255,255,0.08);
+    box-shadow: none;
+}
+
+/* Buttons */
+.btn {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary)) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,102,255,0.3);
+}
+
+.btn-outline-light {
+    border: 2px solid rgba(255,255,255,0.2) !important;
+    background: transparent !important;
+    color: white !important;
+}
+
+.btn-outline-light:hover {
+    border-color: var(--kortex-primary) !important;
+    background: rgba(0,102,255,0.1) !important;
+}
+
+.btn-lg {
+    padding: 14px 32px;
+    font-size: 16px;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+/* Footer */
+.footer {
+    background: var(--kortex-darker);
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-links a {
+    color: #B0B5C2 !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    color: var(--kortex-primary) !important;
+}
+
+.legal-notice {
+    background: rgba(255, 59, 48, 0.1);
+    border: 1px solid rgba(255, 59, 48, 0.3);
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 25px;
+    color: #FFFFFF !important;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .hero {
+        min-height: auto;
+        padding-top: 100px !important;
+        padding-bottom: 50px !important;
+    }
+    
+    .trading-terminal {
+        height: 400px;
+        margin-top: 30px;
+    }
+    
+    .trading-plan-card.featured {
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 0 !important;
+        height: auto;
+        min-height: 70px;
+    }
+    
+    .navbar-brand img {
+        height: 36px;
+    }
+    
+    .brand-text .main {
+        font-size: 18px;
+    }
+    
+    .nav-link {
+        margin: 2px 0 !important;
+        padding: 8px !important;
+    }
+    
+    .display-3 {
+        font-size: 2.2rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .trading-terminal {
+        height: auto;
+    }
+    
+    .section-padding {
+        padding: 40px 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero {
+        padding-top: 80px !important;
+    }
+    
+    .navbar-collapse {
+        background: rgba(10, 15, 43, 0.95);
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-group .btn {
+        width: 100%;
+    }
+}
+</style>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body id="top">
+
+<!-- Trading Header with Live Ticker -->
+<div id="trading-header" class="d-none d-lg-block">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="market-ticker">
+                    <span class="ticker-item">EUR/USD: <span class="price">1.08542</span> <span class="change positive">+0.12%</span></span>
+                    <span class="ticker-item">GBP/USD: <span class="price">1.26510</span> <span class="change positive">+0.08%</span></span>
+                    <span class="ticker-item">BTC/USD: <span class="price">$42,156</span> <span class="change positive">+2.34%</span></span>
+                    <span class="ticker-item">ETH/USD: <span class="price">$2,245</span> <span class="change negative">-1.23%</span></span>
+                    <span class="ticker-item">XAU/USD: <span class="price">$2,034</span> <span class="change negative">-0.45%</span></span>
+                    <span class="ticker-item">SPX500: <span class="price">4,825.12</span> <span class="change positive">+0.65%</span></span>
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <small>
+                    <i class="fas fa-clock me-1"></i> Market Hours: 24/5 | 
+                    <i class="fas fa-bolt ms-2 me-1"></i> Execution: <15ms
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation - PROFESSIONAL WITH LOGO -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="/img/logo.png?v=20260509" alt="Kortex Prime Logo" onerror="this.src='https://via.placeholder.com/42x42/0066FF/ffffff?text=KP'">
+            <div class="brand-text">
+                <span class="main">KORTEX PRIME</span>
+                <span class="tagline">Professional Trading</span>
+            </div>
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/feature">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/offer">Plans</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/faq">FAQ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/testimonial">Testimonials</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+            </ul>
+            
+            <div class="d-flex align-items-center ms-lg-3 mt-2 mt-lg-0">
+                <a href="/login" class="btn btn-outline-light btn-sm me-2">
+                    <i class="fas fa-sign-in-alt me-1"></i> Login
+                </a>
+                <a href="/signup" class="btn btn-primary btn-sm">
+                    <i class="fas fa-user-plus me-1"></i> Sign Up
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section with Trading Terminal -->
+<section id="home" class="hero d-flex align-items-center">
+    <div class="container hero-content">
+        <div class="row align-items-center">
+            <div class="col-lg-5">
+                <h6 class="text-primary mb-3"><i class="fas fa-bolt me-2"></i> PROFESSIONAL-GRADE TRADING</h6>
+                <h1 class="display-3 fw-bold mb-4">
+                    Trade Like a Pro with <span class="glow-text">Institutional Tools</span>
+                </h1>
+                <p class="lead mb-5 text-muted">
+                    Institutional-grade trading platform with advanced charting, lightning-fast execution, and deep liquidity pools.
+                </p>
+                
+                <div class="d-flex flex-wrap gap-3 mb-5">
+                    <a href="/offer" class="btn btn-primary">
+                        <i class="fas fa-play-circle me-2"></i> Start Trading Now
+                    </a>
+                    <a href="/dashboard" class="btn btn-outline-light">
+                        <i class="fas fa-chart-line me-2"></i> Live Dashboard
+                    </a>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="d-flex align-items-center">
+                            <div class="text-primary me-3">
+                                <i class="fas fa-shield-alt fa-2x"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Funds Protected</h6>
+                                <small class="text-muted">Segregated Accounts</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="d-flex align-items-center">
+                            <div class="text-primary me-3">
+                                <i class="fas fa-bolt fa-2x"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Avg. 12ms Execution</h6>
+                                <small class="text-muted">Lightning Fast</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="d-flex align-items-center">
+                            <div class="text-primary me-3">
+                                <i class="fas fa-headset fa-2x"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">24/7 Live Chat</h6>
+                                <small class="text-muted">Instant Support</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-7">
+                <div class="trading-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-tabs">
+                            <div class="terminal-tab active">EUR/USD</div>
+                            <div class="terminal-tab">BTC/USD</div>
+                            <div class="terminal-tab">XAU/USD</div>
+                        </div>
+                        <div class="ms-auto">
+                            <span class="text-success me-3">Bid: 1.08542</span>
+                            <span class="text-danger">Ask: 1.08545</span>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-controls">
+                            <div class="timeframe-btn active">1m</div>
+                            <div class="timeframe-btn">5m</div>
+                            <div class="timeframe-btn">15m</div>
+                            <div class="timeframe-btn">1H</div>
+                            <div class="timeframe-btn">4H</div>
+                            <div class="timeframe-btn">1D</div>
+                        </div>
+                        <div class="price-chart" id="mainChart">
+                            <!-- Chart will be drawn by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="row m-0">
+                        <div class="col-md-8 p-0">
+                            <div class="order-panel">
+                                <div class="order-form">
+                                    <div class="order-type-selector">
+                                        <div class="order-type active">BUY</div>
+                                        <div class="order-type">SELL</div>
+                                        <div class="order-type">LIMIT</div>
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <label>Volume (Lots)</label>
+                                        <input type="text" value="1.00">
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <label>Take Profit</label>
+                                        <input type="text" value="1.09000">
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <label>Stop Loss</label>
+                                        <input type="text" value="1.08000">
+                                    </div>
+                                    
+                                    <button class="btn btn-primary w-100 mt-3">
+                                        <i class="fas fa-exchange-alt me-2"></i> Execute Buy Order
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 p-0">
+                            <div class="p-3 h-100" style="background: rgba(0,0,0,0.3);">
+                                <h6 class="mb-3">Order Book</h6>
+                                <div class="market-row">
+                                    <span class="symbol">Buy Volume</span>
+                                    <span class="bid">1.08540</span>
+                                    <span class="bid">+109.4</span>
+                                </div>
+                                <div class="market-row">
+                                    <span class="symbol">Buy Volume</span>
+                                    <span class="bid">1.08538</span>
+                                    <span class="bid">+87.2</span>
+                                </div>
+                                <div class="market-row">
+                                    <span class="symbol">Sell Volume</span>
+                                    <span class="ask">1.08545</span>
+                                    <span class="ask">-52.9</span>
+                                </div>
+                                <div class="market-row">
+                                    <span class="symbol">Sell Volume</span>
+                                    <span class="ask">1.08548</span>
+                                    <span class="ask">-34.7</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="about-section section-padding">
+    <div class="container">
+        <div class="section-header">
+            <h6 class="section-subtitle">ABOUT US</h6>
+            <h2 class="section-title">Why <span class="glow-text">Kortex Prime</span></h2>
+            <p class="section-description">
+                We're revolutionizing online trading with institutional-grade technology made accessible to everyone.
+            </p>
+        </div>
+        
+        <div class="about-content animate-on-scroll">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3 class="mb-4">Our Mission</h3>
+                    <p class="mb-4 text-muted">
+                        At Kortex Prime, we believe that everyone deserves access to professional trading tools. 
+                        Our mission is to democratize institutional-grade trading technology, making it accessible 
+                        to traders of all experience levels.
+                    </p>
+                    <p class="text-muted">
+                        Founded by a team of former investment bankers and fintech experts, we combine deep 
+                        financial market knowledge with cutting-edge technology to deliver an unparalleled 
+                        trading experience.
+                    </p>
+                    
+                    <div class="mt-5">
+                        <div class="about-feature">
+                            <div class="about-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div>
+                                <h5>Award-Winning Platform</h5>
+                                <p class="text-muted">Recognized as Best Trading Platform 2023 by Financial Times</p>
+                            </div>
+                        </div>
+                        
+                        <div class="about-feature">
+                            <div class="about-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h5>50,000+ Active Traders</h5>
+                                <p class="text-muted">Join our growing community of successful traders worldwide</p>
+                            </div>
+                        </div>
+                        
+                        <div class="about-feature">
+                            <div class="about-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div>
+                                <h5>Regulated & Secure</h5>
+                                <p class="text-muted">Licensed and regulated by top financial authorities</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <h3 class="mb-4">Our Values</h3>
+                    
+                    <div class="about-feature">
+                        <div class="about-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div>
+                            <h5>Innovation</h5>
+                            <p class="text-muted">Constantly pushing boundaries with AI-powered tools and features</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-feature">
+                        <div class="about-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div>
+                            <h5>Transparency</h5>
+                            <p class="text-muted">No hidden fees, clear pricing, and honest communication</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-feature">
+                        <div class="about-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <h5>Education</h5>
+                            <p class="text-muted">Comprehensive learning resources for traders at all levels</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-feature">
+                        <div class="about-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div>
+                            <h5>Support</h5>
+                            <p class="text-muted">24/7 dedicated support from trading experts</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h5 class="mb-3">Market Coverage</h5>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="stats-card text-center">
+                                    <div class="stat-number">80+</div>
+                                    <small class="text-muted">Forex Pairs</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stats-card text-center">
+                                    <div class="stat-number">50+</div>
+                                    <small class="text-muted">Crypto Pairs</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Market Overview Section -->
+<section class="py-5" style="background: var(--kortex-darker);">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h6 class="section-subtitle">MARKET OVERVIEW</h6>
+            <h2 class="section-title">Real-Time <span class="glow-text">Market Data</span></h2>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Forex Market -->
+            <div class="col-lg-4 col-md-6">
+                <div class="market-widget animate-on-scroll">
+                    <div class="widget-header">
+                        <h5 class="mb-0">Forex Major Pairs</h5>
+                        <span class="badge bg-primary">Live</span>
+                    </div>
+                    <div class="market-row">
+                        <span class="symbol">EUR/USD</span>
+                        <span class="bid">1.08542</span>
+                        <span class="ask">1.08545</span>
+                        <span class="change positive">+0.12%</span>
+                    </div>
+                    <div class="market-row">
+                        <span class="symbol">GBP/USD</span>
+                        <span class="bid">1.26510</span>
+                        <span class="ask">1.26515</span>
+                        <span class="change positive">+0.08%</span>
+                    </div>
+                    <div class="market-row">
+                        <span class="symbol">USD/JPY</span>
+                        <span class="bid">148.234</span>
+                        <span class="ask">148.238</span>
+                        <span class="change negative">-0.15%</span>
+                    </div>
+                    <div class="market-row">
+                        <span class="symbol">AUD/USD</span>
+                        <span class="bid">0.65890</span>
+                        <span class="ask">0.65895</span>
+                        <span class="change positive">+0.25%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cryptocurrencies -->
+            <div class="col-lg-4 col-md-6">
+                <div class="market-widget animate-on-scroll">
+                    <div class="widget-header">
+                        <h5 class="mb-0">Cryptocurrencies</h5>
+                        <span class="badge bg-primary">Live</span>
+                    </div>
+                    <div class="market-row">
+                        <span class="symbol">Bitcoin</span>
+                        <span class="bid">$42,156</span>
+                        <span class="ask">$42,162</span>
+                        <span class="change positive">+2.34%</span>
+                    </div>
+                    <div class="market-row">
+                        <span class="symbol">Ethereum</span>
+                        <span class="bid">$2,245</span>
+                        <span class="ask">$2,248</span>
+                        <span class="change positive">+1.23%</span>
+                    </div>
+                    <div class="market-row">
+                        <span class="symbol">Solana</span>
+                        <span class="bid">$98.45</span>
+                        <span class="ask">$98.50</span>
+                        <span class="change positive">+5.67%</span>
+                    </div>
+                    <div class="market-row">
+                        <span class="symbol">Cardano</span>
+                        <span class="bid">$0.5123</span>
+                        <span class="ask">$0.5125</span>
+                        <span class="change negative">-0.45%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Indices & Commodities -->
+            <div class="col-lg-4 col-md-6">
+                <div class="market-widget animate-on-scroll">
+                    <div class="widget-header">
+                        <h5 class="mb-0">Indices & Commodities</h5>
+                        <span class="badge bg-primary">Live</span>
+                    </div>
+                    <div class="market-row">
+                        <span class="symbol">S&P 500</span>
+                        <span class="bid">4,825.12</span>
+                        <span class="ask">4,825.15</span>
+                        <span class="change positive">+0.65%</span>
+                    </div>
+                    <div class="market-row">
+                        <span class="symbol">Gold</span>
+                        <span class="bid">$2,034</span>
+                        <span class="ask">$2,035</span>
+                        <span class="change negative">-0.45%</span>
+                    </div>
+                    <div class="market-row">
+                        <span class="symbol">Oil WTI</span>
+                        <span class="bid">$79.90</span>
+                        <span class="ask">$79.95</span>
+                        <span class="change positive">+1.23%</span>
+                    </div>
+                    <div class="market-row">
+                        <span class="symbol">Nasdaq</span>
+                        <span class="bid">15,234.56</span>
+                        <span class="ask">15,234.60</span>
+                        <span class="change positive">+0.89%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="section-padding">
+    <div class="container">
+        <div class="section-header">
+            <h6 class="section-subtitle">ADVANCED FEATURES</h6>
+            <h2 class="section-title">Professional Trading <span class="glow-text">Tools</span></h2>
+            <p class="section-description">
+                We provide cutting-edge trading technology combined with institutional-grade tools for all levels of traders.
+            </p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="trading-card h-100 animate-on-scroll">
+                    <div class="card-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h4 class="mb-3">AI-Powered Analytics</h4>
+                    <p class="text-muted">Smart trading signals and market predictions powered by machine learning algorithms.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trading-card h-100 animate-on-scroll">
+                    <div class="card-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4 class="mb-3">Lightning Execution</h4>
+                    <p class="text-muted">Average execution speed under 15ms with 99.99% uptime. No requotes, no rejections.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trading-card h-100 animate-on-scroll">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4 class="mb-3">Bank-Level Security</h4>
+                    <p class="text-muted">Segregated client accounts, military-grade encryption, and 2FA protection.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trading-card h-100 animate-on-scroll">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-network"></i>
+                    </div>
+                    <h4 class="mb-3">Deep Liquidity</h4>
+                    <p class="text-muted">Access to 25+ liquidity providers with tight spreads starting from 0.0 pips.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trading-card h-100 animate-on-scroll">
+                    <div class="card-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4 class="mb-3">Mobile Trading</h4>
+                    <p class="text-muted">Trade on-the-go with our fully-featured mobile trading application for iOS and Android.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trading-card h-100 animate-on-scroll">
+                    <div class="card-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h4 class="mb-3">Automated Trading</h4>
+                    <p class="text-muted">Build, test, and deploy automated trading strategies with our advanced bot platform.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trading Plans Section -->
+<section id="trading-plans" class="py-5" style="background: var(--kortex-darker);">
+    <div class="container py-5">
+        <div class="section-header">
+            <h6 class="section-subtitle">TRADING ACCOUNTS</h6>
+            <h2 class="section-title">Choose Your <span class="glow-text">Trading Plan</span></h2>
+            <p class="section-description">Start with as little as $300 or trade with premium conditions up to $50,000</p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Starter Plan -->
+            <div class="col-lg-3 col-md-6">
+                <div class="trading-plan-card animate-on-scroll">
+                    <h4 class="mb-3">Starter</h4>
+                    <div class="plan-price mb-4">$300</div>
+                    <p class="mb-4 text-muted">Perfect for beginners starting their trading journey</p>
+                    
+                    <div class="mb-4">
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Minimum Deposit: $300</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Spreads from 1.2 pips</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Leverage up to 1:100</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Basic Trading Tools</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Email Support</span>
+                        </div>
+                    </div>
+                    
+                    <a href="/signup" class="btn btn-outline-light w-100">Get Started</a>
+                </div>
+            </div>
+            
+            <!-- Silver Plan -->
+            <div class="col-lg-3 col-md-6">
+                <div class="trading-plan-card animate-on-scroll">
+                    <span class="plan-badge">POPULAR</span>
+                    <h4 class="mb-3">Silver</h4>
+                    <div class="plan-price mb-4">$1,000</div>
+                    <p class="mb-4 text-muted">For active traders looking for better conditions</p>
+                    
+                    <div class="mb-4">
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Minimum Deposit: $1,000</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Spreads from 0.8 pips</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Leverage up to 1:200</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Advanced Trading Tools</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Priority Support</span>
+                        </div>
+                    </div>
+                    
+                    <a href="/signup" class="btn btn-primary w-100">Get Started</a>
+                </div>
+            </div>
+            
+            <!-- Gold Plan -->
+            <div class="col-lg-3 col-md-6">
+                <div class="trading-plan-card featured animate-on-scroll">
+                    <span class="plan-badge">RECOMMENDED</span>
+                    <h4 class="mb-3">Gold</h4>
+                    <div class="plan-price mb-4">$10,000</div>
+                    <p class="mb-4 text-muted">Professional traders seeking premium conditions</p>
+                    
+                    <div class="mb-4">
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Minimum Deposit: $10,000</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Spreads from 0.3 pips</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Leverage up to 1:400</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Premium Trading Tools</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Personal Account Manager</span>
+                        </div>
+                    </div>
+                    
+                    <a href="/signup" class="btn btn-primary w-100">Get Started</a>
+                </div>
+            </div>
+            
+            <!-- Platinum Plan -->
+            <div class="col-lg-3 col-md-6">
+                <div class="trading-plan-card animate-on-scroll">
+                    <span class="plan-badge">VIP</span>
+                    <h4 class="mb-3">Platinum</h4>
+                    <div class="plan-price mb-4">$50,000</div>
+                    <p class="mb-4 text-muted">Institutional-grade trading for serious investors</p>
+                    
+                    <div class="mb-4">
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Minimum Deposit: $50,000</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Spreads from 0.0 pips</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Leverage up to 1:500</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>All Advanced Tools</span>
+                        </div>
+                        <div class="plan-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Dedicated Support Team</span>
+                        </div>
+                    </div>
+                    
+                    <a href="/contact" class="btn btn-outline-light w-100">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq" class="faq-section section-padding">
+    <div class="container">
+        <div class="section-header">
+            <h6 class="section-subtitle">FAQ</h6>
+            <h2 class="section-title">Frequently Asked <span class="glow-text">Questions</span></h2>
+            <p class="section-description">
+                Find answers to common questions about trading with Kortex Prime.
+            </p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="faq-accordion accordion" id="accordionFAQ">
+                    <!-- FAQ Item 1 -->
+                    <div class="accordion-item animate-on-scroll">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                How do I open a trading account?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionFAQ">
+                            <div class="accordion-body">
+                                Opening an account is simple! Click the "Sign Up" button in the top navigation, 
+                                fill in your details, verify your email, and make your first deposit. The entire 
+                                process takes less than 10 minutes.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="accordion-item animate-on-scroll">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                What is the minimum deposit?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                            <div class="accordion-body">
+                                The minimum deposit depends on your chosen account type. Our Starter account requires 
+                                a minimum deposit of $300, while our premium accounts have higher minimums. You can 
+                                view all account requirements in the Trading Plans section.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="accordion-item animate-on-scroll">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                Is my money safe with Kortex Prime?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                            <div class="accordion-body">
+                                Absolutely. We use segregated client accounts, meaning your funds are kept separate 
+                                from our company funds. We also employ bank-level security, SSL encryption, and 
+                                2-factor authentication. Additionally, we are regulated by major financial authorities.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="accordion-item animate-on-scroll">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                                What trading platforms do you offer?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                            <div class="accordion-body">
+                                We offer multiple platforms: our proprietary web platform, mobile apps for iOS and 
+                                Android, MetaTrader 4/5, and advanced trading terminals for professional traders. 
+                                All platforms provide access to the same markets and features.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 5 -->
+                    <div class="accordion-item animate-on-scroll">
+                        <h2 class="accordion-header" id="headingFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
+                                How fast is order execution?
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                            <div class="accordion-body">
+                                Our average execution speed is under 15 milliseconds. We achieve this through direct 
+                                market access, multiple liquidity providers, and optimized server infrastructure. 
+                                There are no requotes or order rejections under normal market conditions.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 6 -->
+                    <div class="accordion-item animate-on-scroll">
+                        <h2 class="accordion-header" id="headingSix">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix">
+                                Do you offer educational resources?
+                            </button>
+                        </h2>
+                        <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                            <div class="accordion-body">
+                                Yes! We provide comprehensive educational resources including video tutorials, 
+                                webinars, trading guides, market analysis, and a demo account with $10,000 virtual 
+                                funds. Our education center is suitable for beginners to advanced traders.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <p class="text-muted">Still have questions?</p>
+                    <a href="/contact" class="btn btn-primary">
+                        <i class="fas fa-headset me-2"></i> Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="section-padding">
+    <div class="container">
+        <div class="section-header">
+            <h6 class="section-subtitle">TESTIMONIALS</h6>
+            <h2 class="section-title">What Our <span class="glow-text">Clients Say</span></h2>
+            <p class="section-description">
+                Join thousands of satisfied traders who trust Kortex Prime with their investments.
+            </p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-text">
+                        "As a professional trader, I've tried many platforms. Kortex Prime offers the best execution speeds and most reliable technology I've ever used."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                             alt="Client" class="author-img">
+                        <div>
+                            <h5>David Miller</h5>
+                            <p class="text-primary">Professional Trader</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-text">
+                        "The educational resources and customer support at Kortex Prime are exceptional. They helped me grow from a beginner to a profitable trader."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                             alt="Client" class="author-img">
+                        <div>
+                            <h5>Jessica Parker</h5>
+                            <p class="text-primary">Retail Trader</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="testimonial-text">
+                        "Our hedge fund migrated to Kortex Prime last year. The API integration was seamless and the institutional tools are exactly what we needed."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                             alt="Client" class="author-img">
+                        <div>
+                            <h5>Robert Chen</h5>
+                            <p class="text-primary">Fund Manager</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Section -->
+<section id="blog" class="section-padding" style="background: var(--kortex-darker);">
+    <div class="container">
+        <div class="section-header">
+            <h6 class="section-subtitle">LATEST NEWS</h6>
+            <h2 class="section-title">Trading <span class="glow-text">Insights & Blog</span></h2>
+            <p class="section-description">
+                Stay updated with market analysis, trading strategies, and platform updates.
+            </p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-card animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                         alt="Blog Post" class="blog-img">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> Dec 15, 2024</span>
+                            <span><i class="far fa-user"></i> Alex Johnson</span>
+                        </div>
+                        <h4>Market Volatility: Strategies for Q1 2024</h4>
+                        <p class="text-muted">Learn how to navigate increased market volatility with proven trading strategies and risk management techniques.</p>
+                        <a href="/blog" class="read-more" style="color: var(--kortex-primary); text-decoration: none;">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-card animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1633158829558-8e42d36db7e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                         alt="Blog Post" class="blog-img">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> Dec 10, 2024</span>
+                            <span><i class="far fa-user"></i> Sarah Chen</span>
+                        </div>
+                        <h4>Crypto Trading: New Opportunities in 2024</h4>
+                        <p class="text-muted">Explore emerging cryptocurrency trends and trading opportunities as we enter a new market cycle.</p>
+                        <a href="/blog" class="read-more" style="color: var(--kortex-primary); text-decoration: none;">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-card animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                         alt="Blog Post" class="blog-img">
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> Dec 5, 2024</span>
+                            <span><i class="far fa-user"></i> Michael Rodriguez</span>
+                        </div>
+                        <h4>Platform Update: New AI Features Released</h4>
+                        <p class="text-muted">Discover our latest AI-powered trading tools and how they can enhance your trading performance.</p>
+                        <a href="/blog" class="read-more" style="color: var(--kortex-primary); text-decoration: none;">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section section-padding">
+    <div class="container">
+        <div class="section-header">
+            <h6 class="section-subtitle">GET IN TOUCH</h6>
+            <h2 class="section-title">Contact <span class="glow-text">Our Team</span></h2>
+            <p class="section-description">
+                Have questions? Our support team is available 24/7 to assist you.
+            </p>
+        </div>
+        
+        <div class="row g-5">
+            <div class="col-lg-5">
+                <div class="contact-info animate-on-scroll">
+                    <h3 class="mb-4">Contact Information</h3>
+                    <p class="mb-5 text-muted">
+                        Reach out to us through any of the following channels. We're here to help you succeed in your trading journey.
+                    </p>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h5>Office Address</h5>
+                            <p class="text-muted">123 Trading Street, Financial District, New York, NY 10005, USA</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h5>Phone Number</h5>
+                            <p class="text-muted">+1 (555) 123-4567<br>+1 (555) 987-6543</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h5>Email Address</h5>
+                            <p class="text-muted">kortexprime@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h5>Working Hours</h5>
+                            <p class="text-muted">24/7 Customer Support<br>Monday - Friday: 9AM - 6PM (Office)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-7">
+                <div class="contact-form animate-on-scroll">
+                    <h3 class="mb-4">Send Us a Message</h3>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Your Name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Subject" required>
+                        <textarea class="form-control" rows="6" placeholder="Your Message" required></textarea>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-paper-plane me-2"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section class="py-5" style="background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-dark));">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold mb-3">Ready to Start <span class="glow-text">Trading Like a Pro</span>?</h2>
+                <p class="lead mb-4" style="color: rgba(255,255,255,0.9);">Open your account in minutes and get access to institutional trading tools.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="d-flex flex-column flex-md-row gap-3">
+                    <a href="/signup" class="btn btn-light btn-lg">
+                        <i class="fas fa-user-plus me-2"></i> Open Live Account
+                    </a>
+                    <a href="/dashboard" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-chart-line me-2"></i> View Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer pt-5">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <img src="/img/logo.png?v=20260509" alt="Kortex Prime Logo" style="height: 40px;">
+                    <div>
+                        <h3 class="fw-bold mb-0">KORTEX PRIME</h3>
+                        <p class="text-muted mb-0">Professional Trading Platform</p>
+                    </div>
+                </div>
+                <p class="text-muted mb-4">Advanced trading platform for serious traders. Institutional-grade tools for everyone.</p>
+                <div class="d-flex gap-3">
+                    <a href="/contact" class="btn btn-outline-light btn-sm"><i class="fab fa-twitter"></i></a>
+                    <a href="/contact" class="btn btn-outline-light btn-sm"><i class="fab fa-facebook-f"></i></a>
+                    <a href="/contact" class="btn btn-outline-light btn-sm"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-md-4">
+                <h6 class="mb-4">Pages</h6>
+                <div class="footer-links d-flex flex-column gap-2">
+                    <a href="/">Home</a>
+                    <a href="/about">About</a>
+                    <a href="/feature">Features</a>
+                    <a href="/offer">Plans</a>
+                    <a href="/faq">FAQ</a>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-md-4">
+                <h6 class="mb-4">Resources</h6>
+                <div class="footer-links d-flex flex-column gap-2">
+                    <a href="/testimonial">Testimonials</a>
+                    <a href="/blog">Blog</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/login">Login</a>
+                    <a href="/signup">Sign Up</a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-4">
+                <h6 class="mb-4">Newsletter</h6>
+                <p class="text-muted mb-3">Subscribe to get trading insights and platform updates.</p>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Your Email">
+                    <button class="btn btn-primary" type="button">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="legal-notice mt-5">
+            <h6 class="text-warning mb-2"><i class="fas fa-exclamation-triangle me-2"></i> Risk Warning</h6>
+            <p class="small mb-0">Trading Forex, Cryptocurrencies, and CFDs carries a high level of risk and may not be suitable for all investors. The possibility exists that you could sustain a loss of some or all of your deposited funds. Before deciding to trade, you should carefully consider your investment objectives, experience level, and risk appetite.</p>
+        </div>
+        
+        <div class="text-center mt-5 pt-4 border-top border-secondary">
+            <p class="mb-0 text-muted">© 2024 Kortex Prime. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// Live Market Ticker
+function updateTicker() {
+    const pairs = [
+        { symbol: 'EUR/USD', price: 1.08542, change: 0.12 },
+        { symbol: 'GBP/USD', price: 1.26510, change: 0.08 },
+        { symbol: 'BTC/USD', price: 42156, change: 2.34 },
+        { symbol: 'ETH/USD', price: 2245, change: -1.23 },
+        { symbol: 'XAU/USD', price: 2034, change: -0.45 },
+        { symbol: 'SPX500', price: 4825.12, change: 0.65 }
+    ];
+    
+    pairs.forEach(pair => {
+        const fluctuation = (Math.random() - 0.5) * 0.1;
+        const newPrice = pair.price + (pair.price * fluctuation / 100);
+        const newChange = pair.change + fluctuation;
+        
+        // Update ticker
+        const tickerElements = document.querySelectorAll('.ticker-item');
+        tickerElements.forEach(el => {
+            if (el.textContent.includes(pair.symbol)) {
+                const isPositive = newChange >= 0;
+                el.innerHTML = `${pair.symbol}: <span class="price">${newPrice.toFixed(pair.symbol === 'BTC/USD' ? 0 : pair.symbol === 'SPX500' ? 2 : 5)}</span> <span class="change ${isPositive ? 'positive' : 'negative'}">${isPositive ? '+' : ''}${newChange.toFixed(2)}%</span>`;
+            }
+        });
+        
+        // Update market widgets
+        const marketRows = document.querySelectorAll('.market-row');
+        marketRows.forEach(row => {
+            const symbolElement = row.querySelector('.symbol');
+            if (symbolElement && symbolElement.textContent.includes(pair.symbol.split('/')[0])) {
+                const bidElement = row.querySelector('.bid');
+                const askElement = row.querySelector('.ask');
+                const changeElement = row.querySelector('.change');
+                
+                if (bidElement && askElement && changeElement) {
+                    const bid = newPrice;
+                    const ask = newPrice + 0.00003; // Small spread
+                    const isPositive = newChange >= 0;
+                    
+                    bidElement.textContent = pair.symbol.includes('$') ? `$${bid.toFixed(pair.symbol.includes('BTC') ? 0 : 2)}` : bid.toFixed(5);
+                    askElement.textContent = pair.symbol.includes('$') ? `$${ask.toFixed(pair.symbol.includes('BTC') ? 0 : 2)}` : ask.toFixed(5);
+                    changeElement.textContent = `${isPositive ? '+' : ''}${newChange.toFixed(2)}%`;
+                    changeElement.className = `change ${isPositive ? 'positive' : 'negative'}`;
+                }
+            }
+        });
+    });
+}
+
+// Simulate live orders in order book
+function updateOrderBook() {
+    const orderRows = document.querySelectorAll('.market-row');
+    orderRows.forEach(row => {
+        const volume = row.querySelector('span:nth-child(3)');
+        if (volume) {
+            const current = parseFloat(volume.textContent.replace(/[^0-9.-]+/g, ""));
+            const change = (Math.random() - 0.5) * 10;
+            const newVolume = Math.abs(current + change).toFixed(1);
+            volume.textContent = (current + change >= 0 ? '+' : '-') + newVolume;
+            
+            // Color code based on buy/sell
+            if (row.querySelector('.bid')) {
+                volume.className = 'bid';
+            } else {
+                volume.className = 'ask';
+            }
+        }
+    });
+}
+
+// Simple chart drawing
+function drawChart() {
+    const chartContainer = document.getElementById('mainChart');
+    if (!chartContainer) return;
+    
+    chartContainer.innerHTML = '';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    
+    // Generate random price points
+    const points = [];
+    const count = 40;
+    let currentPrice = 1.08542;
+    
+    for (let i = 0; i < count; i++) {
+        const fluctuation = (Math.random() - 0.5) * 0.001;
+        currentPrice += fluctuation;
+        points.push(currentPrice);
+    }
+    
+    // Draw area
+    const pathData = points.map((price, i) => {
+        const x = (i / (count - 1)) * 100;
+        const y = 100 - ((price - Math.min(...points)) / (Math.max(...points) - Math.min(...points))) * 100;
+        return `${i === 0 ? 'M' : 'L'} ${x}% ${y}%`;
+    }).join(' ');
+    
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', pathData + ` L 100% 100% L 0% 100% Z`);
+    path.setAttribute('fill', 'rgba(0, 102, 255, 0.1)');
+    svg.appendChild(path);
+    
+    // Draw line
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    line.setAttribute('d', pathData);
+    line.setAttribute('stroke', '#0066FF');
+    line.setAttribute('stroke-width', '2');
+    line.setAttribute('fill', 'none');
+    svg.appendChild(line);
+    
+    chartContainer.appendChild(svg);
+}
+
+// Terminal tab switching
+document.addEventListener('DOMContentLoaded', function() {
+    // Terminal tabs
+    const terminalTabs = document.querySelectorAll('.terminal-tab');
+    terminalTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            terminalTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            drawChart(); // Redraw chart for new symbol
+        });
+    });
+    
+    // Timeframe buttons
+    const timeframeBtns = document.querySelectorAll('.timeframe-btn');
+    timeframeBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            timeframeBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    // Order type selector
+    const orderTypes = document.querySelectorAll('.order-type');
+    orderTypes.forEach(type => {
+        type.addEventListener('click', function() {
+            orderTypes.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Update button text
+            const executeBtn = document.querySelector('.order-form .btn');
+            if (this.textContent === 'BUY') {
+                executeBtn.innerHTML = '<i class="fas fa-exchange-alt me-2"></i> Execute Buy Order';
+            } else if (this.textContent === 'SELL') {
+                executeBtn.innerHTML = '<i class="fas fa-exchange-alt me-2"></i> Execute Sell Order';
+            } else {
+                executeBtn.innerHTML = '<i class="fas fa-clock me-2"></i> Place Limit Order';
+            }
+        });
+    });
+    
+    // Execute order button
+    const executeBtn = document.querySelector('.order-form .btn');
+    if (executeBtn) {
+        executeBtn.addEventListener('click', function() {
+            alert('Order placed successfully! Check your dashboard for order status.');
+        });
+    }
+    
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Scroll to section
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Update active nav link on scroll
+    window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPosition = window.scrollY + 100;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    });
+    
+    // Animation on scroll
+    function animateOnScroll() {
+        const elements = document.querySelectorAll('.animate-on-scroll');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.2;
+            
+            if (elementPosition < screenPosition) {
+                element.style.animationDelay = (Math.random() * 0.3) + 's';
+                element.style.opacity = '1';
+                element.style.animation = 'fadeInUp 0.6s ease forwards';
+            }
+        });
+    }
+    
+    // Contact form submission
+    document.querySelector('.contact-form form')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Sending...';
+        submitBtn.disabled = true;
+        
+        // Simulate form submission
+        setTimeout(() => {
+            alert('Thank you for your message! We will get back to you shortly.');
+            this.reset();
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, 1500);
+    });
+    
+    // Newsletter subscription
+    document.querySelector('.footer .btn-primary')?.addEventListener('click', function() {
+        const emailInput = this.parentElement.querySelector('input[type="email"]');
+        const email = emailInput.value.trim();
+        
+        if (!email) {
+            alert('Please enter your email address.');
+            return;
+        }
+        
+        if (!validateEmail(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+        
+        this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Subscribing...';
+        this.disabled = true;
+        
+        // Simulate subscription
+        setTimeout(() => {
+            alert('Thank you for subscribing to our newsletter!');
+            emailInput.value = '';
+            this.innerHTML = 'Subscribe';
+            this.disabled = false;
+        }, 1000);
+    });
+    
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    
+    // Initialize animations
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+    animateOnScroll(); // Initial check
+    
+    // Initialize market data
+    drawChart();
+    updateTicker();
+    updateOrderBook();
+    
+    // Update market data every 3 seconds
+    setInterval(updateTicker, 3000);
+    setInterval(updateOrderBook, 5000);
+    setInterval(drawChart, 10000); // Redraw chart every 10 seconds
+});
+</script>
+
+</body>
+</html>

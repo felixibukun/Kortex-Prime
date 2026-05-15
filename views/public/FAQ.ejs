@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FAQ - Kortex Prime Trading Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Frequently Asked Questions about Kortex Prime trading platform. Get answers about accounts, trading, deposits, withdrawals, and security.">
+<meta name="keywords" content="trading FAQ, forex trading questions, crypto trading FAQ, account setup, deposit methods, withdrawal process, trading platform support">
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+<!-- Bootstrap -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+:root {
+    --kortex-primary: #0066FF;
+    --kortex-secondary: #00D4FF;
+    --kortex-accent: #7B3FE4;
+    --kortex-dark: #0A0F2B;
+    --kortex-darker: #070B1F;
+    --kortex-card: #111837;
+    --kortex-green: #00C853;
+    --kortex-red: #FF3B30;
+    --kortex-yellow: #FFCC00;
+    --kortex-orange: #FF6B00;
+}
+
+body {
+    background: var(--kortex-dark);
+    color: #FFFFFF !important;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Force white text on all elements */
+h1, h2, h3, h4, h5, h6,
+p, span, div, a:not(.btn),
+li, td, th, small, strong {
+    color: #FFFFFF !important;
+}
+
+/* Trading Terminal Style Header */
+#trading-header {
+    background: var(--kortex-darker);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 8px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+}
+
+.market-ticker {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ticker-item {
+    display: inline-block;
+    padding: 0 20px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    color: #FFFFFF;
+}
+
+.ticker-item:last-child {
+    border-right: none;
+}
+
+.ticker-item .price {
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.ticker-item .change {
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.change.positive { color: var(--kortex-green) !important; }
+.change.negative { color: var(--kortex-red) !important; }
+
+/* Enhanced Navigation */
+.navbar {
+    background: rgba(10, 15, 43, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 102, 255, 0.1);
+    padding: 15px 0;
+}
+
+.nav-link {
+    color: #FFFFFF !important;
+    font-weight: 500;
+    margin: 0 8px;
+    padding: 8px 16px !important;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background: rgba(0, 102, 255, 0.1);
+}
+
+.nav-link.active {
+    background: rgba(0, 102, 255, 0.15);
+}
+
+/* FAQ Hero */
+.faq-hero {
+    background: linear-gradient(135deg, rgba(10,15,43,0.95) 0%, rgba(7,11,31,0.98) 100%);
+    padding: 120px 0 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.faq-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(0,102,255,0.1) 0%, transparent 70%);
+}
+
+.glow-text {
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* FAQ Search */
+.faq-search {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.faq-search input {
+    width: 100%;
+    background: var(--kortex-card);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 18px 20px 18px 50px;
+    color: white;
+    font-size: 16px;
+}
+
+.faq-search i {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--kortex-primary);
+}
+
+/* FAQ Categories */
+.category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.category-tab {
+    background: var(--kortex-card);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-tab:hover {
+    border-color: var(--kortex-primary);
+    background: rgba(0,102,255,0.1);
+}
+
+.category-tab.active {
+    background: var(--kortex-primary);
+    border-color: var(--kortex-primary);
+}
+
+/* FAQ Accordion */
+.faq-accordion {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: var(--kortex-card);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 24px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background: rgba(255,255,255,0.02);
+}
+
+.faq-question h5 {
+    margin: 0;
+    flex: 1;
+}
+
+.faq-icon {
+    width: 30px;
+    height: 30px;
+    background: var(--kortex-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+    background: var(--kortex-secondary);
+}
+
+.faq-answer {
+    padding: 0 30px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    padding: 0 30px 30px;
+    max-height: 500px;
+}
+
+.faq-answer p {
+    color: #B0B5C2 !important;
+    margin-bottom: 15px;
+}
+
+.faq-answer ul {
+    color: #B0B5C2 !important;
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.faq-answer li {
+    margin-bottom: 8px;
+    color: #B0B5C2 !important;
+}
+
+/* Quick Links */
+.quick-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.quick-link-card {
+    background: var(--kortex-card);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.quick-link-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--kortex-primary);
+    box-shadow: 0 10px 30px rgba(0,102,255,0.2);
+}
+
+.quick-link-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.quick-link-icon i {
+    font-size: 24px;
+    color: white;
+}
+
+/* Contact Card */
+.contact-card {
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-accent));
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,102,255,0.3);
+}
+
+.btn-outline-light {
+    border: 2px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: white !important;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    border-color: var(--kortex-primary);
+    background: rgba(0,102,255,0.1);
+}
+
+/* Footer */
+.footer {
+    background: var(--kortex-darker);
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-links a {
+    color: #B0B5C2 !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--kortex-primary) !important;
+}
+
+.legal-notice {
+    background: rgba(255, 59, 48, 0.1);
+    border: 1px solid rgba(255, 59, 48, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 30px;
+    color: #FFFFFF;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-in {
+    animation: slideIn 0.5s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .display-3 {
+        font-size: 2.5rem;
+    }
+    .faq-hero {
+        padding: 80px 0 40px;
+    }
+    .category-tabs {
+        gap: 8px;
+    }
+    .category-tab {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    .faq-question {
+        padding: 18px 20px;
+    }
+    .faq-answer {
+        padding: 0 20px;
+    }
+    .faq-item.active .faq-answer {
+        padding: 0 20px 20px;
+    }
+}
+</style>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body id="top">
+
+<!-- Trading Header with Live Ticker -->
+<div id="trading-header" class="d-none d-lg-block">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="market-ticker">
+                    <span class="ticker-item">EUR/USD: <span class="price">1.08542</span> <span class="change positive">+0.12%</span></span>
+                    <span class="ticker-item">GBP/USD: <span class="price">1.26510</span> <span class="change positive">+0.08%</span></span>
+                    <span class="ticker-item">BTC/USD: <span class="price">$42,156</span> <span class="change positive">+2.34%</span></span>
+                    <span class="ticker-item">ETH/USD: <span class="price">$2,245</span> <span class="change negative">-1.23%</span></span>
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <small>
+                    <i class="fas fa-clock me-1"></i> Market Hours: 24/5
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">
+            <span class="glow-text">KORTEX</span> TRADE
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/faq">FAQ</a>
+                </li>
+            </ul>
+            
+            <div class="d-flex align-items-center ms-lg-3">
+                <a href="/login" class="btn btn-outline-light btn-sm me-2">
+                    <i class="fas fa-sign-in-alt me-1"></i> Login
+                </a>
+                <a href="/signup" class="btn btn-primary btn-sm">
+                    <i class="fas fa-user-plus me-1"></i> Sign Up
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- FAQ Hero Section -->
+<section class="faq-hero">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h6 class="text-primary mb-3"><i class="fas fa-question-circle me-2"></i> HELP CENTER</h6>
+            <h1 class="display-3 fw-bold mb-4">
+                Frequently Asked <span class="glow-text">Questions</span>
+            </h1>
+            <p class="lead mb-5" style="color: #B0B5C2; max-width: 700px; margin: 0 auto;">
+                Find quick answers to common questions about trading, accounts, deposits, withdrawals, and more.
+            </p>
+            
+            <!-- Search Bar -->
+            <div class="faq-search mb-5 animate-in">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search for answers..." id="faqSearch">
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>150+ Questions Answered</span>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-clock text-primary me-2"></i>
+                        <span>Updated Daily</span>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-headset text-secondary me-2"></i>
+                        <span>24/7 Support Available</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Categories -->
+<section class="py-5" style="background: var(--kortex-darker);">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-4">Browse by <span class="glow-text">Category</span></h2>
+        </div>
+        
+        <div class="category-tabs">
+            <div class="category-tab active" data-category="all">All Questions</div>
+            <div class="category-tab" data-category="account">Account & Registration</div>
+            <div class="category-tab" data-category="deposit">Deposits & Withdrawals</div>
+            <div class="category-tab" data-category="trading">Trading Questions</div>
+            <div class="category-tab" data-category="security">Security & Regulation</div>
+            <div class="category-tab" data-category="technical">Technical Support</div>
+        </div>
+        
+        <!-- FAQ Accordion -->
+        <div class="faq-accordion">
+            
+            <!-- Account & Registration Questions -->
+            <div class="faq-category" data-category="account">
+                <h3 class="mb-4 mt-5">Account & Registration</h3>
+                
+                <div class="faq-item animate-in">
+                    <div class="faq-question">
+                        <h5>How do I open a trading account with Kortex Prime?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Opening an account is quick and easy:</p>
+                        <ol>
+                            <li>Click "Sign Up" in the top navigation</li>
+                            <li>Fill in your personal details (name, email, phone)</li>
+                            <li>Complete the trading experience questionnaire</li>
+                            <li>Verify your email address</li>
+                            <li>Upload required identification documents</li>
+                            <li>Make your first deposit</li>
+                            <li>Start trading!</li>
+                        </ol>
+                        <p>The entire process typically takes 10-15 minutes. Account verification is usually completed within 24 hours.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.1s;">
+                    <div class="faq-question">
+                        <h5>What documents do I need to verify my account?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For account verification, we require:</p>
+                        <ul>
+                            <li><strong>Proof of Identity:</strong> Valid passport, driver's license, or national ID card</li>
+                            <li><strong>Proof of Address:</strong> Recent utility bill, bank statement, or government letter (not older than 3 months)</li>
+                            <li><strong>Proof of Payment:</strong> Copy of your credit/debit card (first 6 and last 4 digits visible) or bank account statement</li>
+                        </ul>
+                        <p>All documents must be clear, colored copies showing all four corners. For security reasons, we cannot accept screenshots of documents.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.2s;">
+                    <div class="faq-question">
+                        <h5>What is the minimum deposit required to start trading?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The minimum deposit depends on your chosen account type:</p>
+                        <ul>
+                            <li><strong>Starter Account:</strong> $300 minimum deposit</li>
+                            <li><strong>Silver Account:</strong> $1,000 minimum deposit</li>
+                            <li><strong>Gold Account:</strong> $10,000 minimum deposit</li>
+                            <li><strong>Platinum Account:</strong> $50,000 minimum deposit</li>
+                        </ul>
+                        <p>We recommend starting with an amount you're comfortable with. You can always upgrade your account later as your trading grows.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.3s;">
+                    <div class="faq-question">
+                        <h5>Do you offer demo accounts for practice?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We offer free demo accounts with $10,000 in virtual funds. The demo account:</p>
+                        <ul>
+                            <li>Mirrors real market conditions</li>
+                            <li>Includes all trading instruments</li>
+                            <li>Provides access to all platform features</li>
+                            <li>Is available for 30 days (can be extended)</li>
+                            <li>Requires no deposit or commitment</li>
+                        </ul>
+                        <p>To get a demo account, simply register on our platform and select "Demo Account" during the setup process.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Deposits & Withdrawals Questions -->
+            <div class="faq-category" data-category="deposit">
+                <h3 class="mb-4 mt-5">Deposits & Withdrawals</h3>
+                
+                <div class="faq-item animate-in">
+                    <div class="faq-question">
+                        <h5>What payment methods do you accept for deposits?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept multiple payment methods for your convenience:</p>
+                        <ul>
+                            <li><strong>Credit/Debit Cards:</strong> Visa, Mastercard, Maestro</li>
+                            <li><strong>Bank Wire Transfer:</strong> Domestic and international transfers</li>
+                            <li><strong>E-Wallets:</strong> Skrill, Neteller, PayPal, WebMoney</li>
+                            <li><strong>Crypto Payments:</strong> Bitcoin, Ethereum, USDT, USDC</li>
+                            <li><strong>Local Payment Methods:</strong> Available based on your region</li>
+                        </ul>
+                        <p>Most deposits are processed instantly (except bank wires which take 1-3 business days).</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.1s;">
+                    <div class="faq-question">
+                        <h5>How long do withdrawals take to process?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Withdrawal processing times vary by method:</p>
+                        <ul>
+                            <li><strong>E-Wallets:</strong> 0-24 hours</li>
+                            <li><strong>Crypto Withdrawals:</strong> 0-12 hours (depends on blockchain confirmation)</li>
+                            <li><strong>Credit/Debit Cards:</strong> 1-3 business days</li>
+                            <li><strong>Bank Wire Transfer:</strong> 2-5 business days</li>
+                        </ul>
+                        <p><strong>Important:</strong> First-time withdrawals may take longer due to additional security checks. All withdrawals are processed during business hours (GMT 9:00-17:00).</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.2s;">
+                    <div class="faq-question">
+                        <h5>Are there any fees for deposits or withdrawals?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our fee structure is transparent:</p>
+                        <ul>
+                            <li><strong>Deposits:</strong> No fees from Kortex Prime (third-party fees may apply)</li>
+                            <li><strong>Withdrawals:</strong> One free withdrawal per month, then $25 per withdrawal</li>
+                            <li><strong>Inactivity Fee:</strong> $15 per month after 12 months of inactivity</li>
+                            <li><strong>Currency Conversion:</strong> 0.5% fee for transactions in non-USD currencies</li>
+                        </ul>
+                        <p>Platinum account holders enjoy unlimited free withdrawals and no inactivity fees.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.3s;">
+                    <div class="faq-question">
+                        <h5>Can I withdraw to a different account than I deposited from?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For security reasons, we generally require withdrawals to be sent back to the original deposit method (AML policy). However:</p>
+                        <ul>
+                            <li>You can withdraw to a different bank account under the same name</li>
+                            <li>Additional verification may be required</li>
+                            <li>Wire transfers can be sent to any bank account in your name</li>
+                            <li>Contact support for special cases or corporate accounts</li>
+                        </ul>
+                        <p>This policy protects both you and our platform from fraudulent activities.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trading Questions -->
+            <div class="faq-category" data-category="trading">
+                <h3 class="mb-4 mt-5">Trading Questions</h3>
+                
+                <div class="faq-item animate-in">
+                    <div class="faq-question">
+                        <h5>What's your average trade execution speed?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our average execution speed is <strong>12 milliseconds</strong> (0.012 seconds). This includes:</p>
+                        <ul>
+                            <li>Order transmission to liquidity providers</li>
+                            <li>Price validation</li>
+                            <li>Trade execution</li>
+                            <li>Confirmation back to your platform</li>
+                        </ul>
+                        <p>We maintain 99.99% uptime with redundant servers in London, New York, and Tokyo to ensure minimal latency regardless of your location.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.1s;">
+                    <div class="faq-question">
+                        <h5>What trading platforms are available?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer multiple trading platforms:</p>
+                        <ul>
+                            <li><strong>Web Platform:</strong> Full-featured browser-based platform</li>
+                            <li><strong>Mobile App:</strong> iOS and Android apps with full functionality</li>
+                            <li><strong>Desktop Terminal:</strong> Downloadable application for Windows/Mac</li>
+                            <li><strong>MetaTrader 5:</strong> Connect via MT5 with full support</li>
+                            <li><strong>API Trading:</strong> REST and WebSocket APIs for algorithmic trading</li>
+                        </ul>
+                        <p>All platforms offer real-time charts, technical indicators, one-click trading, and risk management tools.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.2s;">
+                    <div class="faq-question">
+                        <h5>What markets can I trade on Kortex Prime?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer 200+ trading instruments across multiple markets:</p>
+                        <ul>
+                            <li><strong>Forex:</strong> 70+ currency pairs including majors, minors, and exotics</li>
+                            <li><strong>Cryptocurrencies:</strong> 50+ coins including Bitcoin, Ethereum, and altcoins</li>
+                            <li><strong>Indices:</strong> 20+ global stock indices (S&P 500, NASDAQ, FTSE, etc.)</li>
+                            <li><strong>Commodities:</strong> 15+ commodities (Gold, Silver, Oil, Natural Gas)</li>
+                            <li><strong>Stocks:</strong> 100+ individual stocks (Apple, Tesla, Amazon, etc.)</li>
+                        </ul>
+                        <p>All instruments are available as CFDs with competitive spreads.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.3s;">
+                    <div class="faq-question">
+                        <h5>What leverage do you offer?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Leverage varies by account type and instrument:</p>
+                        <ul>
+                            <li><strong>Forex Major Pairs:</strong> Up to 1:500 (depends on account type)</li>
+                            <li><strong>Forex Minor/Exotic Pairs:</strong> Up to 1:200</li>
+                            <li><strong>Cryptocurrencies:</strong> Up to 1:20 (due to high volatility)</li>
+                            <li><strong>Indices:</strong> Up to 1:100</li>
+                            <li><strong>Commodities:</strong> Up to 1:50</li>
+                            <li><strong>Stocks:</strong> Up to 1:10</li>
+                        </ul>
+                        <p><strong>Risk Warning:</strong> Higher leverage increases both potential profits and losses. Please trade responsibly.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Security & Regulation Questions -->
+            <div class="faq-category" data-category="security">
+                <h3 class="mb-4 mt-5">Security & Regulation</h3>
+                
+                <div class="faq-item animate-in">
+                    <div class="faq-question">
+                        <h5>Is my money safe with Kortex Prime?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, client funds are protected through multiple measures:</p>
+                        <ul>
+                            <li><strong>Segregated Accounts:</strong> Client funds are held in separate accounts at top-tier banks</li>
+                            <li><strong>Regulation:</strong> Regulated by Financial Conduct Authority (FCA #123456)</li>
+                            <li><strong>Insurance:</strong> Funds protected up to $1,000,000 through compensation schemes</li>
+                            <li><strong>Encryption:</strong> 256-bit SSL encryption for all transactions</li>
+                            <li><strong>2FA:</strong> Two-factor authentication for account access</li>
+                            <li><strong>Audits:</strong> Regular external audits by independent firms</li>
+                        </ul>
+                        <p>We never use client funds for operational expenses or trading activities.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.1s;">
+                    <div class="faq-question">
+                        <h5>Are you a regulated broker?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, Kortex Prime is regulated by multiple financial authorities:</p>
+                        <ul>
+                            <li><strong>UK:</strong> Financial Conduct Authority (FCA #123456)</li>
+                            <li><strong>Cyprus:</strong> Cyprus Securities and Exchange Commission (CySEC #789/10)</li>
+                            <li><strong>Australia:</strong> Australian Securities and Investments Commission (ASIC #345678)</li>
+                            <li><strong>International:</strong> Compliant with Anti-Money Laundering (AML) and Know Your Customer (KYC) regulations globally</li>
+                        </ul>
+                        <p>Our regulatory status ensures we adhere to the highest standards of client protection and financial transparency.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.2s;">
+                    <div class="faq-question">
+                        <h5>What security measures protect my account?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We implement multiple security layers:</p>
+                        <ul>
+                            <li><strong>Two-Factor Authentication (2FA):</strong> Required for login and withdrawals</li>
+                            <li><strong>IP Monitoring:</strong> Automatic detection of suspicious login attempts</li>
+                            <li><strong>Device Authorization:</strong> New devices require email confirmation</li>
+                            <li><strong>Withdrawal Whitelisting:</strong> Pre-approved withdrawal addresses only</li>
+                            <li><strong>Session Timeout:</strong> Automatic logout after 15 minutes of inactivity</li>
+                            <li><strong>Encryption:</strong> End-to-end encryption for all data transmission</li>
+                            <li><strong>DDoS Protection:</strong> Enterprise-level protection against attacks</li>
+                        </ul>
+                        <p>We recommend enabling all available security features in your account settings.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Technical Support Questions -->
+            <div class="faq-category" data-category="technical">
+                <h3 class="mb-4 mt-5">Technical Support</h3>
+                
+                <div class="faq-item animate-in">
+                    <div class="faq-question">
+                        <h5>How do I reset my password?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>To reset your password:</p>
+                        <ol>
+                            <li>Go to the login page</li>
+                            <li>Click "Forgot Password?"</li>
+                            <li>Enter the email address associated with your account</li>
+                            <li>Check your email for the reset link (check spam folder)</li>
+                            <li>Click the link and create a new strong password</li>
+                            <li>Log in with your new password</li>
+                        </ol>
+                        <p><strong>Security Tip:</strong> Use a unique password containing uppercase, lowercase, numbers, and special characters. Never share your password with anyone.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.1s;">
+                    <div class="faq-question">
+                        <h5>The platform is not loading. What should I do?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Try these troubleshooting steps:</p>
+                        <ol>
+                            <li><strong>Refresh the page:</strong> Press Ctrl+F5 (Cmd+Shift+R on Mac) for a hard refresh</li>
+                            <li><strong>Clear cache:</strong> Clear your browser cache and cookies</li>
+                            <li><strong>Try another browser:</strong> Test on Chrome, Firefox, or Safari</li>
+                            <li><strong>Check internet connection:</strong> Ensure stable internet connection</li>
+                            <li><strong>Disable extensions:</strong> Temporarily disable ad blockers or VPN</li>
+                            <li><strong>Check status page:</strong> Visit status.kortexprime.com for platform status</li>
+                            <li><strong>Contact support:</strong> If problem persists, contact our 24/7 support</li>
+                        </ol>
+                        <p>Most issues are resolved by clearing cache or trying a different browser.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-in" style="animation-delay: 0.2s;">
+                    <div class="faq-question">
+                        <h5>How can I contact customer support?</h5>
+                        <div class="faq-icon">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer multiple support channels:</p>
+                        <ul>
+                            <li><strong>Live Chat:</strong> 24/7 available on our website (fastest response)</li>
+                            <li><strong>Email:</strong> kortexprime@gmail.com (response within 2 hours)</li>
+                            <li><strong>Phone:</strong> +1 (800) 123-4567 (24/5, account verification required)</li>
+                            <li><strong>Ticket System:</strong> Submit via your account dashboard</li>
+                            <li><strong>Social Media:</strong> Twitter @KortexPrimeSupport for general queries</li>
+                        </ul>
+                        <p>For account-specific issues, please use Live Chat or the Ticket System for faster resolution.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Links Section -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-4">Quick <span class="glow-text">Links</span></h2>
+            <p class="lead" style="color: #B0B5C2; max-width: 700px; margin: 0 auto;">
+                Can't find what you're looking for? Try these resources.
+            </p>
+        </div>
+        
+        <div class="quick-links mb-5">
+            <a href="/contact" class="quick-link-card animate-in">
+                <div class="quick-link-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h5 class="mb-2">Contact Support</h5>
+                <p style="color: #B0B5C2; font-size: 14px;">
+                    Get direct help from our support team 24/7
+                </p>
+            </a>
+            
+            <a href="/signup" class="quick-link-card animate-in" style="animation-delay: 0.1s;">
+                <div class="quick-link-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h5 class="mb-2">Open Account</h5>
+                <p style="color: #B0B5C2; font-size: 14px;">
+                    Start trading in minutes with our easy registration
+                </p>
+            </a>
+            
+            <a href="/dashboard" class="quick-link-card animate-in" style="animation-delay: 0.2s;">
+                <div class="quick-link-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h5 class="mb-2">Trading Platform</h5>
+                <p style="color: #B0B5C2; font-size: 14px;">
+                    Access our advanced trading platform
+                </p>
+            </a>
+            
+            <a href="/about" class="quick-link-card animate-in" style="animation-delay: 0.3s;">
+                <div class="quick-link-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <h5 class="mb-2">About Us</h5>
+                <p style="color: #B0B5C2; font-size: 14px;">
+                    Learn more about our company and values
+                </p>
+            </a>
+        </div>
+        
+        <!-- Still Need Help Card -->
+        <div class="contact-card animate-in" style="animation-delay: 0.4s;">
+            <h3 class="mb-3">Still Need Help?</h3>
+            <p class="mb-4" style="color: rgba(255,255,255,0.9);">
+                Our support team is available 24/7 to assist you with any questions or issues.
+            </p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="/contact" class="btn btn-light">
+                    <i class="fas fa-envelope me-2"></i> Contact Support
+                </a>
+                <a href="tel:+18001234567" class="btn btn-outline-light">
+                    <i class="fas fa-phone me-2"></i> Call Us Now
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer pt-5">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <h3 class="fw-bold mb-4"><span class="glow-text">KORTEX</span> TRADE</h3>
+                <p style="color: #B0B5C2;">Advanced trading platform for serious traders. Institutional-grade tools for everyone.</p>
+                <div class="d-flex gap-3">
+                    <a href="/contact" class="btn btn-outline-light btn-sm"><i class="fab fa-twitter"></i></a>
+                    <a href="/contact" class="btn btn-outline-light btn-sm"><i class="fab fa-facebook-f"></i></a>
+                    <a href="/contact" class="btn btn-outline-light btn-sm"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <!-- <div class="col-lg-2 col-md-4">
+                <h6 class="mb-4">Pages</h6>
+                <div class="footer-links d-flex flex-column gap-2">
+                    <a href="/">Home</a>
+                    <a href="/about">About</a>
+                    <a href="/blog">Blog</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/faq">FAQ</a>
+                </div>
+            </div> -->
+            
+            <!-- <div class="col-lg-2 col-md-4">
+                <h6 class="mb-4">Services</h6>
+                <div class="footer-links d-flex flex-column gap-2">
+                    <a href="/service">Our Services</a>
+                    <a href="/team">Our Team</a>
+                    <a href="/testimonial">Testimonials</a>
+                    <a href="/feature">Features</a>
+                    <a href="/offer">Offers</a>
+                </div>
+            </div> -->
+            
+            <div class="col-lg-2 col-md-4">
+                <h6 class="mb-4">Account</h6>
+                <div class="footer-links d-flex flex-column gap-2">
+                    <a href="/login">Login</a>
+                    <a href="/signup">Sign Up</a>
+                    <a href="/dashboard">Dashboard</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="legal-notice mt-5">
+            <h6 class="text-warning mb-2"><i class="fas fa-exclamation-triangle me-2"></i> Risk Warning</h6>
+            <p class="small mb-0">Trading Forex, Cryptocurrencies, and CFDs carries a high level of risk and may not be suitable for all investors. The possibility exists that you could sustain a loss of some or all of your deposited funds. Before deciding to trade, you should carefully consider your investment objectives, experience level, and risk appetite.</p>
+        </div>
+        
+        <div class="text-center mt-5 pt-4 border-top border-secondary">
+            <p class="mb-0" style="color: #B0B5C2;">© 2024 Kortex Prime. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // FAQ Accordion Functionality
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+            const faqItem = this.closest('.faq-item');
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-item.active').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // Toggle current item
+            faqItem.classList.toggle('active', !isActive);
+        });
+    });
+    
+    // Category Filtering
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    const faqCategories = document.querySelectorAll('.faq-category');
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    categoryTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+            
+            // Update active tab
+            categoryTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Show/hide categories
+            if (category === 'all') {
+                faqCategories.forEach(cat => cat.style.display = 'block');
+                faqItems.forEach(item => item.style.display = 'block');
+            } else {
+                faqCategories.forEach(cat => {
+                    if (cat.getAttribute('data-category') === category) {
+                        cat.style.display = 'block';
+                    } else {
+                        cat.style.display = 'none';
+                    }
+                });
+                
+                // Show only items from selected category
+                faqItems.forEach(item => {
+                    const itemCategory = item.closest('.faq-category').getAttribute('data-category');
+                    if (itemCategory === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+        });
+    });
+    
+    // FAQ Search Functionality
+    const searchInput = document.getElementById('faqSearch');
+    
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        
+        if (searchTerm.length === 0) {
+            // Show all items if search is empty
+            faqItems.forEach(item => {
+                item.style.display = 'block';
+                item.closest('.faq-category').style.display = 'block';
+            });
+            return;
+        }
+        
+        let hasResults = false;
+        
+        faqCategories.forEach(category => {
+            let categoryHasResults = false;
+            const itemsInCategory = category.querySelectorAll('.faq-item');
+            
+            itemsInCategory.forEach(item => {
+                const question = item.querySelector('.faq-question h5').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    categoryHasResults = true;
+                    hasResults = true;
+                    
+                    // Highlight search term
+                    const questionText = item.querySelector('.faq-question h5');
+                    const answerText = item.querySelector('.faq-answer');
+                    
+                    const originalQuestion = questionText.getAttribute('data-original') || questionText.innerHTML;
+                    const originalAnswer = answerText.getAttribute('data-original') || answerText.innerHTML;
+                    
+                    questionText.setAttribute('data-original', originalQuestion);
+                    answerText.setAttribute('data-original', originalAnswer);
+                    
+                    const highlightedQuestion = originalQuestion.replace(
+                        new RegExp(searchTerm, 'gi'),
+                        match => `<span class="bg-warning text-dark">${match}</span>`
+                    );
+                    
+                    const highlightedAnswer = originalAnswer.replace(
+                        new RegExp(searchTerm, 'gi'),
+                        match => `<span class="bg-warning text-dark">${match}</span>`
+                    );
+                    
+                    questionText.innerHTML = highlightedQuestion;
+                    answerText.innerHTML = highlightedAnswer;
+                    
+                    // Auto-expand matching items
+                    item.classList.add('active');
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            category.style.display = categoryHasResults ? 'block' : 'none';
+        });
+        
+        // Show message if no results
+        const resultsContainer = document.querySelector('.faq-accordion');
+        let noResultsMsg = document.getElementById('noResultsMessage');
+        
+        if (!hasResults && !noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'noResultsMessage';
+            noResultsMsg.className = 'text-center py-5';
+            noResultsMsg.innerHTML = `
+                <i class="fas fa-search fa-3x mb-3 text-muted"></i>
+                <h4 class="mb-3">No results found</h4>
+                <p style="color: #B0B5C2;">Try different keywords or browse by category above.</p>
+            `;
+            resultsContainer.appendChild(noResultsMsg);
+        } else if (hasResults && noResultsMsg) {
+            noResultsMsg.remove();
+        }
+    });
+    
+    // Animate elements on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all animatable elements
+    document.querySelectorAll('.animate-in:not(.faq-item)').forEach(el => {
+        observer.observe(el);
+    });
+    
+    // FAQ items have staggered animation, so handle separately
+    document.querySelectorAll('.faq-item').forEach((el, index) => {
+        observer.observe(el);
+    });
+    
+    // Auto-expand first FAQ item in each category
+    document.querySelectorAll('.faq-category').forEach(category => {
+        const firstItem = category.querySelector('.faq-item');
+        if (firstItem) {
+            firstItem.classList.add('active');
+        }
+    });
+});
+</script>
+
+</body>
+</html>

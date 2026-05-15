@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Email Verification</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    body {
+      background: #0f172a;
+      color: #fff;
+      font-family: Inter, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+    .box {
+      background: #1e293b;
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: none;
+      background: #334155;
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #3b82f6;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    p {
+      margin-bottom: 20px;
+      color: #cbd5e1;
+    }
+  </style>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body>
+
+  <% if (toast) { %>
+    <script>
+      Swal.fire({
+        icon: "<%= toast.type %>",
+        text: "<%= toast.message %>",
+        confirmButtonColor: "#3b82f6"
+      })
+    </script>
+  <% } %>
+
+  <div class="box">
+    <h2>Email Verification</h2>
+    <p>Enter the 6 digit code sent to your email</p>
+
+    <form action="/verify" method="POST">
+  <input type="text" name="code" maxlength="6" placeholder="Enter code" required>
+  <button type="submit">Verify</button>
+</form>
+
+<button onclick="resend()" style="
+  width:100%;
+  margin-top:15px;
+  padding:12px;
+  background:#475569;
+  border:none;
+  border-radius:6px;
+  color:white;
+  cursor:pointer;
+">Resend Code</button>
+
+<script>
+function resend() {
+  Swal.fire({
+    title: "Send new code?",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#3b82f6",
+    cancelButtonColor: "#64748b",
+    confirmButtonText: "Yes"
+  }).then(ok => {
+    if (ok.isConfirmed) {
+      window.location.href = "/resend-code"
+    }
+  })
+}
+</script>
+  </div>
+
+</body>
+</html>

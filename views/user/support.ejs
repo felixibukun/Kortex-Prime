@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support - <%= user.name || user.username %></title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body class="bg-slate-950 text-white">
+
+<header class="h-16 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl flex items-center">
+  <div class="max-w-5xl mx-auto w-full px-4 flex justify-between">
+    <div class="flex items-center gap-3">
+      <a href="/dashboard" class="text-slate-300 hover:text-white">
+        <i data-lucide="arrow-left"></i>
+      </a>
+      <p class="text-sm font-semibold">Support Center</p>
+    </div>
+    <a href="/dashboard" class="text-xs text-slate-300 hover:text-white">Back to Dashboard</a>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-4 py-8">
+
+  <!-- Contact Form -->
+  <div class="bg-slate-900/80 rounded-2xl border border-slate-800 p-6 mb-6">
+    <p class="text-sm font-semibold mb-4 text-slate-100">Submit Support Ticket</p>
+    
+    <form action="/support" method="POST">
+      <div class="mb-4">
+        <label class="block text-sm text-slate-400 mb-2">Subject</label>
+        <input type="text" name="subject" required 
+               class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:border-blue-500">
+      </div>
+      
+      <div class="mb-6">
+        <label class="block text-sm text-slate-400 mb-2">Message</label>
+        <textarea name="message" rows="4" required
+                  class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+      </div>
+      
+      <button type="submit" 
+              class="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors">
+        Submit Ticket
+      </button>
+    </form>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="bg-slate-900/80 rounded-2xl border border-slate-800 p-6">
+    <p class="text-sm font-semibold mb-4 text-slate-100">Frequently Asked Questions</p>
+    
+    <div class="space-y-4">
+      <div>
+        <p class="text-sm font-medium text-slate-300 mb-1">How do I deposit funds?</p>
+        <p class="text-xs text-slate-500">Go to Deposit & Withdrawal page, choose your payment method, and follow the instructions.</p>
+      </div>
+      
+      <div>
+        <p class="text-sm font-medium text-slate-300 mb-1">How long do withdrawals take?</p>
+        <p class="text-xs text-slate-500">Withdrawals are typically processed within 1-24 hours after approval.</p>
+      </div>
+      
+      <div>
+        <p class="text-sm font-medium text-slate-300 mb-1">What is KYC verification?</p>
+        <p class="text-xs text-slate-500">KYC (Know Your Customer) is required for security. Submit your ID on the KYC page.</p>
+      </div>
+      
+      <div>
+        <p class="text-sm font-medium text-slate-300 mb-1">How does copy trading work?</p>
+        <p class="text-xs text-slate-500">Copy trading automatically replicates trades from expert traders in real-time.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Info -->
+  <div class="mt-8 text-center">
+    <p class="text-sm text-slate-400">For immediate assistance:</p>
+    <p class="text-sm text-blue-400 mt-1">kortexprime@gmail.com</p>
+    <p class="text-xs text-slate-500 mt-2">Response time: 1-2 business hours</p>
+  </div>
+
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<% if (toast) { %>
+<script>
+  Swal.fire({
+    icon: '<%= toast.type %>',
+    title: '<%= toast.message %>',
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 2500,
+    background: '#0f172a',
+    color: '#f8fafc'
+  })
+</script>
+<% } %>
+
+  <%- include('mobile-downbar') %>
+</body>
+</html>

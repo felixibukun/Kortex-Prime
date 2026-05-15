@@ -1,0 +1,56 @@
+<%
+const page = {
+  slug: 'blog',
+  title: 'Market News',
+  kicker: 'Market Intelligence',
+  heading: 'Broker insights for smarter trading decisions',
+  summary: 'Follow regularly refreshed crypto headlines from trusted public feeds, then use Kortex Prime account tools to manage deposits, risk, trades, and account records with more context.',
+  primaryText: 'Refresh News',
+  primaryHref: '/blog',
+  secondaryText: 'Open Account',
+  secondaryHref: '/signup',
+  sectionTitle: 'How To Read Crypto News Like A Trader',
+  sectionIntro: 'Headlines move quickly. Kortex Prime presents live news beside practical account guidance so traders can separate market information from account actions.',
+  marketRows: [
+    { name: 'Risk Note', detail: 'How to size trades against deposit funds', value: 'Guide' },
+    { name: 'Copy Trading', detail: 'What to review before following a trader', value: 'Guide' },
+    { name: 'Funding', detail: 'Deposit and withdrawal status explained', value: 'Guide' }
+  ],
+  cards: [
+    { icon: 'fas fa-chart-area', title: 'Understanding P/L Records', body: 'Learn how profit and loss history helps users review strategy performance over time.' },
+    { icon: 'fas fa-wallet', title: 'Why Deposit Balance Matters', body: 'A simple guide explaining why purchases, packages, withdrawals, and copy trades use total deposit funds.' },
+    { icon: 'fas fa-user-friends', title: 'Copy Trading Checklist', body: 'Review minimum amounts, strategy history, risk level, and stop rules before following a trader.' },
+    { icon: 'fas fa-shield-alt', title: 'Account Verification Tips', body: 'Prepare clear KYC details so verification can be reviewed without unnecessary delays.' },
+    { icon: 'fas fa-envelope', title: 'Email Alerts Explained', body: 'Know which account actions trigger email updates and why those messages matter for security.' },
+    { icon: 'fas fa-university', title: 'Broker Workflow Basics', body: 'A walkthrough of how funding, trading, admin approvals, and account records fit together.' }
+  ],
+  stats: [
+    { value: '24/7', label: 'Account visibility across trading, funding, and support records' },
+    { value: '100%', label: 'Deposit-funded spending logic for core account actions' },
+    { value: 'Multi-layer', label: 'User, admin, email, KYC, and transaction workflows' }
+  ],
+  workflowKicker: 'Account Flow',
+  workflowTitle: 'From registration to account activity, every step is tracked',
+  workflowIntro: 'The platform is built around the full broker journey: onboarding, verification, deposits, trading, copy trading, subscriptions, withdrawals, history, and support.',
+  steps: [
+    { title: 'Open and verify the account', body: 'A trader creates an account, completes profile details, and submits KYC when verification is required for stronger account trust.' },
+    { title: 'Fund with approved deposit methods', body: 'Deposit requests are recorded, reviewed from admin, and reflected in total deposit once approved.' },
+    { title: 'Trade, subscribe, or copy a strategy', body: 'Stocks, packages, and copy-trade allocations use deposit funds and write clear records into account history.' },
+    { title: 'Review outcomes and request withdrawals', body: 'Users can inspect transactions, P/L, packages, withdrawal history, and email confirmations before taking the next action.' }
+  ],
+  proofTitle: 'Professional Details That Make The Page Feel Real',
+  proofIntro: 'This page explains how Kortex Prime works as a connected account platform with funding, trading, support, and admin-backed review.',
+  notes: [
+    { title: 'Clear money model', body: 'The public content now explains that total deposit is the operational funding source for purchases, package upgrades, copy trading, and withdrawal checks.' },
+    { title: 'Connected account records', body: 'Trading history, P/L records, package history, withdrawal history, and transaction history are presented as part of one broker-grade account record.' },
+    { title: 'Admin-backed operations', body: 'Deposits, withdrawals, KYC, user details, password updates, and admin account entry are described as managed workflows rather than loose pages.' },
+    { title: 'Communication built in', body: 'The copy explains email updates for important user actions including deposits, withdrawals, trades, copy trading, KYC, profile changes, and package activity.' }
+  ],
+  news: typeof news !== 'undefined' ? news : null,
+  ctaTitle: 'Turn crypto news into a controlled trading plan',
+  ctaBody: 'Use live headlines for context, then review your deposit funds, P/L records, open positions, and copy-trading exposure before acting.',
+  ctaText: 'Start Trading',
+  ctaHref: '/signup'
+}
+%>
+<%- include('_broker-page', { page }) %>

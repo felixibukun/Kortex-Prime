@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "name": "Alpha Trader",
+    "winrate": 85,
+    "profit": 640200,
+    "minAmount": 300
+  },
+  {
+    "id": 2,
+    "name": "Signal King",
+    "winrate": 78,
+    "profit": 4100780,
+    "minAmount": 300
+  },
+  {
+    "id": 3,
+    "name": "Smart FX",
+    "winrate": 82,
+    "profit": 5500030,
+    "minAmount": 300
+  },
+  {
+    "id": 4,
+    "name": "Pro Scalper",
+    "winrate": 74,
+    "profit": 9800000,
+    "minAmount": 300
+  },
+  {
+    "id": 5,
+    "name": "Golden Strategy",
+    "winrate": 88,
+    "profit": 7216000,
+    "minAmount": 300
+  },
+  {
+    "id": 6,
+    "name": "Sharp Trader",
+    "winrate": 80,
+    "profit": 5100020,
+    "minAmount": 300
+  },
+  {
+    "id": 7,
+    "name": "Crypto Master",
+    "winrate": 83,
+    "profit": 593400,
+    "minAmount": 300
+  },
+  {
+    "id": 8,
+    "name": "FX Legend",
+    "winrate": 79,
+    "profit": 4797000,
+    "minAmount": 300
+  },
+  {
+    "id": 9,
+    "name": "Swing Pro",
+    "winrate": 76,
+    "profit": 446800,
+    "minAmount": 300
+  },
+  {
+    "id": 10,
+    "name": "Market Genius",
+    "winrate": 90,
+    "profit": 8000000,
+    "minAmount": 300
+  },
+  {
+    "id": 11,
+    "name": "Risk Manager",
+    "winrate": 81,
+    "profit": 526700,
+    "minAmount": 300
+  },
+  {
+    "id": 12,
+    "name": "Precision Trader",
+    "winrate": 87,
+    "profit": 680000,
+    "minAmount": 300
+  },
+  {
+    "id": 13,
+    "name": "Trend Master",
+    "winrate": 77,
+    "profit": 43000,
+    "minAmount": 300
+  },
+  {
+    "id": 14,
+    "name": "Profit Maker",
+    "winrate": 84,
+    "profit": 667000,
+    "minAmount": 300
+  },
+  {
+    "id": 15,
+    "name": "Steady Signal",
+    "winrate": 73,
+    "profit": 3600000,
+    "minAmount": 300
+  }
+]

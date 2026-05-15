@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en" class="dark h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard - <%= user.name || user.username %></title>
+  <link rel="icon" type="image/png" href="/img/favicon-32.png?v=20260509">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            primary: { 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1' },
+            success: '#10b981', warning: '#f59e0b', danger: '#ef4444'
+          },
+          animation: {
+            'float': 'float 3s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --success-gradient: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+      --danger-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    }
+    body { overflow-x: hidden; -webkit-font-smoothing: antialiased; position: relative; }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 8%, rgba(59, 130, 246, 0.18), transparent 34%),
+        radial-gradient(circle at 86% 18%, rgba(168, 85, 247, 0.15), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.08), transparent 35%);
+      z-index: 0;
+    }
+    body > * { position: relative; z-index: 1; }
+    .glass { background: rgba(15, 23, 42, 0.72); backdrop-filter: blur(18px); border: 1px solid rgba(148,163,184,0.18); }
+    .gradient-primary { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 48%, #06b6d4 100%); background-size: 180% 180%; animation: premium-gradient 8s ease infinite; }
+    .gradient-success { background: var(--success-gradient); }
+    .hover-lift { transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+    .hover-lift:hover { transform: translateY(-3px); box-shadow: 0 18px 45px -18px rgba(59,130,246,0.45); border-color: rgba(96,165,250,0.45); }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(15,23,42,0.5); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.3); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.5); }
+    @keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes premium-gradient { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    @keyframes soft-glow { 0%, 100% { box-shadow: 0 18px 45px -24px rgba(59,130,246,0.4); } 50% { box-shadow: 0 28px 70px -26px rgba(124,58,237,0.6); } }
+    .animate-fade-in-up { animation: fade-in-up 0.5s ease-out; }
+    .premium-card {
+      background: linear-gradient(145deg, rgba(15,23,42,0.82), rgba(30,41,59,0.58));
+      border: 1px solid rgba(148,163,184,0.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 60px -36px rgba(15,23,42,0.9);
+    }
+    .premium-hero { animation: soft-glow 7s ease-in-out infinite; }
+    i[data-lucide] { width: 20px; height: 20px; stroke-width: 1.5; display: inline-block; }
+    .mobile-downbar {
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+      box-shadow: 0 -18px 45px rgba(2, 6, 23, 0.45);
+    }
+    .mobile-downbar a {
+      min-width: 0;
+    }
+    .mobile-downbar svg {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+    }
+    @media (max-width: 767px) {
+      body {
+        padding-bottom: calc(76px + env(safe-area-inset-bottom));
+      }
+    }
+  </style>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 text-white"
+      x-data="{
+        sidebarOpen: window.innerWidth >= 768,
+        mobileSidebarOpen: false,
+        notificationOpen: false,
+        userMenuOpen: false,
+        cryptoPrices: {
+          btc: <%= cryptoPrices?.btc || 67432.15 %>,
+          eth: <%= cryptoPrices?.eth || 3542.78 %>,
+          sol: <%= cryptoPrices?.sol || 172.45 %>,
+          ada: <%= cryptoPrices?.ada || 0.62 %>,
+          doge: <%= cryptoPrices?.doge || 0.15 %>
+        },
+        stockPrices: {
+          sp500: <%= stockPrices?.sp500 || 5201.34 %>,
+          nasdaq: <%= stockPrices?.nasdaq || 16302.76 %>,
+          dowjones: <%= stockPrices?.dowjones || 38852.27 %>,
+          aapl: <%= stockPrices?.aapl || 175.25 %>,
+          tsla: <%= stockPrices?.tsla || 172.63 %>,
+          nvda: <%= stockPrices?.nvda || 903.56 %>
+        }
+      }"
+      @resize.window="if(window.innerWidth >= 768) sidebarOpen = true"
+      @keydown.escape="mobileSidebarOpen = false; sidebarOpen = false; notificationOpen = false; userMenuOpen = false">
+
+<!-- Notification Panel -->
+<div x-show="notificationOpen"
+     @click.outside="notificationOpen = false"
+     class="fixed right-4 top-20 w-80 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl z-50 max-h-96 overflow-y-auto"
+     x-cloak
+     x-transition:enter="transition ease-out duration-200"
+     x-transition:enter-start="transform opacity-0 scale-95"
+     x-transition:enter-end="transform opacity-100 scale-100"
+     x-transition:leave="transition ease-in duration-150"
+     x-transition:leave-start="transform opacity-100 scale-100"
+     x-transition:leave-end="transform opacity-0 scale-95">
+  <div class="p-4 border-b border-slate-700 flex items-center justify-between">
+    <h3 class="font-semibold text-white">Notifications</h3>
+    <button @click="notificationOpen = false" class="text-slate-400 hover:text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+  <div class="divide-y divide-slate-700/50">
+    <div class="p-4 hover:bg-slate-700/30 cursor-pointer transition-colors">
+      <div class="flex items-start gap-3">
+        <div class="h-10 w-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg>
+        </div>
+        <div class="flex-1">
+          <p class="text-sm font-medium text-white">Welcome to Kortex Prime</p>
+          <p class="text-xs text-slate-400 mt-1">Your account is active and ready to trade</p>
+          <span class="text-xs text-slate-500 mt-2 block">Just now</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  [x-cloak] { display: none !important; }
+</style>
+
+<!-- SIDEBAR -->
+<aside class="fixed inset-y-0 left-0 z-40 w-64 h-screen flex flex-col bg-slate-900/80 backdrop-blur-xl border-r border-slate-800 transition-transform duration-300"
+       :class="sidebarOpen || mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'">
+
+  <div class="p-6 border-b border-slate-800">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="relative">
+          <img src="/img/logo.png?v=20260509" alt="Logo" class="h-8 w-auto">
+          <div class="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-emerald-500 border-2 border-slate-900"></div>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Kortex Prime</h1>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="text-xs text-slate-400">Live Trading</span>
+          </div>
+        </div>
+      </div>
+      <button @click="mobileSidebarOpen = false; sidebarOpen = false" class="md:hidden text-slate-400 hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="p-6 border-b border-slate-800">
+    <div class="flex items-center gap-3">
+      <div class="relative">
+        <div class="h-12 w-12 rounded-full gradient-primary flex items-center justify-center text-white font-bold text-lg shadow-lg">
+          <%= (user.name || user.username).slice(0,1).toUpperCase() %>
+        </div>
+        <div class="absolute -bottom-1 -right-1 h-5 w-5 rounded-full border-2 border-slate-900 bg-emerald-500 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-white"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="font-semibold text-white truncate"><%= user.name || user.username %></p>
+        <div class="flex items-center gap-2 mt-1">
+          <span class="text-sm text-slate-400">Standard</span>
+          <% if (user.kycStatus === 'Verified') { %>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300">Verified</span>
+          <% } else { %>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300">Unverified</span>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="p-4 space-y-1 flex-1 overflow-y-auto">
+    <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-800/50 group hover-lift <%= currentPath === '/dashboard' ? 'bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white border border-blue-500/30' : 'text-slate-300' %>">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span class="font-medium">Dashboard</span>
+      <% if (currentPath === '/dashboard') { %><div class="ml-auto w-2 h-2 rounded-full bg-blue-400"></div><% } %>
+    </a>
+
+    <div class="pt-4 pb-2 px-4"><p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Trading</p></div>
+
+    <a href="/stocks" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg>
+      <span class="font-medium">Stocks</span>
+      <span class="ml-auto text-xs px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-300">Hot</span>
+    </a>
+    <a href="/copy-trader" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      <span class="font-medium">Copy Trading</span>
+    </a>
+    <a href="/trading-history" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      <span class="font-medium">Trading History</span>
+    </a>
+    <a href="/pl-record" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+      <span class="font-medium">P/L Record</span>
+    </a>
+
+    <div class="pt-6 pb-2 px-4"><p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Financial</p></div>
+
+    <a href="/deposit-withdrawal" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
+      <span class="font-medium">Deposit</span>
+    </a>
+    <a href="/withdraw" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><path d="M12 19V5"></path><path d="m5 12 7-7 7 7"></path></svg>
+      <span class="font-medium">Withdraw</span>
+    </a>
+    <a href="/transactions-history" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+      <span class="font-medium">Funding History</span>
+    </a>
+
+    <div class="pt-6 pb-2 px-4"><p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Account</p></div>
+
+    <a href="/account" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span class="font-medium">Profile</span>
+    </a>
+    <a href="/kyc-verification" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      <span class="font-medium">KYC</span>
+      <% if (user.kycStatus !== 'Verified') { %>
+        <span class="ml-auto animate-pulse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+      <% } %>
+    </a>
+    <a href="/packages" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      <span class="font-medium">Packages</span>
+    </a>
+    <a href="/package-history" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><path d="M21 8a2 2 0 0 0-1-1.73L13 2.27a2 2 0 0 0-2 0L4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="M3.3 7 12 12l8.7-5"></path><path d="M12 22V12"></path></svg>
+      <span class="font-medium">Package History</span>
+    </a>
+
+    <div class="pt-6 mt-6 border-t border-slate-800">
+      <a href="/support" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <span class="font-medium">Support</span>
+      </a>
+      <a href="/logout" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-red-500/10 group hover-lift text-red-400 mt-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        <span class="font-medium">Logout</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="p-4 border-t border-slate-800">
+    <a href="/support" class="flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-blue-500/10 text-blue-300 hover:bg-blue-500/20 transition-colors text-sm">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      Live Chat
+    </a>
+  </div>
+</aside>
+
+<!-- Main Content -->
+<div class="min-h-screen transition-all duration-300 ml-0 md:ml-64">
+
+  <!-- Top Header -->
+  <header class="sticky top-0 z-30 glass border-b border-slate-800">
+    <div class="px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+
+        <div class="flex items-center gap-4">
+          <button @click="mobileSidebarOpen = !mobileSidebarOpen; sidebarOpen = !sidebarOpen"
+                  class="md:hidden h-10 w-10 rounded-lg bg-slate-800/50 border border-slate-700 flex items-center justify-center hover:bg-slate-700/50 transition-colors hover-lift">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x-show="!sidebarOpen"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x-show="sidebarOpen" style="display:none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+          <div class="hidden md:flex items-center gap-2">
+            <span class="text-slate-400">Dashboard</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-500"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <span class="text-white font-medium">Overview</span>
+          </div>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-6">
+          <div class="flex items-center gap-2">
+            <div class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
+            <span class="text-sm text-slate-300"><%= marketData?.marketOpen ? 'Market Open' : 'Market Closed' %></span>
+          </div>
+          <div class="text-sm">
+            <span class="text-slate-400">BTC:</span>
+            <span class="text-emerald-400 font-medium ml-1" x-text="'$' + cryptoPrices.btc.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"></span>
+          </div>
+          <div class="text-sm">
+            <span class="text-slate-400">ETH:</span>
+            <span class="text-emerald-400 font-medium ml-1" x-text="'$' + cryptoPrices.eth.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"></span>
+          </div>
+          <div class="text-sm">
+            <span class="text-slate-400">SOL:</span>
+            <span class="text-emerald-400 font-medium ml-1" x-text="'$' + cryptoPrices.sol.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})"></span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="/deposit-withdrawal"
+             class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg gradient-primary text-sm font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all hover-lift">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Quick Deposit
+          </a>
+
+          <div class="relative">
+            <button @click="notificationOpen = !notificationOpen"
+                    class="h-10 w-10 rounded-lg bg-slate-800/50 border border-slate-700 flex items-center justify-center hover:bg-slate-700/50 transition-colors relative">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            </button>
+          </div>
+
+          <div class="relative">
+            <button @click="userMenuOpen = !userMenuOpen"
+                    class="flex items-center gap-3 px-3 py-2 rounded-lg bg-slate-800/50 border border-slate-700 hover:bg-slate-700/50 transition-colors hover-lift min-w-[180px]">
+              <div class="h-8 w-8 rounded-full gradient-primary flex items-center justify-center font-semibold text-white shadow">
+                <%= (user.name || user.username).slice(0,1).toUpperCase() %>
+              </div>
+              <div class="text-left flex-1">
+                <p class="text-sm font-medium text-white truncate"><%= user.username %></p>
+                <p class="text-xs text-slate-400">Balance: $<%= Number(user.balance || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></p>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400 transition-transform duration-200" :class="{'rotate-180': userMenuOpen}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+
+            <div x-show="userMenuOpen"
+                 @click.outside="userMenuOpen = false"
+                 class="absolute right-0 mt-2 w-56 bg-slate-800/90 backdrop-blur-xl border border-slate-700 rounded-xl shadow-2xl py-2 z-50"
+                 x-cloak
+                 x-transition:enter="transition ease-out duration-100"
+                 x-transition:enter-start="transform opacity-0 scale-95"
+                 x-transition:enter-end="transform opacity-100 scale-100"
+                 x-transition:leave="transition ease-in duration-75"
+                 x-transition:leave-start="transform opacity-100 scale-100"
+                 x-transition:leave-end="transform opacity-0 scale-95">
+              <div class="px-4 py-3 border-b border-slate-700">
+                <p class="text-sm font-medium text-white"><%= user.name || user.username %></p>
+                <p class="text-xs text-slate-400 mt-1"><%= user.kycStatus || 'Not Verified' %></p>
+              </div>
+              <div class="py-2">
+                <a href="/account" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700/50 transition-colors text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span>Profile Settings</span></a>
+                <a href="/kyc-verification" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700/50 transition-colors text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg><span>KYC Verification</span></a>
+                <a href="/support" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700/50 transition-colors text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg><span>Help & Support</span></a>
+              </div>
+              <div class="border-t border-slate-700 pt-2">
+                <a href="/logout" class="flex items-center gap-3 px-4 py-2.5 text-red-400 hover:bg-red-500/10 transition-colors text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg><span>Logout</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="p-4 sm:p-6 lg:p-8">
+    <% if (typeof impersonating !== 'undefined' && impersonating) { %>
+      <div class="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <span>Account preview mode is active.</span>
+        <a href="/secure/stop-preview" class="inline-flex items-center justify-center rounded-lg bg-amber-500 px-3 py-2 text-xs font-semibold text-slate-950 hover:bg-amber-400">
+          Exit Preview
+        </a>
+      </div>
+    <% } %>
+    <div class="max-w-7xl mx-auto space-y-6 animate-fade-in-up">
+
+      <!-- Welcome Card -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2">
+          <div class="rounded-2xl p-6 gradient-primary shadow-xl hover-lift premium-hero">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-2xl font-bold text-white mb-2">Welcome back, <%= user.name || user.username %>! 👋</h2>
+                <p class="text-blue-100">Here's what's happening with your portfolio today.</p>
+                <div class="flex items-center gap-4 mt-4">
+                  <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg>
+                    <span class="text-white text-sm">Market: <span class="font-semibold"><%= marketData?.marketOpen ? 'Open' : 'Closed' %></span></span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    <span class="text-white text-sm">KYC: <span class="font-semibold"><%= user.kycStatus || 'Not Verified' %></span></span>
+                  </div>
+                </div>
+              </div>
+              <div class="hidden lg:block">
+                <div class="h-24 w-24 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-white animate-float"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="premium-card rounded-xl p-4 hover-lift">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm text-slate-400">Open Trades</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            </div>
+            <p class="text-2xl font-bold text-white"><%= openTrades || 0 %></p>
+            <p class="text-xs text-slate-500 mt-1">Active positions</p>
+          </div>
+          <div class="premium-card rounded-xl p-4 hover-lift">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm text-slate-400">Win Rate</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21" y1="3" x2="15" y2="9"></line><line x1="3" y1="21" x2="9" y2="15"></line></svg>
+            </div>
+            <p class="text-2xl font-bold text-white"><%= user.winRate || '0.0' %>%</p>
+            <p class="text-xs text-slate-500 mt-1">All time</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial Overview -->
+      <div class="premium-card rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-lg font-semibold text-white">Financial Overview</h3>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="premium-card rounded-xl p-4 hover-lift">
+            <div class="flex items-center justify-between mb-3">
+              <div class="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M21 12v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3"></path><path d="M12 2v8M9 7l3 3 3-3"></path></svg>
+              </div>
+            </div>
+            <p class="text-sm text-slate-400 mb-1">Total Deposit</p>
+            <p class="text-2xl font-bold text-white">$<%= Number(user.totalDeposit || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></p>
+          </div>
+
+          <div class="premium-card rounded-xl p-4 hover-lift">
+            <div class="flex items-center justify-between mb-3">
+              <div class="h-10 w-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+              </div>
+            </div>
+            <p class="text-sm text-slate-400 mb-1">Total Balance</p>
+            <p class="text-2xl font-bold text-white">$<%= Number(user.balance || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></p>
+          </div>
+
+          <div class="premium-card rounded-xl p-4 hover-lift">
+            <div class="flex items-center justify-between mb-3">
+              <div class="h-10 w-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400"><polygon points="20 12 20 22 4 22 4 12 12 2 20 12"></polygon><line x1="12" y1="22" x2="12" y2="12"></line><line x1="12" y1="12" x2="20" y2="12"></line><line x1="12" y1="12" x2="4" y2="12"></line></svg>
+              </div>
+            </div>
+            <p class="text-sm text-slate-400 mb-1">Bonus</p>
+            <p class="text-2xl font-bold text-white">$<%= Number(user.bonus || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></p>
+          </div>
+
+          <div class="premium-card rounded-xl p-4 hover-lift">
+            <div class="flex items-center justify-between mb-3">
+              <div class="h-10 w-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-400"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg>
+              </div>
+            </div>
+            <p class="text-sm text-slate-400 mb-1">Total Profit</p>
+            <p class="text-2xl font-bold <%= (user.totalProfit || 0) >= 0 ? 'text-emerald-400' : 'text-red-400' %>">
+              $<%= Number(user.totalProfit || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+          <div class="bg-slate-800/30 rounded-xl p-4 border border-slate-700/50">
+            <div class="flex items-center gap-3">
+              <div class="h-8 w-8 rounded-lg bg-red-500/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-400"><path d="M12 5v14M5 12h14"></path></svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-400">Total Withdrawal</p>
+                <p class="text-lg font-semibold text-white">$<%= Number(user.totalWithdrawal || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-slate-800/30 rounded-xl p-4 border border-slate-700/50">
+            <div class="flex items-center gap-3">
+              <div class="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><line x1="12" y1="2" x2="12" y2="22"></line><path d="M17 7l-5-5-5 5"></path></svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-400">Net Profit</p>
+                <p class="text-lg font-semibold text-white">$<%= Number(user.netProfit || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-slate-800/30 rounded-xl p-4 border border-slate-700/50">
+            <div class="flex items-center gap-3">
+              <div class="h-8 w-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-400">Referral Bonus</p>
+                <p class="text-lg font-semibold text-white">$<%= Number(user.referralBonus || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-slate-800/30 rounded-xl p-4 border border-slate-700/50">
+            <div class="flex items-center gap-3">
+              <div class="h-8 w-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-400">Active Trades</p>
+                <p class="text-lg font-semibold text-white"><%= openTrades || 0 %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Crypto Prices -->
+      <div class="bg-slate-800/50 rounded-2xl p-4 border border-slate-700/50">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold text-white">Live Crypto Prices</h3>
+          <a href="/stocks" class="text-sm text-blue-400 hover:text-blue-300">View All</a>
+        </div>
+        <div class="flex overflow-x-auto space-x-4 pb-2">
+          <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-700/30 min-w-[180px]">
+            <div class="h-10 w-10 rounded-full bg-orange-500/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-400"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8M8 12h8"></path></svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-white">BTC/USD</p>
+              <div class="flex items-center gap-1 mt-1">
+                <span class="text-lg font-bold text-white" x-text="'$' + cryptoPrices.btc.toLocaleString('en-US', {minimumFractionDigits: 0})"></span>
+                <span class="text-xs <%= (marketData?.btcChange >= 0) ? 'text-emerald-400' : 'text-red-400' %>"><%= marketData?.btcChange >= 0 ? '+' : '' %><%= marketData?.btcChange %>%</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-700/30 min-w-[180px]">
+            <div class="h-10 w-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8M8 12h8"></path></svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-white">ETH/USD</p>
+              <div class="flex items-center gap-1 mt-1">
+                <span class="text-lg font-bold text-white" x-text="'$' + cryptoPrices.eth.toLocaleString('en-US', {minimumFractionDigits: 2})"></span>
+                <span class="text-xs <%= (marketData?.ethChange >= 0) ? 'text-emerald-400' : 'text-red-400' %>"><%= marketData?.ethChange >= 0 ? '+' : '' %><%= marketData?.ethChange %>%</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-700/30 min-w-[180px]">
+            <div class="h-10 w-10 rounded-full bg-purple-500/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-400"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-white">SOL/USD</p>
+              <div class="flex items-center gap-1 mt-1">
+                <span class="text-lg font-bold text-white" x-text="'$' + cryptoPrices.sol.toLocaleString('en-US', {minimumFractionDigits: 2})"></span>
+                <span class="text-xs <%= (marketData?.solChange >= 0) ? 'text-emerald-400' : 'text-red-400' %>"><%= marketData?.solChange >= 0 ? '+' : '' %><%= marketData?.solChange %>%</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-700/30 min-w-[180px]">
+            <div class="h-10 w-10 rounded-full bg-cyan-500/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-white">ADA/USD</p>
+              <div class="flex items-center gap-1 mt-1">
+                <span class="text-lg font-bold text-white" x-text="'$' + cryptoPrices.ada.toFixed(3)"></span>
+                <span class="text-xs <%= (marketData?.adaChange >= 0) ? 'text-emerald-400' : 'text-red-400' %>"><%= marketData?.adaChange >= 0 ? '+' : '' %><%= marketData?.adaChange %>%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-slate-800/50 rounded-2xl p-4 border border-slate-700/50 hover-lift">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-white">BTC/USD Live Chart</h3>
+            <select id="symbolSelect" class="px-3 py-1.5 rounded-lg bg-slate-700/50 border border-slate-600 text-sm focus:outline-none text-white">
+              <option value="BTCUSD">BTC/USD</option>
+              <option value="ETHUSD">ETH/USD</option>
+              <option value="SOLUSD">SOL/USD</option>
+              <option value="AAPL">AAPL</option>
+              <option value="TSLA">TSLA</option>
+            </select>
+          </div>
+          <div id="tradingview_chart" class="h-[400px] rounded-xl overflow-hidden"></div>
+        </div>
+
+        <div class="bg-slate-800/50 rounded-2xl p-4 border border-slate-700/50 hover-lift">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="text-lg font-semibold text-white">Portfolio Performance</h3>
+              <p class="text-sm text-slate-400">30-day simulated growth</p>
+            </div>
+          </div>
+          <div id="performanceChart" style="height: 350px;"></div>
+        </div>
+      </div>
+
+      <!-- Recent Activity & Holdings -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 hover-lift">
+          <h3 class="text-lg font-semibold text-white mb-6">Recent Trades</h3>
+          <div class="space-y-4">
+            <% if (!trades || trades.length === 0) { %>
+              <div class="text-center py-8">
+                <div class="h-16 w-16 rounded-full bg-slate-700/50 flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                </div>
+                <p class="text-slate-300 mb-2">No trades yet</p>
+                <a href="/stocks" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/10 text-blue-300 hover:bg-blue-500/20 transition-colors text-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  Start Trading
+                </a>
+              </div>
+            <% } else { %>
+              <% trades.slice(0, 5).forEach(t => { %>
+                <div class="flex items-start gap-3">
+                  <div class="h-10 w-10 rounded-full <%= t.side === 'BUY' ? 'bg-emerald-500/10' : 'bg-red-500/10' %> flex items-center justify-center flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="<%= t.side === 'BUY' ? 'text-emerald-400' : 'text-red-400' %>"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-white"><%= t.side %> <%= t.symbol || t.stockName %></p>
+                    <p class="text-xs text-slate-400"><%= t.quantity %> shares @ $<%= Number(t.price).toFixed(2) %></p>
+                    <span class="text-xs text-slate-500"><%= t.timestamp ? new Date(t.timestamp).toLocaleString() : '' %></span>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-sm font-medium <%= t.profit >= 0 ? 'text-emerald-400' : 'text-red-400' %>">
+                      <%= t.profit >= 0 ? '+' : '' %>$<%= Number(t.profit || 0).toFixed(2) %>
+                    </p>
+                  </div>
+                </div>
+              <% }) %>
+              <a href="/trading-history" class="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-slate-700/30 hover:bg-slate-700/50 transition-colors text-sm text-slate-300 mt-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                View All Trades
+              </a>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Holdings -->
+        <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 hover-lift">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-lg font-semibold text-white">Top Holdings</h3>
+            <a href="/stocks" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">View All</a>
+          </div>
+          <div class="space-y-4">
+            <% if (!holdings || holdings.length === 0) { %>
+              <div class="text-center py-8">
+                <div class="h-16 w-16 rounded-full bg-slate-700/50 flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-400"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                </div>
+                <p class="text-slate-300 mb-2">No holdings yet</p>
+                <a href="/stocks" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/10 text-blue-300 hover:bg-blue-500/20 transition-colors text-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  Add Stocks
+                </a>
+              </div>
+            <% } else { %>
+              <% holdings.slice(0, 5).forEach(h => { %>
+                <div class="flex items-center justify-between p-3 rounded-lg bg-slate-700/30 hover:bg-slate-700/50 transition-colors">
+                  <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
+                      <span class="font-bold text-slate-300 text-sm"><%= h.symbol.slice(0,2) %></span>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium text-white"><%= h.symbol %></p>
+                      <p class="text-xs text-slate-400"><%= h.quantity %> shares</p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-sm font-medium text-white">$<%= Number(h.currentPrice || h.avgPrice).toFixed(2) %></p>
+                    <p class="text-xs <%= (h.plPercent || 0) >= 0 ? 'text-emerald-400' : 'text-red-400' %>">
+                      <%= (h.plPercent || 0) >= 0 ? '↗' : '↘' %> <%= Math.abs(h.plPercent || 0).toFixed(1) %>%
+                    </p>
+                  </div>
+                </div>
+              <% }) %>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/kyc-verification" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-4 border border-slate-700 hover-lift group">
+          <div class="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-1">KYC Verification</h4>
+          <p class="text-xs text-slate-400"><%= user.kycStatus === 'Verified' ? 'Account verified ✓' : 'Complete verification' %></p>
+        </a>
+        <a href="/copy-trader" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-4 border border-slate-700 hover-lift group">
+          <div class="h-12 w-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-400"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-1">Copy Trading</h4>
+          <p class="text-xs text-slate-400">Follow expert traders</p>
+        </a>
+        <a href="/packages" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-4 border border-slate-700 hover-lift group">
+          <div class="h-12 w-12 rounded-lg bg-amber-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-1">Packages</h4>
+          <p class="text-xs text-slate-400">Upgrade your account</p>
+        </a>
+        <a href="/package-history" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-4 border border-slate-700 hover-lift group">
+          <div class="h-12 w-12 rounded-lg bg-cyan-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400"><path d="M21 8a2 2 0 0 0-1-1.73L13 2.27a2 2 0 0 0-2 0L4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="M3.3 7 12 12l8.7-5"></path><path d="M12 22V12"></path></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-1">Package History</h4>
+          <p class="text-xs text-slate-400">Review subscriptions</p>
+        </a>
+        <a href="/pl-record" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-4 border border-slate-700 hover-lift group">
+          <div class="h-12 w-12 rounded-lg bg-rose-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-rose-400"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-1">P/L Record</h4>
+          <p class="text-xs text-slate-400">Track gains and losses</p>
+        </a>
+        <a href="/transactions-history" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-4 border border-slate-700 hover-lift group">
+          <div class="h-12 w-12 rounded-lg bg-indigo-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 3v6h6"></path><path d="M12 7v5l3 2"></path></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-1">Funding History</h4>
+          <p class="text-xs text-slate-400">Deposits and withdrawals</p>
+        </a>
+        <a href="/support" class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-4 border border-slate-700 hover-lift group">
+          <div class="h-12 w-12 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          </div>
+          <h4 class="font-semibold text-white mb-1">24/7 Support</h4>
+          <p class="text-xs text-slate-400">Get help anytime</p>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="mt-8 py-6 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="text-sm text-slate-500">&copy; <%= new Date().getFullYear() %> Kortex Prime. All rights reserved.</div>
+        <div class="flex items-center gap-6 text-sm text-slate-500">
+          <a href="/support" class="hover:text-slate-300 transition-colors">Support</a>
+          <a href="/account" class="hover:text-slate-300 transition-colors">Privacy Policy</a>
+          <a href="/account" class="hover:text-slate-300 transition-colors">Terms of Service</a>
+        </div>
+      </div>
+      <div class="text-center text-xs text-slate-600 mt-4">Trading involves risk. Past performance is not indicative of future results.</div>
+    </div>
+  </footer>
+</div>
+
+<!-- Mobile Downbar -->
+<nav class="mobile-downbar md:hidden fixed inset-x-0 bottom-0 z-50 border-t border-slate-800 bg-slate-950/95 backdrop-blur-xl">
+  <div class="grid grid-cols-5 px-2 pt-2 text-[11px] font-medium">
+    <a href="/dashboard" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/dashboard' ? 'text-blue-300 bg-blue-500/10' : 'text-slate-400 hover:text-white' %>">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span class="truncate">Home</span>
+    </a>
+
+    <a href="/stocks" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/stocks' ? 'text-blue-300 bg-blue-500/10' : 'text-slate-400 hover:text-white' %>">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg>
+      <span class="truncate">Market</span>
+    </a>
+
+    <a href="/deposit-withdrawal" class="relative -mt-5 flex flex-col items-center gap-1 rounded-2xl px-1 py-2 text-white">
+      <span class="flex h-12 w-12 items-center justify-center rounded-2xl gradient-primary shadow-lg shadow-blue-500/25">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </span>
+      <span class="truncate text-slate-200">Deposit</span>
+    </a>
+
+    <a href="/trading-history" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/trading-history' ? 'text-blue-300 bg-blue-500/10' : 'text-slate-400 hover:text-white' %>">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      <span class="truncate">History</span>
+    </a>
+
+    <a href="/account" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/account' ? 'text-blue-300 bg-blue-500/10' : 'text-slate-400 hover:text-white' %>">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span class="truncate">Account</span>
+    </a>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Initialize Lucide icons if available
+    if (typeof lucide !== 'undefined' && lucide.createIcons) {
+      lucide.createIcons();
+    }
+
+    // Performance Chart
+    if (typeof ApexCharts !== 'undefined') {
+      const perfData = <%- JSON.stringify(performanceData || [10000, 10200, 10150, 10300, 10500, 10700, 10650, 10800, 11000, 11200, 11100, 11300, 11500, 11700, 11800, 12000, 11900, 12100, 12300, 12500, 12700, 12800, 13000, 13200, 13400, 13300, 13500, 13700, 13800, 14000]) %>
+      const labels = perfData.map((_, i) => 'Day ' + (i + 1))
+
+      new ApexCharts(document.querySelector("#performanceChart"), {
+        series: [{ name: 'Portfolio Value', data: perfData }],
+        chart: { type: 'area', height: 350, toolbar: { show: false }, background: 'transparent', foreColor: '#94a3b8' },
+        colors: ['#3b82f6'],
+        dataLabels: { enabled: false },
+        stroke: { curve: 'smooth', width: 3 },
+        fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.6, opacityTo: 0.1 } },
+        xaxis: { categories: labels, labels: { style: { colors: '#94a3b8' }, rotate: 0, hideOverlappingLabels: true } },
+        yaxis: { labels: { style: { colors: '#94a3b8' }, formatter: v => '$' + v.toLocaleString() } },
+        grid: { borderColor: '#334155', strokeDashArray: 4 },
+        tooltip: { theme: 'dark', y: { formatter: v => '$' + v.toLocaleString() } }
+      }).render()
+    }
+
+    // TradingView Chart
+    if (typeof TradingView !== 'undefined' && TradingView.widget) {
+      function loadChart(symbol) {
+        const chartContainer = document.getElementById('tradingview_chart');
+        if (chartContainer) {
+          chartContainer.innerHTML = '';
+          new TradingView.widget({
+            container_id: 'tradingview_chart',
+            width: '100%',
+            height: '400',
+            symbol: symbol,
+            interval: '60',
+            timezone: 'Etc/UTC',
+            theme: 'dark',
+            style: '1',
+            locale: 'en',
+            toolbar_bg: '#0f172a',
+            enable_publishing: false,
+            allow_symbol_change: true,
+            details: true,
+            studies: ['MACD@tv-basicstudies', 'RSI@tv-basicstudies']
+          });
+        }
+      }
+
+      loadChart('BITSTAMP:BTCUSD');
+
+      const symbolSelect = document.getElementById('symbolSelect');
+      if (symbolSelect) {
+        symbolSelect.addEventListener('change', function (e) {
+          const map = { BTCUSD: 'BITSTAMP:BTCUSD', ETHUSD: 'BITSTAMP:ETHUSD', SOLUSD: 'BINANCE:SOLUSD', AAPL: 'NASDAQ:AAPL', TSLA: 'NASDAQ:TSLA' };
+          loadChart(map[e.target.value] || e.target.value);
+        });
+      }
+    }
+  });
+</script>
+
+<% if (typeof toast !== 'undefined' && toast && toast.message) { %>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof Swal !== 'undefined') {
+      Swal.fire({
+        icon: '<%= toast.type || 'info' %>',
+        title: '<%= toast.message %>',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#0f172a',
+        color: '#f8fafc',
+        customClass: { popup: 'border border-slate-700' }
+      });
+    }
+  });
+</script>
+<% } %>
+
+</body>
+</html>

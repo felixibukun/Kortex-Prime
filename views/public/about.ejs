@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>About Kortex Prime - Professional Trading Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Learn about Kortex Prime - A leading professional trading platform offering institutional-grade tools for all traders.">
+<meta name="keywords" content="about Kortex Prime, trading platform company, forex trading company, cryptocurrency trading, institutional trading">
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+<!-- Bootstrap -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+:root {
+    --kortex-primary: #0066FF;
+    --kortex-secondary: #00D4FF;
+    --kortex-accent: #7B3FE4;
+    --kortex-dark: #0A0F2B;
+    --kortex-darker: #070B1F;
+    --kortex-card: #111837;
+    --kortex-green: #00C853;
+    --kortex-red: #FF3B30;
+    --kortex-yellow: #FFCC00;
+    --kortex-orange: #FF6B00;
+}
+
+body {
+    background: var(--kortex-dark);
+    color: #FFFFFF !important;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Force white text on all elements */
+h1, h2, h3, h4, h5, h6,
+p, span, div, a:not(.btn),
+li, td, th, small, strong {
+    color: #FFFFFF !important;
+}
+
+/* Trading Terminal Style Header */
+#trading-header {
+    background: var(--kortex-darker);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 8px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+}
+
+.market-ticker {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ticker-item {
+    display: inline-block;
+    padding: 0 20px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    color: #FFFFFF;
+}
+
+.ticker-item:last-child {
+    border-right: none;
+}
+
+.ticker-item .price {
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.ticker-item .change {
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.change.positive { color: var(--kortex-green) !important; }
+.change.negative { color: var(--kortex-red) !important; }
+
+/* Enhanced Navigation */
+.navbar {
+    background: rgba(10, 15, 43, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 102, 255, 0.1);
+    padding: 15px 0;
+}
+
+.nav-link {
+    color: #FFFFFF !important;
+    font-weight: 500;
+    margin: 0 8px;
+    padding: 8px 16px !important;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background: rgba(0, 102, 255, 0.1);
+}
+
+.nav-link.active {
+    background: rgba(0, 102, 255, 0.15);
+}
+
+/* About Hero */
+.about-hero {
+    background: linear-gradient(135deg, rgba(10,15,43,0.95) 0%, rgba(7,11,31,0.98) 100%);
+    padding: 120px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(0,102,255,0.1) 0%, transparent 70%);
+}
+
+.glow-text {
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Mission Section */
+.mission-section {
+    background: var(--kortex-darker);
+    position: relative;
+}
+
+.mission-card {
+    background: var(--kortex-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 40px;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.mission-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0,102,255,0.3);
+    box-shadow: 0 20px 40px rgba(0,102,255,0.15);
+}
+
+.mission-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.mission-icon i {
+    font-size: 36px;
+    color: white;
+}
+
+/* Values Section */
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.value-card {
+    background: var(--kortex-card);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+}
+
+.value-number {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--kortex-primary), var(--kortex-secondary));
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -45px;
+    top: 5px;
+    width: 24px;
+    height: 24px;
+    background: var(--kortex-primary);
+    border-radius: 50%;
+    border: 4px solid var(--kortex-darker);
+}
+
+.timeline-year {
+    color: var(--kortex-primary);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+/* Team Section */
+.team-card {
+    background: var(--kortex-card);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0,102,255,0.2);
+}
+
+.team-img {
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    position: relative;
+    overflow: hidden;
+}
+
+.team-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-info {
+    padding: 25px;
+}
+
+.team-social {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.team-social a {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.team-social a:hover {
+    background: var(--kortex-primary);
+    transform: translateY(-3px);
+}
+
+/* Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.stat-item {
+    padding: 30px;
+    background: var(--kortex-card);
+    border-radius: 12px;
+    border: 1px solid rgba(0,102,255,0.1);
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-secondary));
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,102,255,0.3);
+}
+
+.btn-outline-light {
+    border: 2px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: white !important;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    border-color: var(--kortex-primary);
+    background: rgba(0,102,255,0.1);
+}
+
+/* Footer */
+.footer {
+    background: var(--kortex-darker);
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-links a {
+    color: #B0B5C2 !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--kortex-primary) !important;
+}
+
+.legal-notice {
+    background: rgba(255, 59, 48, 0.1);
+    border: 1px solid rgba(255, 59, 48, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 30px;
+    color: #FFFFFF;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-in {
+    animation: slideIn 0.6s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .display-3 {
+        font-size: 2.5rem;
+    }
+    .about-hero {
+        padding: 80px 0 40px;
+    }
+    .timeline {
+        padding-left: 30px;
+    }
+    .timeline::before {
+        left: 10px;
+    }
+    .timeline-dot {
+        left: -35px;
+    }
+}
+</style>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body id="top">
+
+<!-- Trading Header with Live Ticker -->
+<div id="trading-header" class="d-none d-lg-block">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="market-ticker">
+                    <span class="ticker-item">EUR/USD: <span class="price">1.08542</span> <span class="change positive">+0.12%</span></span>
+                    <span class="ticker-item">GBP/USD: <span class="price">1.26510</span> <span class="change positive">+0.08%</span></span>
+                    <span class="ticker-item">BTC/USD: <span class="price">$42,156</span> <span class="change positive">+2.34%</span></span>
+                    <span class="ticker-item">ETH/USD: <span class="price">$2,245</span> <span class="change negative">-1.23%</span></span>
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <small>
+                    <i class="fas fa-clock me-1"></i> Market Hours: 24/5
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">
+            <span class="glow-text">KORTEX</span> TRADE
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/faq">FAQ</a>
+                </li>
+            </ul>
+            
+            <div class="d-flex align-items-center ms-lg-3">
+                <a href="/login" class="btn btn-outline-light btn-sm me-2">
+                    <i class="fas fa-sign-in-alt me-1"></i> Login
+                </a>
+                <a href="/signup" class="btn btn-primary btn-sm">
+                    <i class="fas fa-user-plus me-1"></i> Sign Up
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- About Hero -->
+<section class="about-hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 animate-in">
+                <h6 class="text-primary mb-3"><i class="fas fa-bullseye me-2"></i> ABOUT KORTEX PRIME</h6>
+                <h1 class="display-3 fw-bold mb-4">
+                    Redefining <span class="glow-text">Trading Excellence</span>
+                </h1>
+                <p class="lead mb-5" style="color: #B0B5C2;">
+                    Founded in 2015, Kortex Prime has grown from a visionary startup to a global leader in online trading. 
+                    We're committed to providing institutional-grade trading tools and conditions to traders of all levels.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="/signup" class="btn btn-primary">
+                        <i class="fas fa-user-plus me-2"></i> Join Our Community
+                    </a>
+                    <a href="/support" class="btn btn-outline-light">
+                        <i class="fas fa-envelope me-2"></i> Contact Us
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 animate-in" style="animation-delay: 0.2s;">
+                <div class="p-5">
+                    <div class="mission-card">
+                        <div class="mission-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3 class="mb-3">Our Mission</h3>
+                        <p style="color: #B0B5C2;">
+                            To democratize institutional-grade trading by providing professional tools, 
+                            education, and support to traders worldwide, regardless of their account size or experience level.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Company Stats -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="stats-grid">
+            <div class="stat-item animate-in">
+                <div class="stat-number">150K+</div>
+                <h6>Active Traders</h6>
+                <small>Global Community</small>
+            </div>
+            <div class="stat-item animate-in" style="animation-delay: 0.1s;">
+                <div class="stat-number">$2.1B+</div>
+                <h6>Monthly Volume</h6>
+                <small>Trading Activity</small>
+            </div>
+            <div class="stat-item animate-in" style="animation-delay: 0.2s;">
+                <div class="stat-number">25+</div>
+                <h6>Countries</h6>
+                <small>Global Presence</small>
+            </div>
+            <div class="stat-item animate-in" style="animation-delay: 0.3s;">
+                <div class="stat-number">99.99%</div>
+                <h6>Uptime</h6>
+                <small>Platform Reliability</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Story -->
+<section class="py-5 mission-section">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h6 class="text-primary mb-3"><i class="fas fa-history me-2"></i> OUR JOURNEY</h6>
+            <h2 class="display-5 fw-bold mb-4">From Vision to <span class="glow-text">Global Leader</span></h2>
+            <p class="lead" style="color: #B0B5C2; max-width: 700px; margin: 0 auto;">
+                Our journey began with a simple vision: to make professional trading accessible to everyone.
+            </p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="timeline">
+                    <div class="timeline-item animate-in">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2015</div>
+                        <h4 class="mb-3">Founding Vision</h4>
+                        <p style="color: #B0B5C2;">
+                            Kortex Prime was founded by a team of financial technology experts and traders who recognized 
+                            the need for a more accessible, transparent, and technologically advanced trading platform.
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-item animate-in" style="animation-delay: 0.1s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2017</div>
+                        <h4 class="mb-3">Platform Launch</h4>
+                        <p style="color: #B0B5C2;">
+                            Launched our proprietary trading platform with cutting-edge charting tools, 
+                            lightning-fast execution, and deep liquidity pools from multiple providers.
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-item animate-in" style="animation-delay: 0.2s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2019</div>
+                        <h4 class="mb-3">Global Expansion</h4>
+                        <p style="color: #B0B5C2;">
+                            Expanded operations to 15+ countries, obtained regulatory licenses, and 
+                            established partnerships with major financial institutions and liquidity providers.
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-item animate-in" style="animation-delay: 0.3s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2021</div>
+                        <h4 class="mb-3">Technology Innovation</h4>
+                        <p style="color: #B0B5C2;">
+                            Introduced AI-powered analytics, automated trading systems, and mobile trading apps 
+                            with full functionality. Reached 100,000+ active traders worldwide.
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-item animate-in" style="animation-delay: 0.4s;">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-year">2024</div>
+                        <h4 class="mb-3">Market Leadership</h4>
+                        <p style="color: #B0B5C2;">
+                            Recognized as one of the fastest-growing trading platforms, serving 150,000+ traders 
+                            with $2.1B+ monthly trading volume. Continual innovation in trading technology.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Values -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h6 class="text-primary mb-3"><i class="fas fa-star me-2"></i> OUR VALUES</h6>
+            <h2 class="display-5 fw-bold mb-4">What <span class="glow-text">Drives Us</span></h2>
+            <p class="lead" style="color: #B0B5C2; max-width: 700px; margin: 0 auto;">
+                Our core values guide every decision we make and define our company culture.
+            </p>
+        </div>
+        
+        <div class="values-grid">
+            <div class="value-card animate-in">
+                <div class="value-number">01</div>
+                <h4 class="mb-3">Transparency</h4>
+                <p style="color: #B0B5C2;">
+                    Complete transparency in pricing, execution, and business practices. No hidden fees, no surprises.
+                </p>
+            </div>
+            
+            <div class="value-card animate-in" style="animation-delay: 0.1s;">
+                <div class="value-number">02</div>
+                <h4 class="mb-3">Innovation</h4>
+                <p style="color: #B0B5C2;">
+                    Continuous improvement and technological innovation to provide the best trading experience.
+                </p>
+            </div>
+            
+            <div class="value-card animate-in" style="animation-delay: 0.2s;">
+                <div class="value-number">03</div>
+                <h4 class="mb-3">Security</h4>
+                <p style="color: #B0B5C2;">
+                    Bank-level security protocols, segregated client funds, and robust risk management systems.
+                </p>
+            </div>
+            
+            <div class="value-card animate-in" style="animation-delay: 0.3s;">
+                <div class="value-number">04</div>
+                <h4 class="mb-3">Education</h4>
+                <p style="color: #B0B5C2;">
+                    Empowering traders through comprehensive education, tools, and support for long-term success.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Leadership Team -->
+<section class="py-5 mission-section">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h6 class="text-primary mb-3"><i class="fas fa-users me-2"></i> LEADERSHIP TEAM</h6>
+            <h2 class="display-5 fw-bold mb-4">Meet Our <span class="glow-text">Leadership</span></h2>
+            <p style="color: #B0B5C2; max-width: 700px; margin: 0 auto;">
+                Our experienced leadership team combines decades of financial industry expertise with cutting-edge technology knowledge.
+            </p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="team-card animate-in">
+                    <div class="team-img">
+                        <!-- Placeholder for team member image -->
+                        <div class="d-flex align-items-center justify-content-center h-100">
+                            <i class="fas fa-user-tie fa-6x text-white"></i>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h4 class="mb-2">Alex Morgan</h4>
+                        <p class="text-primary mb-3">CEO & Founder</p>
+                        <p style="color: #B0B5C2; font-size: 14px;">
+                            Former hedge fund manager with 15+ years of trading experience. Founded Kortex Prime to democratize institutional trading.
+                        </p>
+                        <div class="team-social">
+                            <a href="/contact"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="/contact"><i class="fab fa-twitter"></i></a>
+                            <a href="/contact"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="team-card animate-in" style="animation-delay: 0.1s;">
+                    <div class="team-img">
+                        <div class="d-flex align-items-center justify-content-center h-100">
+                            <i class="fas fa-user-tie fa-6x text-white"></i>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h4 class="mb-2">Sarah Chen</h4>
+                        <p class="text-primary mb-3">CTO</p>
+                        <p style="color: #B0B5C2; font-size: 14px;">
+                            Technology visionary with expertise in fintech, AI, and blockchain. Leads our technology innovation and platform development.
+                        </p>
+                        <div class="team-social">
+                            <a href="/contact"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="/contact"><i class="fab fa-github"></i></a>
+                            <a href="/contact"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="team-card animate-in" style="animation-delay: 0.2s;">
+                    <div class="team-img">
+                        <div class="d-flex align-items-center justify-content-center h-100">
+                            <i class="fas fa-user-tie fa-6x text-white"></i>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h4 class="mb-2">Marcus Johnson</h4>
+                        <p class="text-primary mb-3">Chief Trading Officer</p>
+                        <p style="color: #B0B5C2; font-size: 14px;">
+                            Former institutional trader with expertise in risk management and quantitative strategies. Oversees trading operations.
+                        </p>
+                        <div class="team-social">
+                            <a href="/contact"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="/contact"><i class="fab fa-twitter"></i></a>
+                            <a href="/contact"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technology & Innovation -->
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 animate-in">
+                <h6 class="text-primary mb-3"><i class="fas fa-microchip me-2"></i> TECHNOLOGY</h6>
+                <h2 class="display-5 fw-bold mb-4">Built on <span class="glow-text">Cutting-Edge Tech</span></h2>
+                <p style="color: #B0B5C2; margin-bottom: 30px;">
+                    Our platform is powered by the latest technology stack, ensuring reliability, speed, and security for all our traders.
+                </p>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="text-primary me-3">
+                                <i class="fas fa-bolt fa-2x"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">12ms Average Execution</h6>
+                                <small>Lightning-fast trade execution</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="text-primary me-3">
+                                <i class="fas fa-shield-alt fa-2x"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Bank-Level Security</h6>
+                                <small>Military-grade encryption</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="text-primary me-3">
+                                <i class="fas fa-brain fa-2x"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">AI-Powered Analytics</h6>
+                                <small>Smart trading insights</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="text-primary me-3">
+                                <i class="fas fa-sync-alt fa-2x"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">99.99% Uptime</h6>
+                                <small>Maximum platform reliability</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 animate-in" style="animation-delay: 0.2s;">
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="mb-3">Our Technology Stack</h3>
+                    <p style="color: #B0B5C2;">
+                        We leverage cloud infrastructure, machine learning algorithms, and real-time data processing 
+                        to deliver a seamless trading experience. Our platform is built on:
+                    </p>
+                    <ul style="color: #B0B5C2; padding-left: 20px;">
+                        <li>Microservices architecture for scalability</li>
+                        <li>Real-time data streaming with WebSocket technology</li>
+                        <li>Advanced charting libraries for technical analysis</li>
+                        <li>Machine learning models for market prediction</li>
+                        <li>Blockchain technology for transparent record-keeping</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5" style="background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-dark));">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold mb-3">Join Our Growing <span class="glow-text">Trading Community</span></h2>
+                <p class="lead mb-4">Start your trading journey with a platform trusted by 150,000+ traders worldwide.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="d-flex flex-column flex-md-row gap-3">
+                    <a href="/signup" class="btn btn-light btn-lg">
+                        <i class="fas fa-user-plus me-2"></i> Open Account
+                    </a>
+                    <a href="/support" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-envelope me-2"></i> Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer pt-5">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <h3 class="fw-bold mb-4"><span class="glow-text">KORTEX</span> TRADE</h3>
+                <p style="color: #B0B5C2;">Advanced trading platform for serious traders. Institutional-grade tools for everyone.</p>
+                <div class="d-flex gap-3">
+                    <a href="/contact" class="btn btn-outline-light btn-sm"><i class="fab fa-twitter"></i></a>
+                    <a href="/contact" class="btn btn-outline-light btn-sm"><i class="fab fa-facebook-f"></i></a>
+                    <a href="/contact" class="btn btn-outline-light btn-sm"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <!-- <div class="col-lg-2 col-md-4">
+                <h6 class="mb-4">Pages</h6>
+                <div class="footer-links d-flex flex-column gap-2">
+                    <a href="/">Home</a>
+                    <a href="/about">About</a>
+                    <a href="/feature">Features</a>
+                    <a href="/offer">Plans</a>
+                    <a href="/faq">FAQ</a>
+                </div>
+            </div> -->
+            
+            <!-- <div class="col-lg-2 col-md-4">
+                <h6 class="mb-4">Services</h6>
+                <div class="footer-links d-flex flex-column gap-2">
+                    <a href="/service">Our Services</a>
+                    <a href="/team">Our Team</a>
+                    <a href="/testimonial">Testimonials</a>
+                    <a href="/feature">Features</a>
+                    <a href="/offer">Offers</a>
+                </div>
+            </div> -->
+            
+            <div class="col-lg-2 col-md-4">
+                <h6 class="mb-4">Account</h6>
+                <div class="footer-links d-flex flex-column gap-2">
+                    <a href="/login">Login</a>
+                    <a href="/signup">Sign Up</a>
+                    <a href="/dashboard">Dashboard</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="legal-notice mt-5">
+            <h6 class="text-warning mb-2"><i class="fas fa-exclamation-triangle me-2"></i> Risk Warning</h6>
+            <p class="small mb-0">Trading Forex, Cryptocurrencies, and CFDs carries a high level of risk and may not be suitable for all investors. The possibility exists that you could sustain a loss of some or all of your deposited funds. Before deciding to trade, you should carefully consider your investment objectives, experience level, and risk appetite.</p>
+        </div>
+        
+        <div class="text-center mt-5 pt-4 border-top border-secondary">
+            <p class="mb-0" style="color: #B0B5C2;">© 2024 Kortex Prime. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// Live Market Ticker
+function updateTicker() {
+    const pairs = [
+        { symbol: 'EUR/USD', price: 1.08542, change: 0.12 },
+        { symbol: 'GBP/USD', price: 1.26510, change: 0.08 },
+        { symbol: 'BTC/USD', price: 42156, change: 2.34 },
+        { symbol: 'ETH/USD', price: 2245, change: -1.23 }
+    ];
+    
+    pairs.forEach(pair => {
+        const fluctuation = (Math.random() - 0.5) * 0.1;
+        const newPrice = pair.price + (pair.price * fluctuation / 100);
+        const newChange = pair.change + fluctuation;
+        
+        const elements = document.querySelectorAll(`.ticker-item:contains("${pair.symbol}")`);
+        elements.forEach(el => {
+            if (el.innerHTML.includes(pair.symbol)) {
+                const isPositive = newChange >= 0;
+                el.innerHTML = `${pair.symbol}: <span class="price">${newPrice.toFixed(pair.symbol === 'BTC/USD' ? 0 : 5)}</span> <span class="change ${isPositive ? 'positive' : 'negative'}">${isPositive ? '+' : ''}${newChange.toFixed(2)}%</span>`;
+            }
+        });
+    });
+}
+
+// Animate elements on scroll
+document.addEventListener('DOMContentLoaded', function() {
+    // Update market data every 3 seconds
+    setInterval(updateTicker, 3000);
+    
+    // Initialize animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.mission-card, .stat-item, .timeline-item, .value-card, .team-card').forEach(el => {
+        observer.observe(el);
+    });
+    
+    // Team card hover effects
+    document.querySelectorAll('.team-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+            this.style.boxShadow = '0 25px 50px rgba(0,102,255,0.2)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'none';
+        });
+    });
+});
+</script>
+
+</body>
+</html>

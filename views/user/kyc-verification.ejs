@@ -1,0 +1,105 @@
+<!DOCTYPE html> <html lang="en" class="dark h-full"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>KYC Verification</title> <script src="https://cdn.tailwindcss.com"></script>
+ <link rel="stylesheet" href="/css/premium-ui.css">
+</head> <body class="min-h-screen bg-slate-950 text-white"> <header class="h-16 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl flex items-center"> <div class="w-full max-w-4xl mx-auto px-4 flex items-center justify-between"> <p class="text-sm font-semibold">KYC Verification</p> <a href="/dashboard" class="text-xs text-slate-300 hover:text-white">Back to dashboard</a> </div> </header> <main class="max-w-4xl mx-auto px-4 py-8 space-y-8">
+<section class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-lg">
+  <p class="text-sm font-semibold mb-4">Submit verification</p>
+
+  <form action="/kyc-verification" method="POST" class="space-y-4">
+
+    <div>
+      <label class="block text-xs text-slate-400 mb-1">Document type</label>
+      <select name="documentType" class="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-sm" required>
+        <option value="">Select document</option>
+        <option value="ID Card">ID Card</option>
+        <option value="Passport">Passport</option>
+        <option value="Driver License">Driver License</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-xs text-slate-400 mb-1">Document number</label>
+      <input
+        type="text"
+        name="documentNumber"
+        class="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-sm"
+        required
+      >
+    </div>
+
+    <div>
+      <label class="block text-xs text-slate-400 mb-1">Note for compliance (optional)</label>
+      <textarea
+        name="note"
+        rows="3"
+        class="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-sm"></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="w-full py-2.5 rounded-lg bg-blue-600 text-sm font-semibold">
+      Submit for review
+    </button>
+
+  </form>
+</section>
+
+<section class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-lg">
+  <p class="text-sm font-semibold mb-4">Your KYC requests</p>
+
+  <% if (!kycRequests || kycRequests.length === 0) { %>
+    <p class="text-xs text-slate-500">
+      You have not submitted any KYC yet.
+    </p>
+  <% } else { %>
+    <div class="overflow-x-auto text-xs">
+      <table class="w-full text-left">
+        <thead class="text-slate-400">
+          <tr>
+            <th class="px-2 py-2">Type</th>
+            <th class="px-2 py-2">Number</th>
+            <th class="px-2 py-2">Status</th>
+            <th class="px-2 py-2">Date</th>
+          </tr>
+        </thead>
+        <tbody class="text-slate-200">
+          <% kycRequests.forEach(r => { %>
+            <tr class="border-t border-slate-800">
+              <td class="px-2 py-2"><%= r.documentType %></td>
+              <td class="px-2 py-2"><%= r.documentNumber %></td>
+              <td class="px-2 py-2">
+                <% if (r.status === 'approved') { %>
+                  <span class="text-emerald-400 font-semibold">Approved</span>
+                <% } else if (r.status === 'rejected') { %>
+                  <span class="text-red-400 font-semibold">Rejected</span>
+                <% } else { %>
+                  <span class="text-amber-400 font-semibold">Pending</span>
+                <% } %>
+              </td>
+              <td class="px-2 py-2">
+                <%= new Date(r.createdAt).toLocaleString() %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</section>
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<% if (toast) { %>
+<script>
+  Swal.fire({
+    icon: '<%= toast.type %>',
+    title: '<%= toast.message %>',
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 2500
+  })
+</script>
+<% } %>
+   <%- include('mobile-downbar') %>
+</body> </html>

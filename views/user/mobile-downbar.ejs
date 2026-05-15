@@ -1,0 +1,45 @@
+<style>
+  @media (max-width: 767px) {
+    body {
+      padding-bottom: calc(78px + env(safe-area-inset-bottom));
+    }
+    .user-mobile-downbar {
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+    }
+    .user-mobile-downbar svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+</style>
+
+<nav class="user-mobile-downbar md:hidden fixed inset-x-0 bottom-0 z-50 border-t border-slate-800 bg-slate-950/95 backdrop-blur-xl">
+  <div class="grid grid-cols-5 px-2 pt-2 text-[11px] font-medium">
+    <a href="/dashboard" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/dashboard' ? 'text-blue-300 bg-blue-500/10' : 'text-slate-400 hover:text-white' %>">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span class="truncate">Home</span>
+    </a>
+
+    <a href="/stocks" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/stocks' ? 'text-blue-300 bg-blue-500/10' : 'text-slate-400 hover:text-white' %>">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg>
+      <span class="truncate">Market</span>
+    </a>
+
+    <a href="/deposit-withdrawal" class="relative -mt-5 flex flex-col items-center gap-1 rounded-2xl px-1 py-2 text-white">
+      <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg shadow-blue-500/25">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </span>
+      <span class="truncate text-slate-200">Deposit</span>
+    </a>
+
+    <a href="/trading-history" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/trading-history' ? 'text-blue-300 bg-blue-500/10' : 'text-slate-400 hover:text-white' %>">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      <span class="truncate">History</span>
+    </a>
+
+    <a href="/account" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/account' ? 'text-blue-300 bg-blue-500/10' : 'text-slate-400 hover:text-white' %>">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span class="truncate">Account</span>
+    </a>
+  </div>
+</nav>

@@ -1,0 +1,117 @@
+<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<style>
+  [x-cloak] { display: none !important; }
+  .admin-shell-sidebar {
+    transition: transform .25s ease, width .25s ease;
+  }
+  .admin-shell-main {
+    min-width: 0;
+  }
+  @media (min-width: 1024px) {
+    body.admin-shell-body {
+      padding-left: 78px;
+    }
+    body.admin-shell-body.admin-sidebar-expanded {
+      padding-left: 256px;
+    }
+    .admin-shell-sidebar.is-collapsed {
+      width: 78px;
+    }
+    .admin-shell-sidebar.is-expanded {
+      width: 256px;
+    }
+  }
+  @media (max-width: 1023px) {
+    body.admin-shell-body {
+      padding-bottom: calc(76px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+
+<div x-data="{ open: false, expanded: localStorage.getItem('adminSidebarExpanded') === 'true' }"
+     x-init="$watch('expanded', value => { localStorage.setItem('adminSidebarExpanded', value); document.body.classList.toggle('admin-sidebar-expanded', value) }); document.body.classList.add('admin-shell-body'); document.body.classList.toggle('admin-sidebar-expanded', expanded)"
+     @keydown.escape.window="open = false">
+
+  <button @click="open = true"
+          class="fixed left-4 top-4 z-[70] flex h-10 w-10 items-center justify-center rounded-xl border border-slate-700 bg-slate-900/95 text-white shadow-xl lg:hidden">
+    <span class="sr-only">Open menu</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+  </button>
+
+  <div x-show="open" x-cloak @click="open = false"
+       class="fixed inset-0 z-[55] bg-slate-950/70 backdrop-blur-sm lg:hidden"></div>
+
+  <aside class="admin-shell-sidebar fixed inset-y-0 left-0 z-[60] flex flex-col border-r border-slate-800 bg-slate-950/96 text-white shadow-2xl lg:translate-x-0"
+         :class="[
+           open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
+           expanded ? 'is-expanded w-64' : 'is-collapsed w-64 lg:w-[78px]'
+         ]">
+    <div class="flex h-16 items-center gap-3 border-b border-slate-800 px-4">
+      <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-400/20 bg-slate-900">
+        <img src="/img/logo.png?v=20260509" alt="Kortex Prime" class="h-9 w-9 object-contain">
+      </div>
+      <div class="min-w-0" x-show="expanded || open" x-transition>
+        <p class="text-sm font-bold">Admin Panel</p>
+        <p class="text-[11px] text-slate-400">Kortex Prime</p>
+      </div>
+      <button @click="expanded = !expanded" class="ml-auto hidden rounded-lg border border-slate-700 p-2 text-slate-300 hover:text-white lg:block">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition" :class="expanded ? 'rotate-180' : ''" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button @click="open = false" class="ml-auto rounded-lg border border-slate-700 p-2 text-slate-300 hover:text-white lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <nav class="flex-1 space-y-1 overflow-y-auto px-3 py-4 text-sm">
+      <% const adminNav = [
+        { href: '/admin', label: 'Dashboard', icon: 'grid' },
+        { href: '/admin/users', label: 'Users', icon: 'users' },
+        { href: '/admin/packages', label: 'Packages', icon: 'gift' },
+        { href: '/admin/deposits', label: 'Deposits', icon: 'wallet' },
+        { href: '/admin/deposit/add', label: 'Add Deposit', icon: 'plus' },
+        { href: '/admin/deposit-methods', label: 'Payment Methods', icon: 'card' },
+        { href: '/admin/withdrawals', label: 'Withdrawals', icon: 'bank' },
+        { href: '/admin/kyc', label: 'KYC Requests', icon: 'id' },
+        { href: '/admin/profile', label: 'Profile', icon: 'settings' }
+      ]; %>
+      <% adminNav.forEach(item => { %>
+        <a href="<%= item.href %>"
+           @click="open = false"
+           class="flex items-center gap-3 rounded-xl px-3 py-3 <%= currentPath === item.href ? 'border border-indigo-500/40 bg-indigo-500/20 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white' %>">
+          <span class="grid h-5 w-5 shrink-0 place-items-center">
+            <% if (item.icon === 'users') { %>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <% } else if (item.icon === 'wallet' || item.icon === 'card') { %>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            <% } else if (item.icon === 'plus') { %>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            <% } else if (item.icon === 'bank') { %>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="10" rx="2"/><path d="M12 3 3 8h18Z"/></svg>
+            <% } else if (item.icon === 'settings') { %>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4"/></svg>
+            <% } else { %>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <% } %>
+          </span>
+          <span class="whitespace-nowrap" x-show="expanded || open" x-transition><%= item.label %></span>
+        </a>
+      <% }) %>
+    </nav>
+
+    <div class="border-t border-slate-800 p-3">
+      <a href="/admin-logout" class="flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 px-3 py-3 text-sm font-bold text-white">
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <nav class="fixed inset-x-0 bottom-0 z-50 border-t border-slate-800 bg-slate-950/95 px-2 pb-[max(10px,env(safe-area-inset-bottom))] pt-2 text-[11px] font-medium backdrop-blur-xl lg:hidden">
+    <div class="grid grid-cols-5">
+      <a href="/admin" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/admin' ? 'bg-indigo-500/10 text-indigo-300' : 'text-slate-400' %>">Home</a>
+      <a href="/admin/users" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/admin/users' ? 'bg-indigo-500/10 text-indigo-300' : 'text-slate-400' %>">Users</a>
+      <a href="/admin/deposit/add" class="-mt-5 flex flex-col items-center gap-1 rounded-2xl px-1 py-2 text-white"><span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600">+</span><span>Deposit</span></a>
+      <a href="/admin/deposit-methods" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/admin/deposit-methods' ? 'bg-indigo-500/10 text-indigo-300' : 'text-slate-400' %>">Pay</a>
+      <a href="/admin/profile" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/admin/profile' ? 'bg-indigo-500/10 text-indigo-300' : 'text-slate-400' %>">Profile</a>
+    </div>
+  </nav>
+</div>

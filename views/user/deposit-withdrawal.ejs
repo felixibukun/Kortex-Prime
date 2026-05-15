@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en" class="dark h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deposit & Withdrawal | Kortex Prime</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/premium-ui.css">
+  
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { 
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'slide-up': 'slideUp 0.5s ease-out',
+            'fade-in': 'fadeIn 0.6s ease-out',
+            'pulse-soft': 'pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'shimmer': 'shimmer 2s linear infinite',
+            'glow': 'glow 2s ease-in-out infinite alternate',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            pulseSoft: {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '0.7' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            },
+            glow: {
+              '0%': { boxShadow: '0 0 20px rgba(6, 182, 212, 0.3)' },
+              '100%': { boxShadow: '0 0 40px rgba(6, 182, 212, 0.6)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Premium scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+    /* Glass morphism */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-item {
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-item:hover {
+      background: rgba(30, 41, 59, 0.6);
+      border-color: rgba(6, 182, 212, 0.3);
+      transform: translateX(4px);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+    }
+
+    /* Glass inputs */
+    .glass-input {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-input:focus {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(6, 182, 212, 0.6);
+      box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1), 0 0 20px rgba(6, 182, 212, 0.2);
+      outline: none;
+    }
+
+    /* Select dropdown */
+    select.glass-input {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+      background-position: right 0.75rem center;
+      background-repeat: no-repeat;
+      background-size: 1.5em 1.5em;
+      padding-right: 2.5rem;
+    }
+
+    select.glass-input option {
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #22d3ee, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gradient-green {
+      background: linear-gradient(135deg, #34d399, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Status badges */
+    .badge-approved {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+    }
+
+    .badge-pending {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fbbf24;
+      animation: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .badge-rejected {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #f87171;
+    }
+
+    /* Hover lift */
+    .hover-lift {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .hover-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.2);
+    }
+
+    /* Submit button */
+    .btn-submit {
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-submit::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .btn-submit:hover::before {
+      left: 100%;
+    }
+    .btn-submit:hover {
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* File input */
+    .file-input-wrapper {
+      position: relative;
+    }
+    .file-input-wrapper input[type="file"] {
+      cursor: pointer;
+    }
+    .file-input-wrapper input[type="file"]::file-selector-button {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #60a5fa;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      margin-right: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+    .file-input-wrapper input[type="file"]::file-selector-button:hover {
+      background: rgba(59, 130, 246, 0.3);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    /* Payment box */
+    .payment-details-box {
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      animation: fadeIn 0.4s ease-out;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-slate-950 font-sans text-white">
+
+  <!-- Animated Background -->
+  <div class="fixed inset-0 -z-10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.15),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(34,197,94,0.12),transparent_35%)]"></div>
+    <div class="absolute inset-0 bg-slate-950/90"></div>
+    
+    <!-- Animated particles -->
+    <div class="absolute top-20 left-10 w-2 h-2 bg-cyan-400/30 rounded-full animate-float"></div>
+    <div class="absolute top-40 right-20 w-3 h-3 bg-emerald-400/20 rounded-full animate-float" style="animation-delay: 2s;"></div>
+    <div class="absolute bottom-40 left-1/3 w-2 h-2 bg-blue-400/25 rounded-full animate-float" style="animation-delay: 4s;"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 h-16 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
+    <div class="mx-auto flex h-full w-full max-w-6xl items-center justify-between px-4">
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+          </svg>
+          <p class="text-sm font-bold tracking-wide">
+            <span class="gradient-text">Deposit & Withdrawal</span>
+          </p>
+        </div>
+      </div>
+
+      <a href="/dashboard" 
+         class="group flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-white hover:shadow-lg hover:shadow-cyan-400/10">
+        <svg class="w-4 h-4 transition group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        Back to Dashboard
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="mx-auto w-full max-w-6xl px-4 py-8 space-y-6">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Deposit Form -->
+      <section class="glass-card rounded-3xl p-6 shadow-2xl shadow-black/30 hover-lift" data-aos="fade-right" data-aos-duration="700">
+        
+        <!-- Header -->
+        <div class="mb-6">
+          <div class="flex items-center gap-3 mb-1">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-400/10 border border-emerald-400/20">
+              <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-white">Submit a Deposit</h2>
+              <p class="text-xs text-slate-500">Fund your account securely</p>
+            </div>
+          </div>
+        </div>
+
+        <form action="/deposit" method="POST" enctype="multipart/form-data" class="space-y-5">
+
+          <!-- Amount -->
+          <div class="animate-slide-up" style="animation-delay: 0.1s;">
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+              <span class="flex items-center gap-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Amount
+              </span>
+            </label>
+            <div class="relative">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold text-lg">$</span>
+              <input type="number"
+                     name="amount"
+                     min="1"
+                     required
+                     placeholder="0.00"
+                     class="w-full glass-input rounded-2xl pl-10 pr-4 py-3.5 text-sm text-white placeholder:text-slate-600 font-mono">
+            </div>
+            <p class="mt-1.5 text-[11px] text-slate-500">Minimum deposit: $1.00</p>
+          </div>
+
+          <!-- Method -->
+          <div class="animate-slide-up" style="animation-delay: 0.2s;">
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+              <span class="flex items-center gap-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                </svg>
+                Payment Method
+              </span>
+            </label>
+            <select id="methodSelect"
+                    name="method"
+                    required
+                    onchange="showDetails(this.value)"
+                    class="w-full glass-input rounded-2xl px-4 py-3.5 text-sm text-white font-medium">
+              <option value="">Select a payment method</option>
+              <% depositMethods.forEach(m => { %>
+                <option value="<%= m.name %>"><%= m.name %></option>
+              <% }) %>
+            </select>
+          </div>
+
+          <!-- Payment Details Box -->
+          <div id="paymentBox"
+               class="hidden payment-details-box rounded-2xl p-5 animate-fade-in">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex-1">
+                <p class="text-[11px] uppercase tracking-wider text-cyan-400 font-semibold mb-2">Payment Details</p>
+                <p id="paymentText" class="text-sm text-slate-200 break-all font-mono leading-relaxed"></p>
+              </div>
+              <button id="copyPaymentButton"
+                      type="button"
+                      onclick="copyDetails()"
+                      class="flex-shrink-0 flex items-center gap-2 rounded-xl bg-cyan-400/20 border border-cyan-400/30 px-4 py-2 text-xs font-semibold text-cyan-300 hover:bg-cyan-400/30 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                Copy
+              </button>
+            </div>
+            <div id="paymentQrWrap" class="hidden mt-5 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+              <p class="mb-3 text-[11px] uppercase tracking-wider text-cyan-400 font-semibold">Scan QR Code</p>
+              <img id="paymentQr"
+                   src=""
+                   alt="Payment QR code"
+                   class="h-40 w-40 rounded-xl border border-white/10 bg-white object-contain p-2">
+            </div>
+          </div>
+
+          <!-- Proof Upload -->
+          <div class="animate-slide-up" style="animation-delay: 0.3s;">
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+              <span class="flex items-center gap-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                Proof of Payment
+              </span>
+            </label>
+            <div class="file-input-wrapper">
+              <input type="file"
+                     name="proof"
+                     accept="image/*"
+                     required
+                     class="w-full glass-input rounded-2xl px-4 py-3 text-xs text-slate-400">
+            </div>
+            <p class="mt-2 text-[11px] text-slate-500 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              Upload a screenshot or photo of your payment confirmation.
+            </p>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn-submit w-full rounded-2xl py-4 text-sm font-black text-white flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+            </svg>
+            Submit Deposit
+          </button>
+
+        </form>
+      </section>
+
+      <!-- Deposit History -->
+      <section class="glass-card rounded-3xl p-6 shadow-2xl shadow-black/30" data-aos="fade-left" data-aos-duration="700">
+        
+        <!-- Header -->
+        <div class="mb-6">
+          <div class="flex items-center gap-3 mb-1">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/10 border border-cyan-400/20">
+              <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-white">Deposit History</h2>
+              <p class="text-xs text-slate-500">Track your recent deposits</p>
+            </div>
+          </div>
+          <% if (deposits && deposits.length > 0) { %>
+            <span class="inline-block mt-3 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold text-slate-400">
+              <%= deposits.length %> deposit<%= deposits.length > 1 ? 's' : '' %>
+            </span>
+          <% } %>
+        </div>
+
+        <% if (!deposits || deposits.length === 0) { %>
+          <!-- Empty State -->
+          <div class="flex min-h-[300px] flex-col items-center justify-center py-12 text-center animate-fade-in">
+            <div class="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+              <svg class="w-10 h-10 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">No deposits yet</h3>
+            <p class="max-w-sm text-sm leading-6 text-slate-500">
+              Your deposit history will appear here after your first deposit is processed.
+            </p>
+          </div>
+        <% } else { %>
+          <!-- History List -->
+          <div class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
+            <% deposits.forEach((d, index) => { %>
+              <div class="glass-item rounded-2xl p-4 animate-slide-up" style="animation-delay: <%= index * 0.08 %>s">
+                
+                <!-- Amount & Status Row -->
+                <div class="flex items-start justify-between gap-4 mb-4">
+                  <div>
+                    <p class="font-mono text-lg font-black text-white">$<%= Number(d.amount).toFixed(2) %></p>
+                    <p class="mt-1 text-xs text-slate-500 flex items-center gap-1.5">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                      </svg>
+                      <%= d.method %>
+                    </p>
+                  </div>
+
+                  <% if (d.status === 'approved') { %>
+                    <span class="badge-approved inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-bold uppercase">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                      </svg>
+                      Approved
+                    </span>
+                  <% } else if (d.status === 'rejected') { %>
+                    <span class="badge-rejected inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-bold uppercase">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                      </svg>
+                      Rejected
+                    </span>
+                  <% } else { %>
+                    <span class="badge-pending inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-bold uppercase">
+                      <svg class="w-3.5 h-3.5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                      </svg>
+                      Pending
+                    </span>
+                  <% } %>
+                </div>
+
+                <!-- Details Grid -->
+                <div class="grid grid-cols-2 gap-3 rounded-xl border border-white/5 bg-slate-950/50 p-3 text-xs">
+                  <div>
+                    <p class="text-slate-500 uppercase tracking-wide mb-1">Date</p>
+                    <p class="font-mono font-semibold text-slate-300"><%= new Date(d.createdAt).toLocaleString() %></p>
+                  </div>
+                  <div>
+                    <p class="text-slate-500 uppercase tracking-wide mb-1">Proof</p>
+                    <% if (d.proofUrl) { %>
+                      <a href="<%= d.proofUrl %>" target="_blank" class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-semibold transition">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                        View
+                      </a>
+                    <% } else { %>
+                      <span class="text-slate-600">—</span>
+                    <% } %>
+                  </div>
+                </div>
+
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      duration: 800,
+      offset: 50
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    const methods = <%- JSON.stringify(depositMethods) %>
+
+    function showDetails(name) {
+      const box = document.getElementById('paymentBox')
+      const text = document.getElementById('paymentText')
+      const select = document.getElementById('methodSelect')
+      const qrWrap = document.getElementById('paymentQrWrap')
+      const qr = document.getElementById('paymentQr')
+      const copyButton = document.getElementById('copyPaymentButton')
+
+      box.classList.add('hidden')
+      text.textContent = ''
+      qrWrap.classList.add('hidden')
+      qr.removeAttribute('src')
+      qr.alt = 'Payment QR code'
+      copyButton.classList.add('hidden')
+
+      if (!name) return
+
+      const method = methods.find(m => m.name === name)
+      if (!method) return
+
+      if (method.available === false) {
+        Swal.fire({
+          icon: 'info',
+          title: 'Not Available',
+          text: method.message || 'This payment method is not available at the moment.',
+          background: '#0f172a',
+          color: '#ffffff',
+          customClass: {
+            popup: 'rounded-2xl border border-white/10',
+            title: 'text-lg font-bold'
+          }
+        })
+        select.value = ''
+        return
+      }
+
+      const details = method.wallet || method.details || ''
+
+      if (details || method.qrImage) {
+        text.textContent = details || 'Scan the QR code below to complete your payment.'
+        copyButton.classList.toggle('hidden', !details)
+
+        if (method.qrImage) {
+          qr.src = method.qrImage
+          qr.alt = `${method.name} payment QR code`
+          qrWrap.classList.remove('hidden')
+        }
+
+        box.classList.remove('hidden')
+      }
+    }
+
+    function copyDetails() {
+      const text = document.getElementById('paymentText').textContent
+      if (!text) return
+      
+      navigator.clipboard.writeText(text).then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Copied!',
+          text: 'Payment details copied to clipboard.',
+          timer: 2000,
+          showConfirmButton: false,
+          background: '#0f172a',
+          color: '#ffffff',
+          customClass: {
+            popup: 'rounded-2xl border border-white/10'
+          }
+        })
+      })
+    }
+  </script>
+
+  <% if (toast) { %>
+  <script>
+    Swal.fire({
+      icon: '<%= toast.type %>',
+      title: '<%= toast.message %>',
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: '#0f172a',
+      color: '#ffffff',
+      customClass: {
+        popup: 'rounded-2xl border border-white/10',
+        title: 'text-sm font-semibold'
+      },
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+  </script>
+  <% } %>
+
+  <%- include('mobile-downbar') %>
+</body>
+</html>

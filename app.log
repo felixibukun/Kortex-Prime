@@ -1,0 +1,9 @@
+nohup: ignoring input
+
+> stock-market-website-template@1.0.0 start
+> node app.cjs
+
+[dotenv@17.2.3] injecting env (17) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+Server running on port 3004
+Dashboard: http://localhost:3004/dashboard
+Admin panel: http://localhost:3004/admin-login

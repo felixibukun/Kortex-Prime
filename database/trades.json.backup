@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1778337954376,
+    "userId": 1778337681896,
+    "stockId": 1,
+    "stockName": "Apple",
+    "symbol": "AAPL",
+    "side": "BUY",
+    "quantity": 1,
+    "price": 133.45,
+    "total": 133.45,
+    "profit": 0,
+    "timestamp": "2026-05-09T14:45:54.376Z"
+  }
+]

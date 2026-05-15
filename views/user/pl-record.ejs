@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P L Record</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body class="bg-slate-950 text-white">
+
+<header class="h-16 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl flex items-center">
+  <div class="max-w-5xl mx-auto w-full px-4 flex justify-between">
+    <p class="text-sm font-semibold">P L Record</p>
+    <a href="/dashboard" class="text-xs text-slate-300 hover:text-white">Back</a>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-4 py-8 space-y-6">
+
+  <!-- TOTAL P L -->
+  <section class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
+    <p class="text-sm font-semibold text-slate-300">Total Profit and Loss</p>
+    <p class="text-3xl font-bold mt-3 text-slate-100">
+      $<%= Number(totalProfit || 0).toFixed(2) %>
+    </p>
+  </section>
+
+  <!-- CLOSED TRADES -->
+  <section class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
+    <p class="text-sm font-semibold text-slate-300 mb-4">Closed Trades</p>
+
+    <% if (!holdings || holdings.length === 0) { %>
+
+      <p class="text-xs text-slate-400">No closed trades</p>
+
+    <% } else { %>
+
+      <div class="space-y-3 text-xs">
+
+        <% holdings.forEach(t => { %>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-400">Stock</span>
+              <span class="text-slate-200"><%= t.stockName %> (<%= t.symbol %>)</span>
+            </div>
+
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-400">Side</span>
+              <span class="text-slate-200"><%= t.side %></span>
+            </div>
+
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-400">Quantity</span>
+              <span class="text-slate-200"><%= t.quantity %></span>
+            </div>
+
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-400">Price</span>
+              <span class="text-slate-200">$<%= Number(t.price).toFixed(2) %></span>
+            </div>
+
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-400">Profit</span>
+
+              <% if (t.profit >= 0) { %>
+                <span class="text-emerald-400 font-semibold">+$<%= Number(t.profit).toFixed(2) %></span>
+              <% } else { %>
+                <span class="text-red-400 font-semibold">-$<%= Math.abs(t.profit).toFixed(2) %></span>
+              <% } %>
+
+            </div>
+
+            <div class="flex justify-between">
+              <span class="text-slate-400">Date</span>
+              <span class="text-slate-500"><%= new Date(t.timestamp).toLocaleString() %></span>
+            </div>
+
+          </div>
+
+        <% }) %>
+
+      </div>
+
+    <% } %>
+
+  </section>
+
+</main>
+
+  <%- include('mobile-downbar') %>
+</body>
+</html>

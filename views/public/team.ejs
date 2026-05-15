@@ -1,0 +1,55 @@
+<%
+const page = {
+  slug: 'team',
+  title: 'Trading Desk',
+  kicker: 'Operations Team',
+  heading: 'A broker-style desk behind every account workflow',
+  summary: 'Kortex Prime is structured around trading operations, funding review, KYC checks, support, and admin controls that keep user accounts organized.',
+  primaryText: 'Meet The Platform',
+  primaryHref: '/feature',
+  secondaryText: 'Contact Team',
+  secondaryHref: '/contact',
+  sectionTitle: 'Desk Responsibilities',
+  sectionIntro: 'The platform separates admin and user workflows so each side has the tools needed to manage trading accounts properly.',
+  marketRows: [
+    { name: 'Admin Desk', detail: 'Users, deposits, KYC, packages', value: 'Active' },
+    { name: 'Support Desk', detail: 'Account and transaction help', value: 'Ready' },
+    { name: 'User Desk', detail: 'Trading, funding, history', value: 'Live' }
+  ],
+  cards: [
+    { icon: 'fas fa-user-tie', title: 'Account Operations', body: 'Admins can review users, balances, deposits, withdrawals, KYC, and package activity.' },
+    { icon: 'fas fa-user-shield', title: 'Verification Review', body: 'KYC workflows help the team check submitted identity information before approval.' },
+    { icon: 'fas fa-wallet', title: 'Funding Review', body: 'Deposit and withdrawal requests are visible to administrators with status updates for users.' },
+    { icon: 'fas fa-chart-line', title: 'Trading Support', body: 'The desk helps users understand trading records, copy-trade activity, and package access.' },
+    { icon: 'fas fa-envelope-open', title: 'Notifications', body: 'Email alerts keep users informed when important account actions happen.' },
+    { icon: 'fas fa-tools', title: 'Platform Administration', body: 'Admin controls are separated from user files for cleaner maintenance and safer workflows.' }
+  ],
+  stats: [
+    { value: '24/7', label: 'Account visibility across trading, funding, and support records' },
+    { value: '100%', label: 'Deposit-funded spending logic for core account actions' },
+    { value: 'Multi-layer', label: 'User, admin, email, KYC, and transaction workflows' }
+  ],
+  workflowKicker: 'Account Flow',
+  workflowTitle: 'From registration to account activity, every step is tracked',
+  workflowIntro: 'The platform is built around the full broker journey: onboarding, verification, deposits, trading, copy trading, subscriptions, withdrawals, history, and support.',
+  steps: [
+    { title: 'Open and verify the account', body: 'A trader creates an account, completes profile details, and submits KYC when verification is required for stronger account trust.' },
+    { title: 'Fund with approved deposit methods', body: 'Deposit requests are recorded, reviewed from admin, and reflected in total deposit once approved.' },
+    { title: 'Trade, subscribe, or copy a strategy', body: 'Stocks, packages, and copy-trade allocations use deposit funds and write clear records into account history.' },
+    { title: 'Review outcomes and request withdrawals', body: 'Users can inspect transactions, P/L, packages, withdrawal history, and email confirmations before taking the next action.' }
+  ],
+  proofTitle: 'Professional Details That Make The Page Feel Real',
+  proofIntro: 'This page explains how Kortex Prime works as a connected account platform with funding, trading, support, and admin-backed review.',
+  notes: [
+    { title: 'Clear money model', body: 'The public content now explains that total deposit is the operational funding source for purchases, package upgrades, copy trading, and withdrawal checks.' },
+    { title: 'Connected account records', body: 'Trading history, P/L records, package history, withdrawal history, and transaction history are presented as part of one broker-grade account record.' },
+    { title: 'Admin-backed operations', body: 'Deposits, withdrawals, KYC, user details, password updates, and admin account entry are described as managed workflows rather than loose pages.' },
+    { title: 'Communication built in', body: 'The copy explains email updates for important user actions including deposits, withdrawals, trades, copy trading, KYC, profile changes, and package activity.' }
+  ],
+  ctaTitle: 'Built for organized account management',
+  ctaBody: 'Admin and user sections now have separate files and clear responsibilities.',
+  ctaText: 'Go To Login',
+  ctaHref: '/login'
+}
+%>
+<%- include('_broker-page', { page }) %>

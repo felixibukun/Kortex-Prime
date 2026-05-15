@@ -1,0 +1,55 @@
+<%
+const page = {
+  slug: 'contact',
+  title: 'Contact',
+  kicker: 'Support Desk',
+  heading: 'Talk to the Kortex Prime account team',
+  summary: 'Get help with deposits, withdrawals, login access, KYC verification, copy trading, package subscriptions, and account history.',
+  primaryText: 'Create Ticket',
+  primaryHref: '/support',
+  secondaryText: 'Login',
+  secondaryHref: '/login',
+  sectionTitle: 'How We Help',
+  sectionIntro: 'Support is organized around the account actions users perform most often inside the platform.',
+  marketRows: [
+    { name: 'Email', detail: 'kortexprime@gmail.com', value: 'Support' },
+    { name: 'Dashboard Help', detail: 'Available after login', value: 'Secure' },
+    { name: 'Account Reviews', detail: 'Deposits, KYC, withdrawals', value: 'Tracked' }
+  ],
+  cards: [
+    { icon: 'fas fa-money-check-alt', title: 'Deposit Support', body: 'Ask about payment methods, submitted deposit proof, approval status, and funding records.' },
+    { icon: 'fas fa-hand-holding-usd', title: 'Withdrawal Support', body: 'Get help with pending withdrawal requests, rejected payouts, and withdrawal history.' },
+    { icon: 'fas fa-id-card', title: 'KYC Support', body: 'Resolve identity verification issues and learn what information is needed for approval.' },
+    { icon: 'fas fa-lock', title: 'Login Help', body: 'Recover access or request secure assistance if account credentials need attention.' },
+    { icon: 'fas fa-copy', title: 'Copy Trading Help', body: 'Ask about following traders, stopping copy strategies, or understanding allocated funds.' },
+    { icon: 'fas fa-box', title: 'Package Help', body: 'Get support for package purchases, activation status, or subscription history.' }
+  ],
+  stats: [
+    { value: '24/7', label: 'Account visibility across trading, funding, and support records' },
+    { value: '100%', label: 'Deposit-funded spending logic for core account actions' },
+    { value: 'Multi-layer', label: 'User, admin, email, KYC, and transaction workflows' }
+  ],
+  workflowKicker: 'Account Flow',
+  workflowTitle: 'From registration to account activity, every step is tracked',
+  workflowIntro: 'The platform is built around the full broker journey: onboarding, verification, deposits, trading, copy trading, subscriptions, withdrawals, history, and support.',
+  steps: [
+    { title: 'Open and verify the account', body: 'A trader creates an account, completes profile details, and submits KYC when verification is required for stronger account trust.' },
+    { title: 'Fund with approved deposit methods', body: 'Deposit requests are recorded, reviewed from admin, and reflected in total deposit once approved.' },
+    { title: 'Trade, subscribe, or copy a strategy', body: 'Stocks, packages, and copy-trade allocations use deposit funds and write clear records into account history.' },
+    { title: 'Review outcomes and request withdrawals', body: 'Users can inspect transactions, P/L, packages, withdrawal history, and email confirmations before taking the next action.' }
+  ],
+  proofTitle: 'Professional Details That Make The Page Feel Real',
+  proofIntro: 'This page explains how Kortex Prime works as a connected account platform with funding, trading, support, and admin-backed review.',
+  notes: [
+    { title: 'Clear money model', body: 'The public content now explains that total deposit is the operational funding source for purchases, package upgrades, copy trading, and withdrawal checks.' },
+    { title: 'Connected account records', body: 'Trading history, P/L records, package history, withdrawal history, and transaction history are presented as part of one broker-grade account record.' },
+    { title: 'Admin-backed operations', body: 'Deposits, withdrawals, KYC, user details, password updates, and admin account entry are described as managed workflows rather than loose pages.' },
+    { title: 'Communication built in', body: 'The copy explains email updates for important user actions including deposits, withdrawals, trades, copy trading, KYC, profile changes, and package activity.' }
+  ],
+  ctaTitle: 'Need account help now?',
+  ctaBody: 'Logged-in users can use the support page for account-specific help.',
+  ctaText: 'Open Support',
+  ctaHref: '/support'
+}
+%>
+<%- include('_broker-page', { page }) %>

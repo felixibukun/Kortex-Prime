@@ -1,0 +1,55 @@
+<%
+const page = {
+  slug: 'service',
+  title: 'Broker Services',
+  kicker: 'Broker Services',
+  heading: 'Trading, funding, and account operations in one place',
+  summary: 'Kortex Prime provides a modern brokerage-style experience with funded trading, withdrawals, account verification, package subscriptions, copy trading, and responsive support.',
+  primaryText: 'Open Account',
+  primaryHref: '/signup',
+  secondaryText: 'Contact Desk',
+  secondaryHref: '/contact',
+  sectionTitle: 'What Kortex Prime Provides',
+  sectionIntro: 'From first deposit to trade execution and withdrawals, the platform is structured for clear account operations.',
+  marketRows: [
+    { name: 'Deposits', detail: 'Funding requests with admin review', value: 'Tracked' },
+    { name: 'Withdrawals', detail: 'Payout requests with status history', value: 'Reviewed' },
+    { name: 'Support', detail: 'Help for account and transaction issues', value: '24/7' }
+  ],
+  cards: [
+    { icon: 'fas fa-coins', title: 'Account Funding', body: 'Submit deposits through enabled methods and receive email updates when requests are submitted, approved, or rejected.' },
+    { icon: 'fas fa-arrow-up', title: 'Withdrawals', body: 'Request withdrawals from available deposit funds and follow the status through withdrawal history.' },
+    { icon: 'fas fa-chart-candlestick', title: 'Stock Trading', body: 'Buy and sell assets from the dashboard while keeping portfolio and P/L records updated.' },
+    { icon: 'fas fa-user-friends', title: 'Copy Trade Access', body: 'Choose a strategy provider, commit deposit funds, and manage active copy-trade positions.' },
+    { icon: 'fas fa-id-card', title: 'Verification Support', body: 'Upload KYC information and receive status updates as the admin team reviews the submission.' },
+    { icon: 'fas fa-box-open', title: 'Trading Packages', body: 'Subscribe to account packages using deposit funds and view all subscriptions in package history.' }
+  ],
+  stats: [
+    { value: '24/7', label: 'Account visibility across trading, funding, and support records' },
+    { value: '100%', label: 'Deposit-funded spending logic for core account actions' },
+    { value: 'Multi-layer', label: 'User, admin, email, KYC, and transaction workflows' }
+  ],
+  workflowKicker: 'Account Flow',
+  workflowTitle: 'From registration to account activity, every step is tracked',
+  workflowIntro: 'The platform is built around the full broker journey: onboarding, verification, deposits, trading, copy trading, subscriptions, withdrawals, history, and support.',
+  steps: [
+    { title: 'Open and verify the account', body: 'A trader creates an account, completes profile details, and submits KYC when verification is required for stronger account trust.' },
+    { title: 'Fund with approved deposit methods', body: 'Deposit requests are recorded, reviewed from admin, and reflected in total deposit once approved.' },
+    { title: 'Trade, subscribe, or copy a strategy', body: 'Stocks, packages, and copy-trade allocations use deposit funds and write clear records into account history.' },
+    { title: 'Review outcomes and request withdrawals', body: 'Users can inspect transactions, P/L, packages, withdrawal history, and email confirmations before taking the next action.' }
+  ],
+  proofTitle: 'Professional Details That Make The Page Feel Real',
+  proofIntro: 'This page explains how Kortex Prime works as a connected account platform with funding, trading, support, and admin-backed review.',
+  notes: [
+    { title: 'Clear money model', body: 'The public content now explains that total deposit is the operational funding source for purchases, package upgrades, copy trading, and withdrawal checks.' },
+    { title: 'Connected account records', body: 'Trading history, P/L records, package history, withdrawal history, and transaction history are presented as part of one broker-grade account record.' },
+    { title: 'Admin-backed operations', body: 'Deposits, withdrawals, KYC, user details, password updates, and admin account entry are described as managed workflows rather than loose pages.' },
+    { title: 'Communication built in', body: 'The copy explains email updates for important user actions including deposits, withdrawals, trades, copy trading, KYC, profile changes, and package activity.' }
+  ],
+  ctaTitle: 'Bring the whole account flow online',
+  ctaBody: 'Use one dashboard for deposits, trading, copy-trading, history, verification, and support.',
+  ctaText: 'Create Account',
+  ctaHref: '/signup'
+}
+%>
+<%- include('_broker-page', { page }) %>

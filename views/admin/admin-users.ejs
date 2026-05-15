@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Users</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen">
+<%- include('admin-sidebar') %>
+  <header class="w-full bg-gray-800 p-4 flex items-center justify-between shadow">
+    <h1 class="text-xl font-semibold">Users</h1>
+    <a href="/admin" class="bg-blue-600 px-4 py-2 rounded">Back</a>
+  </header>
+
+  <main class="p-4 sm:p-6">
+    <h2 class="text-2xl font-semibold mb-6">All Users</h2>
+
+    <div class="overflow-x-auto rounded-lg border border-gray-700">
+      <table class="w-full min-w-[920px] text-left bg-gray-800">
+        <thead class="bg-gray-700">
+          <tr>
+            <th class="px-4 py-3">Name</th>
+            <th class="px-4 py-3">Login</th>
+            <th class="px-4 py-3">Contact</th>
+            <th class="px-4 py-3">Balance</th>
+            <th class="px-4 py-3">Last Login</th>
+            <th class="px-4 py-3">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% users.forEach(u => { %>
+            <tr class="border-b border-gray-700 align-top">
+              <td class="px-4 py-3">
+                <div class="font-semibold"><%= u.name || 'N/A' %></div>
+                <div class="text-xs text-gray-400"><%= u.country || 'N/A' %></div>
+              </td>
+
+              <td class="px-4 py-3">
+                <div><%= u.username %></div>
+                <div class="text-xs text-gray-400"><%= u.email %></div>
+              </td>
+
+              <td class="px-4 py-3">
+                <div><%= u.phone || 'N/A' %></div>
+                <div class="text-xs text-gray-400"><%= u.kycStatus || 'Not Verified' %></div>
+              </td>
+
+              <td class="px-4 py-3">$<%= Number(u.balance || 0).toFixed(2) %></td>
+
+              <td class="px-4 py-3">
+                <div><%= u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString() : 'Never' %></div>
+                <div class="text-xs text-gray-400"><%= u.lastLoginIp || 'No IP recorded' %></div>
+              </td>
+
+              <td class="px-4 py-3">
+                <div class="flex flex-wrap items-center gap-2">
+                  <a href="/admin/user/<%= u.id %>" class="bg-blue-600 px-3 py-1 rounded text-xs">Details</a>
+                  <a href="/admin/user/<%= u.id %>/balance" class="bg-yellow-600 px-3 py-1 rounded text-xs">Balance</a>
+                  <form action="/admin/user/<%= u.id %>/impersonate" method="POST">
+                    <button type="submit" class="bg-emerald-600 px-3 py-1 rounded text-xs">Enter Account</button>
+                  </form>
+                  <form action="/admin/user/<%= u.id %>/delete" method="POST" onsubmit="return confirm('Delete this user and all related data?')">
+                    <button type="submit" class="p-2 rounded bg-red-600 hover:bg-red-700 flex items-center justify-center" title="Delete user">
+                      <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof lucide !== 'undefined') lucide.createIcons()
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <% if (toast) { %>
+  <script>
+    Swal.fire({
+      icon: '<%= toast.type %>',
+      title: '<%= toast.message %>',
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 2500
+    })
+  </script>
+  <% } %>
+</body>
+</html>

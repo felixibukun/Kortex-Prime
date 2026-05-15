@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Profile - Kortex Prime</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #94a3b8;
+      transition: color 0.2s;
+      z-index: 10;
+    }
+    .password-toggle:hover {
+      color: #60a5fa;
+    }
+    .input-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    .password-input {
+      padding-right: 40px !important;
+    }
+    .strength-bar {
+      height: 4px;
+      border-radius: 2px;
+      transition: all 0.3s;
+      margin-top: 8px;
+    }
+    .strength-text {
+      font-size: 11px;
+      margin-top: 4px;
+    }
+    .tab-active {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+    }
+    .tab-inactive {
+      background: #1e293b;
+      color: #94a3b8;
+    }
+  </style>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white min-h-screen">
+<%- include('admin-sidebar') %>
+
+<!-- Header -->
+<div class="w-full bg-slate-900/80 backdrop-blur-sm border-b border-slate-800 p-4 flex items-center justify-between sticky top-0 z-50">
+  <div>
+    <div class="flex items-center gap-3">
+      <i class="fas fa-user-shield text-blue-500 text-xl"></i>
+      <div>
+        <p class="text-sm font-semibold">Admin Profile</p>
+        <p class="text-xs text-slate-400">Manage your account settings</p>
+      </div>
+    </div>
+  </div>
+  <div class="flex gap-3">
+    <a href="/admin" class="bg-slate-800 hover:bg-slate-700 transition px-4 py-2 rounded-lg text-sm flex items-center gap-2">
+      <i class="fas fa-arrow-left text-xs"></i>
+      Dashboard
+    </a>
+    <a href="/admin-logout" class="bg-red-600/20 hover:bg-red-600/30 transition px-4 py-2 rounded-lg text-sm flex items-center gap-2 text-red-400">
+      <i class="fas fa-sign-out-alt text-xs"></i>
+      Logout
+    </a>
+  </div>
+</div>
+
+<div class="max-w-2xl mx-auto mt-10 px-4">
+  <!-- Profile Card -->
+  <div class="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-8 shadow-2xl">
+    
+    <!-- Avatar Section -->
+    <div class="flex flex-col items-center mb-8">
+      <div class="w-24 h-24 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center mb-3 shadow-lg">
+        <i class="fas fa-user-cog text-4xl text-white"></i>
+      </div>
+      <h2 class="text-xl font-bold" id="adminUsername"><%= admin.username %></h2>
+      <p class="text-xs text-slate-400 mt-1">Administrator</p>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="flex gap-2 mb-6 border-b border-slate-800 pb-2">
+      <button onclick="switchTab('username')" id="usernameTab" class="tab-active px-6 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2">
+        <i class="fas fa-user"></i>
+        Update Username
+      </button>
+      <button onclick="switchTab('password')" id="passwordTab" class="tab-inactive px-6 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2">
+        <i class="fas fa-lock"></i>
+        Change Password
+      </button>
+    </div>
+
+    <!-- Username Update Form -->
+    <div id="usernameForm" class="space-y-5">
+      <form action="/admin/update-username" method="POST" id="usernameUpdateForm" class="space-y-5">
+        <div>
+          <label class="block text-xs text-slate-400 mb-2 font-medium">
+            <i class="fas fa-user-circle mr-1 text-[10px]"></i>
+            Current Username
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              value="<%= admin.username %>"
+              disabled
+              class="w-full px-3 py-2.5 rounded-lg bg-slate-800/50 border border-slate-700 text-sm outline-none cursor-not-allowed text-slate-400"
+            >
+          </div>
+          <p class="text-xs text-slate-500 mt-1">Current username cannot be edited directly</p>
+        </div>
+
+        <div>
+          <label class="block text-xs text-slate-400 mb-2 font-medium">
+            <i class="fas fa-pen-alt mr-1 text-[10px]"></i>
+            New Username
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="newUsername"
+              name="new_username"
+              required
+              placeholder="Enter new username"
+              class="w-full px-3 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-sm outline-none focus:border-blue-500 transition"
+              onkeyup="validateUsername(this.value)"
+            >
+          </div>
+          <div id="usernameRequirements" class="text-xs mt-2 space-y-1">
+            <p id="usernameLength" class="text-slate-500"><i class="fas fa-circle text-[6px] mr-1"></i> At least 3 characters</p>
+            <p id="usernameValid" class="text-slate-500"><i class="fas fa-circle text-[6px] mr-1"></i> Only letters, numbers, and underscore</p>
+            <p id="usernameAvailable" class="text-slate-500"><i class="fas fa-circle text-[6px] mr-1"></i> Username available</p>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs text-slate-400 mb-2 font-medium">
+            <i class="fas fa-key mr-1 text-[10px]"></i>
+            Confirm with Password
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="password"
+              id="confirmPasswordForUsername"
+              name="password"
+              required
+              placeholder="Enter your password to confirm"
+              class="w-full px-3 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-sm outline-none focus:border-blue-500 transition password-input"
+            >
+            <i class="fas fa-eye password-toggle" onclick="togglePassword('confirmPasswordForUsername', this)"></i>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          id="updateUsernameBtn"
+          disabled
+          class="w-full py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-sm font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+        >
+          <i class="fas fa-save mr-2"></i>
+          Update Username
+        </button>
+      </form>
+    </div>
+
+    <!-- Password Change Form -->
+    <div id="passwordForm" style="display: none;" class="space-y-5">
+      <form id="passwordChangeForm" class="space-y-5">
+        
+        <!-- Current Password Field -->
+        <div>
+          <label class="block text-xs text-slate-400 mb-2 font-medium">
+            <i class="fas fa-key mr-1 text-[10px]"></i>
+            Current Password
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="password"
+              id="currentPassword"
+              name="current_password"
+              required
+              placeholder="Enter your current password"
+              class="w-full px-3 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-sm outline-none focus:border-blue-500 transition password-input"
+            >
+            <i class="fas fa-eye password-toggle" onclick="togglePassword('currentPassword', this)"></i>
+          </div>
+        </div>
+
+        <!-- New Password Field -->
+        <div>
+          <label class="block text-xs text-slate-400 mb-2 font-medium">
+            <i class="fas fa-plus-circle mr-1 text-[10px]"></i>
+            New Password
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="password"
+              id="newPassword"
+              name="new_password"
+              required
+              placeholder="Enter new password (min. 6 characters)"
+              class="w-full px-3 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-sm outline-none focus:border-blue-500 transition password-input"
+              onkeyup="checkPasswordStrength(this.value)"
+            >
+            <i class="fas fa-eye password-toggle" onclick="togglePassword('newPassword', this)"></i>
+          </div>
+          <div id="strengthBar" class="strength-bar w-0 bg-gray-500"></div>
+          <div id="strengthText" class="strength-text text-slate-500"></div>
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div>
+          <label class="block text-xs text-slate-400 mb-2 font-medium">
+            <i class="fas fa-check-circle mr-1 text-[10px]"></i>
+            Confirm New Password
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirm_password"
+              required
+              placeholder="Confirm your new password"
+              class="w-full px-3 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-sm outline-none focus:border-blue-500 transition password-input"
+              onkeyup="checkPasswordMatch()"
+            >
+            <i class="fas fa-eye password-toggle" onclick="togglePassword('confirmPassword', this)"></i>
+          </div>
+          <div id="matchMessage" class="text-xs mt-2"></div>
+        </div>
+
+        <!-- Password Requirements -->
+        <div class="bg-slate-800/50 rounded-lg p-3 text-xs text-slate-400 space-y-1">
+          <p class="font-semibold text-slate-300 mb-1">Password Requirements:</p>
+          <p id="reqLength" class="flex items-center gap-2"><i class="fas fa-circle text-[6px]"></i> At least 6 characters</p>
+          <p id="reqUpper" class="flex items-center gap-2"><i class="fas fa-circle text-[6px]"></i> At least 1 uppercase letter</p>
+          <p id="reqNumber" class="flex items-center gap-2"><i class="fas fa-circle text-[6px]"></i> At least 1 number</p>
+          <p id="reqSpecial" class="flex items-center gap-2"><i class="fas fa-circle text-[6px]"></i> At least 1 special character</p>
+        </div>
+
+        <button
+          type="submit"
+          id="changePasswordBtn"
+          disabled
+          class="w-full py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-sm font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+        >
+          <i class="fas fa-save mr-2"></i>
+          Change Password
+        </button>
+
+      </form>
+    </div>
+
+    <!-- Info Box -->
+    <div class="mt-6 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+      <div class="flex items-start gap-2">
+        <i class="fas fa-info-circle text-amber-500 text-sm mt-0.5"></i>
+        <p class="text-xs text-amber-400/80">
+          For security reasons, we recommend updating your username and password regularly. Use strong credentials to protect your admin account.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  // Tab switching
+  function switchTab(tab) {
+    const usernameForm = document.getElementById('usernameForm');
+    const passwordForm = document.getElementById('passwordForm');
+    const usernameTab = document.getElementById('usernameTab');
+    const passwordTab = document.getElementById('passwordTab');
+    
+    if (tab === 'username') {
+      usernameForm.style.display = 'block';
+      passwordForm.style.display = 'none';
+      usernameTab.classList.add('tab-active');
+      usernameTab.classList.remove('tab-inactive');
+      passwordTab.classList.add('tab-inactive');
+      passwordTab.classList.remove('tab-active');
+    } else {
+      usernameForm.style.display = 'none';
+      passwordForm.style.display = 'block';
+      passwordTab.classList.add('tab-active');
+      passwordTab.classList.remove('tab-inactive');
+      usernameTab.classList.add('tab-inactive');
+      usernameTab.classList.remove('tab-active');
+    }
+  }
+
+  // Toggle password visibility
+  function togglePassword(inputId, iconElement) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+      input.type = "text";
+      iconElement.classList.remove("fa-eye");
+      iconElement.classList.add("fa-eye-slash");
+    } else {
+      input.type = "password";
+      iconElement.classList.remove("fa-eye-slash");
+      iconElement.classList.add("fa-eye");
+    }
+  }
+
+  // Validate username
+  let isUsernameValid = false;
+  let isUsernameAvailable = false;
+
+  function validateUsername(username) {
+    const lengthValid = username.length >= 3;
+    const formatValid = /^[a-zA-Z0-9_]+$/.test(username);
+    
+    // Update UI
+    document.getElementById('usernameLength').style.color = lengthValid ? '#10b981' : '#ef4444';
+    document.getElementById('usernameValid').style.color = formatValid ? '#10b981' : '#ef4444';
+    
+    isUsernameValid = lengthValid && formatValid;
+    
+    // Check availability if valid
+    if (isUsernameValid && username !== '<%= admin.username %>') {
+      checkUsernameAvailability(username);
+    } else if (username === '<%= admin.username %>') {
+      document.getElementById('usernameAvailable').innerHTML = '<i class="fas fa-check-circle text-[6px] mr-1"></i> This is your current username';
+      document.getElementById('usernameAvailable').style.color = '#f59e0b';
+      isUsernameAvailable = false;
+      validateUsernameForm();
+    } else {
+      document.getElementById('usernameAvailable').innerHTML = '<i class="fas fa-circle text-[6px] mr-1"></i> Username available';
+      document.getElementById('usernameAvailable').style.color = '#94a3b8';
+      isUsernameAvailable = false;
+      validateUsernameForm();
+    }
+  }
+
+  async function checkUsernameAvailability(username) {
+    try {
+      const response = await fetch(`/admin/check-username?username=${encodeURIComponent(username)}`);
+      const data = await response.json();
+      
+      if (data.available) {
+        document.getElementById('usernameAvailable').innerHTML = '<i class="fas fa-check-circle text-[6px] mr-1"></i> Username is available';
+        document.getElementById('usernameAvailable').style.color = '#10b981';
+        isUsernameAvailable = true;
+      } else {
+        document.getElementById('usernameAvailable').innerHTML = '<i class="fas fa-times-circle text-[6px] mr-1"></i> Username already taken';
+        document.getElementById('usernameAvailable').style.color = '#ef4444';
+        isUsernameAvailable = false;
+      }
+      validateUsernameForm();
+    } catch (error) {
+      console.error('Error checking username:', error);
+      isUsernameAvailable = false;
+      validateUsernameForm();
+    }
+  }
+
+  function validateUsernameForm() {
+    const password = document.getElementById('confirmPasswordForUsername').value;
+    const submitBtn = document.getElementById('updateUsernameBtn');
+    
+    if (isUsernameValid && isUsernameAvailable && password.length > 0) {
+      submitBtn.disabled = false;
+    } else {
+      submitBtn.disabled = true;
+    }
+  }
+
+  // Check password strength
+  function checkPasswordStrength(password) {
+    const strengthBar = document.getElementById('strengthBar');
+    const strengthText = document.getElementById('strengthText');
+    
+    let strength = 0;
+    let message = '';
+    let color = '';
+    
+    if (password.length >= 6) strength++;
+    if (password.length >= 8) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[^A-Za-z0-9]/.test(password)) strength++;
+    
+    if (password.length === 0) {
+      message = '';
+      color = 'transparent';
+      strengthBar.style.width = '0%';
+    } else if (strength <= 2) {
+      message = 'Weak password';
+      color = '#ef4444';
+      strengthBar.style.width = '33%';
+    } else if (strength <= 4) {
+      message = 'Fair password';
+      color = '#f59e0b';
+      strengthBar.style.width = '66%';
+    } else {
+      message = 'Strong password';
+      color = '#10b981';
+      strengthBar.style.width = '100%';
+    }
+    
+    strengthBar.style.backgroundColor = color;
+    strengthText.textContent = message;
+    strengthText.style.color = color;
+    
+    document.getElementById('reqLength').style.color = password.length >= 6 ? '#10b981' : '#94a3b8';
+    document.getElementById('reqUpper').style.color = /[A-Z]/.test(password) ? '#10b981' : '#94a3b8';
+    document.getElementById('reqNumber').style.color = /[0-9]/.test(password) ? '#10b981' : '#94a3b8';
+    document.getElementById('reqSpecial').style.color = /[^A-Za-z0-9]/.test(password) ? '#10b981' : '#94a3b8';
+    
+    validatePasswordForm();
+  }
+
+  function checkPasswordMatch() {
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const matchMessage = document.getElementById('matchMessage');
+    
+    if (confirmPassword.length > 0) {
+      if (newPassword === confirmPassword) {
+        matchMessage.innerHTML = '<i class="fas fa-check-circle text-green-500 mr-1"></i> Passwords match';
+        matchMessage.style.color = '#10b981';
+      } else {
+        matchMessage.innerHTML = '<i class="fas fa-exclamation-circle text-red-500 mr-1"></i> Passwords do not match';
+        matchMessage.style.color = '#ef4444';
+      }
+    } else {
+      matchMessage.innerHTML = '';
+    }
+    
+    validatePasswordForm();
+  }
+
+  function validatePasswordForm() {
+    const currentPassword = document.getElementById('currentPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const submitBtn = document.getElementById('changePasswordBtn');
+    
+    const isPasswordStrong = /[A-Z]/.test(newPassword) && /[0-9]/.test(newPassword) && /[^A-Za-z0-9]/.test(newPassword) && newPassword.length >= 6;
+    const doPasswordsMatch = newPassword === confirmPassword && newPassword.length > 0;
+    const isCurrentPasswordFilled = currentPassword.length > 0;
+    
+    if (isCurrentPasswordFilled && isPasswordStrong && doPasswordsMatch) {
+      submitBtn.disabled = false;
+    } else {
+      submitBtn.disabled = true;
+    }
+  }
+
+  // Username form submission
+  document.getElementById('usernameUpdateForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const data = {
+      new_username: formData.get('new_username'),
+      password: formData.get('password')
+    };
+    
+    try {
+      const response = await fetch('/admin/update-username', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Username Updated!',
+          text: 'Your username has been changed successfully. You will be logged out.',
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 2000
+        }).then(() => {
+          window.location.href = '/admin-login';
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: result.message || 'Failed to update username',
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 3000
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'An error occurred. Please try again.',
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 3000
+      });
+    }
+  });
+
+  // Password form submission
+  document.getElementById('passwordChangeForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const data = {
+      current_password: formData.get('current_password'),
+      new_password: formData.get('new_password'),
+      confirm_password: formData.get('confirm_password')
+    };
+    
+    try {
+      const response = await fetch('/admin/change-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Password Updated!',
+          text: 'Your password has been changed successfully.',
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 3000
+        }).then(() => {
+          document.getElementById('currentPassword').value = '';
+          document.getElementById('newPassword').value = '';
+          document.getElementById('confirmPassword').value = '';
+          document.getElementById('strengthBar').style.width = '0%';
+          document.getElementById('strengthText').textContent = '';
+          document.getElementById('matchMessage').innerHTML = '';
+          validatePasswordForm();
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: result.message || 'Failed to update password',
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 3000
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'An error occurred. Please try again.',
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 3000
+      });
+    }
+  });
+
+  // Add event listeners
+  document.getElementById('confirmPasswordForUsername').addEventListener('keyup', validateUsernameForm);
+  document.getElementById('newUsername').addEventListener('keyup', function() {
+    validateUsername(this.value);
+  });
+  document.getElementById('currentPassword').addEventListener('keyup', validatePasswordForm);
+  document.getElementById('newPassword').addEventListener('keyup', function() {
+    checkPasswordStrength(this.value);
+    checkPasswordMatch();
+  });
+  document.getElementById('confirmPassword').addEventListener('keyup', checkPasswordMatch);
+</script>
+
+<% if (toast) { %>
+<script>
+Swal.fire({
+  icon: "<%= toast.type %>",
+  title: "<%= toast.message %>",
+  toast: true,
+  position: "top",
+  showConfirmButton: false,
+  timer: 2500
+})
+</script>
+<% } %>
+
+</body>
+</html>

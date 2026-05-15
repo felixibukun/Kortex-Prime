@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payment Methods | Kortex Prime</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body class="min-h-screen bg-slate-950 text-white">
+  <div class="flex min-h-screen">
+    <%- include('admin-sidebar') %>
+
+    <main class="flex-1 p-6 lg:p-10">
+      <div class="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Funding Setup</p>
+          <h1 class="mt-2 text-3xl font-black">Payment Methods</h1>
+          <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
+            Manage the deposit options users can select. Disabled methods stay hidden from the user deposit page until you enable them.
+          </p>
+        </div>
+        <a href="/admin" class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-300 hover:text-white">Back to dashboard</a>
+      </div>
+
+      <section class="mb-6 grid gap-4 md:grid-cols-3">
+        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+          <p class="text-[11px] uppercase tracking-[0.16em] text-slate-500">Methods</p>
+          <p class="mt-2 text-3xl font-black"><%= methods.length %></p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+          <p class="text-[11px] uppercase tracking-[0.16em] text-slate-500">Enabled</p>
+          <p class="mt-2 text-3xl font-black text-emerald-300"><%= methods.filter(m => m.enabled !== false).length %></p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+          <p class="text-[11px] uppercase tracking-[0.16em] text-slate-500">Hidden</p>
+          <p class="mt-2 text-3xl font-black text-amber-300"><%= methods.filter(m => m.enabled === false).length %></p>
+        </div>
+      </section>
+
+      <section class="mb-6 rounded-3xl border border-white/10 bg-slate-900/80 p-5">
+        <h2 class="mb-4 text-lg font-bold">Add payment method</h2>
+        <form action="/admin/deposit-methods/add" method="POST" class="grid gap-3 md:grid-cols-[1fr_auto]">
+          <input name="name" placeholder="Method name, example: Cash App"
+            class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm outline-none focus:border-cyan-400">
+          <button class="rounded-xl bg-cyan-500 px-6 py-3 text-sm font-black text-slate-950 hover:bg-cyan-400">Add Method</button>
+        </form>
+      </section>
+
+      <section class="rounded-3xl border border-white/10 bg-slate-900/80 shadow-2xl shadow-black/30">
+        <div class="border-b border-white/10 px-5 py-4">
+          <h2 class="text-lg font-bold">Configured methods</h2>
+          <p class="mt-1 text-xs text-slate-500">Add wallet addresses, tags, bank details, or payment instructions in the details field.</p>
+        </div>
+
+        <div class="divide-y divide-white/10">
+          <% methods.forEach(method => { %>
+            <div class="grid gap-3 p-5 xl:grid-cols-[220px_1fr_180px_180px] xl:items-center">
+              <form id="method-<%= method.id %>" action="/admin/deposit-methods/update/<%= method.id %>" method="POST" enctype="multipart/form-data" class="contents">
+                <div>
+                  <label class="mb-2 block text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">Method name</label>
+                  <input
+                    name="name"
+                    value="<%= method.name %>"
+                    class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm font-bold outline-none focus:border-cyan-400">
+                  <p class="mt-2 text-xs <%= method.enabled !== false ? 'text-emerald-300' : 'text-slate-500' %>">
+                    <%= method.enabled !== false ? 'Visible to users' : 'Hidden from users' %>
+                  </p>
+                </div>
+
+                <textarea
+                  name="wallet"
+                  rows="3"
+                  placeholder="Payment details users should follow"
+                  class="min-h-[86px] rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm outline-none focus:border-cyan-400"><%= method.wallet || method.details || '' %></textarea>
+
+                <div class="space-y-3">
+                  <label class="flex items-center gap-2 rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-sm">
+                    <input type="checkbox" name="enabled" class="h-4 w-4" <%= method.enabled !== false ? 'checked' : '' %>>
+                    Enabled
+                  </label>
+
+                  <label class="block rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-sm">
+                    <span class="mb-2 block text-xs text-slate-400">QR code image</span>
+                    <input type="file" name="qrImage" accept="image/*" class="w-full text-xs text-slate-300 file:mr-3 file:rounded-lg file:border-0 file:bg-cyan-500 file:px-3 file:py-2 file:text-xs file:font-bold file:text-slate-950">
+                  </label>
+                </div>
+
+                <div class="flex gap-2">
+                  <button class="flex-1 rounded-xl bg-blue-600 px-4 py-3 text-sm font-bold hover:bg-blue-500">Save</button>
+                  <button
+                    formaction="/admin/deposit-methods/delete/<%= method.id %>"
+                    formmethod="POST"
+                    onclick="return confirm('Delete this payment method?')"
+                    class="rounded-xl bg-red-600 px-4 py-3 text-sm font-bold hover:bg-red-500">Delete</button>
+                </div>
+                <% if (method.qrImage) { %>
+                  <div class="xl:col-start-3 xl:col-span-2 rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+                    <p class="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-slate-500">Current QR code</p>
+                    <img src="<%= method.qrImage %>" alt="<%= method.name %> QR code" class="h-36 w-36 rounded-xl border border-white/10 bg-white object-contain p-2">
+                  </div>
+                <% } %>
+              </form>
+            </div>
+          <% }) %>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <% if (toast) { %>
+    <script>
+      Swal.fire({
+        icon: '<%= toast.type %>',
+        title: '<%= toast.message %>',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2500,
+        background: '#0f172a',
+        color: '#fff'
+      })
+    </script>
+  <% } %>
+</body>
+</html>

@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1778337954376,
+    "userId": 1778337681896,
+    "stockId": 1,
+    "stockName": "Apple",
+    "symbol": "AAPL",
+    "quantity": 1,
+    "avgPrice": 133.45
+  }
+]

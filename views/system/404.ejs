@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found | Kortex Prime</title>
+  <link rel="icon" type="image/png" href="/img/favicon-32.png?v=20260509">
+  <link rel="shortcut icon" href="/favicon.ico?v=20260509">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(0, 200, 255, 0.14), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(0, 144, 255, 0.10), transparent 34%),
+        #030508;
+      color: #fff;
+      font-family: Inter, Arial, sans-serif;
+    }
+    .wrap {
+      width: min(560px, 100%);
+      text-align: center;
+      padding: 34px 22px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 34px;
+      color: #fff;
+      text-decoration: none;
+    }
+    .brand img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+    .brand strong {
+      display: block;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+    }
+    .brand span {
+      display: block;
+      color: #8da0b6;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: left;
+    }
+    .code {
+      font-size: clamp(72px, 18vw, 128px);
+      line-height: 0.9;
+      font-weight: 900;
+      color: #49bdff;
+      text-shadow: 0 0 35px rgba(0, 144, 255, 0.32);
+    }
+    h1 {
+      margin-top: 18px;
+      font-size: clamp(28px, 7vw, 44px);
+      line-height: 1.05;
+    }
+    p {
+      max-width: 440px;
+      margin: 16px auto 28px;
+      color: #9fb0c2;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+    }
+    .btn.primary {
+      color: #00101d;
+      border: 0;
+      background: linear-gradient(135deg, #0090ff, #00c8ff);
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="brand" href="/">
+      <img src="/img/logo.png?v=20260509" alt="Kortex Prime">
+      <span><strong>KORTEX PRIME</strong>Professional Trading</span>
+    </a>
+    <div class="code">404</div>
+    <h1>Page Not Found</h1>
+    <p>The page you opened is not available. You can return home, or log in to reach dashboard-only pages like support.</p>
+    <div class="actions">
+      <a class="btn primary" href="/"><i class="fa-solid fa-house"></i> Home</a>
+      <a class="btn" href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+    </div>
+  </main>
+</body>
+</html>

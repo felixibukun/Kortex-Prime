@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1778337980303,
+    "userId": 1778337681896,
+    "traderId": 1,
+    "traderName": "Alpha Trader",
+    "amount": 300,
+    "startedAt": "2026-05-09T14:46:20.303Z",
+    "status": "active"
+  }
+]

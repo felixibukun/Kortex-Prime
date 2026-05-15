@@ -1,0 +1,47 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>Add Deposit</title> <script src="https://cdn.tailwindcss.com"></script>
+ <link rel="stylesheet" href="/css/premium-ui.css">
+</head> <body class="bg-gray-900 text-white min-h-screen">
+<%- include('admin-sidebar') %> <div class="w-full bg-gray-800 p-4 flex items-center justify-between shadow"> <h1 class="text-xl font-semibold">Add Deposit</h1> <a href="/admin" class="bg-blue-600 px-4 py-2 rounded">Back</a> </div> <div class="p-6 max-w-lg mx-auto bg-gray-800 rounded-xl shadow">
+<h2 class="text-xl font-semibold mb-6">Manual Deposit</h2>
+
+<form action="/admin/deposit/add" method="POST">
+
+  <div class="mb-4">
+    <label class="block mb-1">Select User</label>
+    <select name="userId" class="w-full p-3 bg-gray-700 rounded" required>
+      <% users.forEach(u => { %>
+        <option value="<%= u.id %>"><%= u.username %> (<%= u.email %>)</option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-1">Amount</label>
+    <input type="number" step="0.01" name="amount" class="w-full p-3 bg-gray-700 rounded" required>
+  </div>
+
+  <div class="mb-6">
+    <label class="block mb-1">Method</label>
+    <input type="text" name="method" class="w-full p-3 bg-gray-700 rounded" placeholder="Bank, crypto, etc" required>
+  </div>
+
+  <button class="w-full bg-green-600 p-3 rounded font-semibold">Save Deposit</button>
+
+</form>
+
+</div> 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<% if (toast) { %>
+<script>
+  Swal.fire({
+    icon: '<%= toast.type %>',
+    title: '<%= toast.message %>',
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 2500
+  })
+</script>
+<% } %>
+</body> </html>

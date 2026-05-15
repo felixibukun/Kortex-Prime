@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Packages</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen">
+<%- include('admin-sidebar') %>
+  <header class="w-full bg-gray-800 p-4 flex items-center justify-between shadow">
+    <h1 class="text-xl font-semibold">Packages</h1>
+    <a href="/admin" class="bg-blue-600 px-4 py-2 rounded">Back</a>
+  </header>
+
+  <main class="p-6">
+    <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+      <div class="p-5 border-b border-gray-700">
+        <h2 class="text-lg font-semibold">User Subscriptions</h2>
+        <p class="text-sm text-gray-400 mt-1">Track package activations across all users.</p>
+      </div>
+
+      <% if (!packages || packages.length === 0) { %>
+        <div class="p-8 text-center text-sm text-gray-400">
+          No package subscriptions yet.
+        </div>
+      <% } else { %>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-gray-700 text-gray-300">
+              <tr>
+                <th class="px-4 py-3">User</th>
+                <th class="px-4 py-3">Email</th>
+                <th class="px-4 py-3">Package</th>
+                <th class="px-4 py-3">Price</th>
+                <th class="px-4 py-3">Subscribed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% packages.forEach(pkg => { %>
+                <tr class="border-b border-gray-700">
+                  <td class="px-4 py-3"><%= pkg.userName %></td>
+                  <td class="px-4 py-3 text-gray-300"><%= pkg.userEmail %></td>
+                  <td class="px-4 py-3"><%= pkg.package || pkg.name || 'Package' %></td>
+                  <td class="px-4 py-3">$<%= Number(pkg.price || 0).toFixed(2) %></td>
+                  <td class="px-4 py-3 text-gray-400"><%= new Date(pkg.subscribedAt || pkg.createdAt || Date.now()).toLocaleString() %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </div>
+  </main>
+</body>
+</html>

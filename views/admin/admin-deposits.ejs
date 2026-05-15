@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" class="dark h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deposits</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+
+<body class="min-h-screen bg-slate-950 text-white">
+<%- include('admin-sidebar') %>
+
+  <header class="h-16 border-b border-slate-800 bg-slate-950/80 backdrop-blur-xl flex items-center">
+    <div class="w-full max-w-6xl mx-auto px-4 flex justify-between items-center">
+      <p class="text-lg font-semibold">Deposit Records</p>
+      <a href="/admin" class="px-4 py-2 bg-blue-600 rounded text-sm">Back</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+
+    <p class="text-xl font-semibold mb-6">All Deposits</p>
+
+    <div class="overflow-x-auto bg-slate-900/80 border border-slate-800 rounded-2xl shadow-lg">
+
+      <table class="w-full text-sm text-left">
+        <thead class="bg-slate-800/60 text-slate-300 text-xs uppercase">
+          <tr>
+            <th class="px-4 py-3">User</th>
+            <th class="px-4 py-3">Amount</th>
+            <th class="px-4 py-3">Method</th>
+            <th class="px-4 py-3">Date</th>
+            <th class="px-4 py-3">Status</th>
+            <th class="px-4 py-3">Proof</th>
+            <th class="px-4 py-3">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <% if (!deposits || deposits.length === 0) { %>
+            <tr>
+              <td colspan="7" class="text-center py-6 text-slate-500">
+                No deposits found.
+              </td>
+            </tr>
+          <% } else { %>
+
+            <% deposits.forEach(d => { %>
+              <tr class="border-b border-slate-800">
+
+                <td class="px-4 py-3"><%= d.username %></td>
+
+                <td class="px-4 py-3">$<%= Number(d.amount).toFixed(2) %></td>
+
+                <td class="px-4 py-3"><%= d.method %></td>
+
+                <td class="px-4 py-3">
+                  <%= d.createdAt ? new Date(d.createdAt).toLocaleString() : 'N/A' %>
+                </td>
+
+                <td class="px-4 py-3">
+                  <% if (d.status === 'approved') { %>
+                    <span class="text-emerald-400 font-semibold">Approved</span>
+                  <% } else if (d.status === 'rejected') { %>
+                    <span class="text-red-400 font-semibold">Rejected</span>
+                  <% } else { %>
+                    <span class="text-amber-400 font-semibold">Pending</span>
+                  <% } %>
+                </td>
+
+                <td class="px-4 py-3">
+                  <% if (d.proofUrl) { %>
+                    <a href="<%= d.proofUrl %>" target="_blank" class="text-blue-400 underline text-xs">View</a>
+                  <% } else { %>
+                    <span class="text-slate-500 text-xs">None</span>
+                  <% } %>
+                </td>
+
+                <td class="px-4 py-3 flex items-center gap-2">
+
+                  <% if (d.status === 'pending') { %>
+
+                    <button
+                      onclick="handleDeposit('approve', <%= d.id %>, '<%= d.username %>', '<%= Number(d.amount).toFixed(2) %>')"
+                      class="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 rounded text-xs transition">
+                      Approve
+                    </button>
+
+                    <button
+                      onclick="handleDeposit('reject', <%= d.id %>, '<%= d.username %>', '<%= Number(d.amount).toFixed(2) %>')"
+                      class="px-3 py-1 bg-red-600 hover:bg-red-500 rounded text-xs transition">
+                      Reject
+                    </button>
+
+                  <% } else { %>
+                    <span class="text-slate-500 text-xs">No action</span>
+                  <% } %>
+
+                </td>
+
+              </tr>
+            <% }) %>
+
+          <% } %>
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    async function handleDeposit(action, depositId, username, amount) {
+      const isApprove = action === 'approve'
+
+      const confirm = await Swal.fire({
+        title: isApprove ? 'Approve Deposit?' : 'Reject Deposit?',
+        html: `<b>${username}</b> — $${amount}`,
+        icon: isApprove ? 'question' : 'warning',
+        showCancelButton: true,
+        confirmButtonColor: isApprove ? '#10b981' : '#ef4444',
+        cancelButtonColor: '#475569',
+        confirmButtonText: isApprove ? 'Yes, Approve' : 'Yes, Reject',
+        cancelButtonText: 'Cancel',
+        background: '#0f172a',
+        color: '#f1f5f9'
+      })
+
+      if (!confirm.isConfirmed) return
+
+      try {
+        const res = await fetch(`/admin/deposit/${action}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ depositId })
+        })
+
+        const data = await res.json()
+
+        await Swal.fire({
+          icon: data.success ? 'success' : 'error',
+          title: data.success ? (isApprove ? 'Approved!' : 'Rejected!') : 'Error',
+          text: data.message,
+          timer: 2500,
+          showConfirmButton: false,
+          background: '#0f172a',
+          color: '#f1f5f9'
+        })
+
+        if (data.success) {
+          location.reload()
+        }
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Network Error',
+          text: 'Could not reach the server. Please try again.',
+          background: '#0f172a',
+          color: '#f1f5f9'
+        })
+      }
+    }
+  </script>
+
+  <% if (typeof toast !== 'undefined' && toast) { %>
+  <script>
+    Swal.fire({
+      icon: '<%= toast.type %>',
+      title: '<%= toast.message %>',
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 2500
+    })
+  </script>
+  <% } %>
+
+</body>
+</html>

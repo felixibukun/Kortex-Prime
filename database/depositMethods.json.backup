@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1778183571724,
+    "name": "Bank Transfer",
+    "wallet": "",
+    "enabled": false
+  },
+  {
+    "id": 1778183571725,
+    "name": "Bitcoin",
+    "wallet": "bc1q6ce0l98kuk7gkyzav8rr75ym0vqxhw9xf8hsm0",
+    "enabled": true,
+    "qrImage": "/uploads/1778794223669-421338958.jpeg"
+  },
+  {
+    "id": 1778183571726,
+    "name": "Cash App",
+    "wallet": "",
+    "enabled": false
+  },
+  {
+    "id": 1778183571727,
+    "name": "PayPal",
+    "wallet": "",
+    "enabled": false
+  },
+  {
+    "id": 1778535353216,
+    "name": "Ethereum",
+    "wallet": "0xe471067bd8028dc295C56a5AcBda8EfE14654463",
+    "enabled": true
+  },
+  {
+    "id": 1778794809763,
+    "name": "XRP",
+    "wallet": "rErZbaCjqDPPqW4V4Nr2fnX4FqZLgkJzhC",
+    "enabled": true
+  }
+]

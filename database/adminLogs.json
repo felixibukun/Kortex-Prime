@@ -1,0 +1,1460 @@
+[
+  {
+    "id": 1764975201025,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-05T22:53:21.025Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1764975219645,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "alaga",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-05T22:53:39.645Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1764975312352,
+    "adminId": 1764957788789,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2025-12-05T22:55:12.352Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1764975312383,
+    "adminId": 1764957788789,
+    "action": "unauthorized_access_attempt",
+    "meta": {
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-05T22:55:12.383Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1764975652389,
+    "adminId": 1764957788789,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2025-12-05T23:00:52.389Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1764975652430,
+    "adminId": 1764957788789,
+    "action": "unauthorized_access_attempt",
+    "meta": {
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-05T23:00:52.431Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1765449184275,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-11T10:33:04.275Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1765449190411,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "alaga",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-11T10:33:10.411Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1765450262235,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-11T10:51:02.235Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1765450395454,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-11T10:53:15.454Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1765450419016,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-11T10:53:39.016Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1765450433000,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-11T10:53:53.000Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1765450814571,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-11T11:00:14.571Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1765450948735,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-11T11:02:28.735Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1765451664794,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-11T11:14:24.794Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1765451682138,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-11T11:14:42.138Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1765451698261,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-11T11:14:58.261Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1765453235460,
+    "adminId": 1765453181463,
+    "action": "admin_logout",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2025-12-11T11:40:35.460Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1766363265340,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-22T00:27:45.340Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1766363321895,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-22T00:28:41.895Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1766364969658,
+    "adminId": 1765453181463,
+    "action": "admin_logout",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2025-12-22T00:56:09.658Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1766531321765,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-23T23:08:41.765Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1766531325740,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-23T23:08:45.740Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1766531345444,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-23T23:09:05.444Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1766533107501,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2025-12-23T23:38:27.501Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775486120330,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-04-06T14:35:20.330Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775486135614,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "Trader_Alaga",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-04-06T14:35:35.614Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775493813637,
+    "adminId": 1765453181463,
+    "action": "admin_logout",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-04-06T16:43:33.637Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775580415911,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-04-07T16:46:55.911Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775581088755,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-04-07T16:58:08.755Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775583537903,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-04-07T17:38:57.903Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775583631399,
+    "adminId": 1765453181463,
+    "action": "password_change",
+    "meta": {
+      "adminId": 1765453181463
+    },
+    "timestamp": "2026-04-07T17:40:31.399Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775583642184,
+    "adminId": 1765453181463,
+    "action": "admin_logout",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-04-07T17:40:42.184Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775583647929,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-04-07T17:40:47.929Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775887421151,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-04-11T06:03:41.151Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775888815553,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-04-11T06:26:55.553Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775888989052,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "Trader_Alaga",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-04-11T06:29:49.052Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775888996222,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-04-11T06:29:56.222Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775889304161,
+    "adminId": 1765453181463,
+    "action": "deposit_approved",
+    "meta": {
+      "depositId": 1766364034326,
+      "userId": 1764965525586,
+      "amount": 5000
+    },
+    "timestamp": "2026-04-11T06:35:04.161Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775889616240,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-04-11T06:40:16.240Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1775889624981,
+    "adminId": 1765453181463,
+    "action": "kyc_approved",
+    "meta": {
+      "kycId": 1775501678045,
+      "userId": 1764965525586
+    },
+    "timestamp": "2026-04-11T06:40:24.981Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1776704544516,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-04-20T17:02:24.516Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1776960277723,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-04-23T16:04:37.723Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778150165447,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T10:36:05.447Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778150708586,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T10:45:08.586Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778150799874,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-05-07T10:46:39.874Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778150839693,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T10:47:19.693Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778151010354,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T10:50:10.354Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778151043317,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T10:50:43.317Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778151172151,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T10:52:52.151Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778151289837,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T10:54:49.837Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778151653652,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T11:00:53.652Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778151654288,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1764965525586,
+      "username": "Trader_Alaga"
+    },
+    "timestamp": "2026-05-07T11:00:54.288Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778151655979,
+    "adminId": 1765453181463,
+    "action": "admin_stopped_impersonation",
+    "meta": {
+      "userId": 1764965525586
+    },
+    "timestamp": "2026-05-07T11:00:55.979Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778151687004,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T11:01:27.004Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778151759167,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T11:02:39.167Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778151802704,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1764957788789,
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T11:03:22.704Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778151810510,
+    "adminId": 1765453181463,
+    "action": "admin_stopped_impersonation",
+    "meta": {
+      "userId": 1764957788789
+    },
+    "timestamp": "2026-05-07T11:03:30.510Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778152501474,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T11:15:01.474Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778173559740,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T17:05:59.740Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778173915891,
+    "adminId": 1765453181463,
+    "action": "admin_stopped_impersonation",
+    "meta": {
+      "userId": 1764965525586
+    },
+    "timestamp": "2026-05-07T17:11:55.891Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778174817657,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T17:26:57.657Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778174836285,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T17:27:16.285Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778174836716,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1764965525586,
+      "username": "Trader_Alaga"
+    },
+    "timestamp": "2026-05-07T17:27:16.716Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778174947031,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T17:29:07.031Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778174948664,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1764965525586,
+      "username": "Trader_Alaga"
+    },
+    "timestamp": "2026-05-07T17:29:08.664Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778176404702,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T17:53:24.702Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778176404955,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1764965525586,
+      "username": "Trader_Alaga"
+    },
+    "timestamp": "2026-05-07T17:53:24.955Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778176478402,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T17:54:38.402Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778176478571,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1764965525586,
+      "username": "Trader_Alaga"
+    },
+    "timestamp": "2026-05-07T17:54:38.571Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778176764617,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T17:59:24.617Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778176764889,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1764965525586,
+      "username": "Trader_Alaga"
+    },
+    "timestamp": "2026-05-07T17:59:24.889Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778177245029,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T18:07:25.029Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778177245220,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1764965525586,
+      "username": "Trader_Alaga"
+    },
+    "timestamp": "2026-05-07T18:07:25.220Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778177284498,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T18:08:04.498Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778177284693,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1764965525586,
+      "username": "Trader_Alaga"
+    },
+    "timestamp": "2026-05-07T18:08:04.693Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778182971527,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T19:42:51.527Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778182972275,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1764965525586,
+      "username": "Trader_Alaga"
+    },
+    "timestamp": "2026-05-07T19:42:52.275Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778183168619,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T19:46:08.619Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778183362985,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T19:49:22.985Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778183571568,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T19:52:51.568Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778183671338,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T19:54:31.338Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778183940655,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T19:59:00.655Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778183959270,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T19:59:19.270Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778183977919,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T19:59:37.919Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778184508626,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T20:08:28.626Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778184508920,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1764965525586,
+      "username": "Trader_Alaga"
+    },
+    "timestamp": "2026-05-07T20:08:28.920Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778184680471,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "Trader_Alaga",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-05-07T20:11:20.471Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778184686159,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-07T20:11:26.159Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778184705887,
+    "adminId": 1765453181463,
+    "action": "deposit_rejected",
+    "meta": {
+      "depositId": 1778184631820,
+      "userId": 1764965525586,
+      "amount": 100
+    },
+    "timestamp": "2026-05-07T20:11:45.887Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778225229589,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-08T07:27:09.589Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778225414696,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-08T07:30:14.696Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778225427336,
+    "adminId": 1765453181463,
+    "action": "deposit_approved",
+    "meta": {
+      "depositId": 1778225395522,
+      "userId": 1764965525586,
+      "amount": 100
+    },
+    "timestamp": "2026-05-08T07:30:27.336Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778226121207,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "Trader_Alaga",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-05-08T07:42:01.207Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778226125740,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-08T07:42:05.740Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778226141016,
+    "adminId": 1765453181463,
+    "action": "deposit_approved",
+    "meta": {
+      "depositId": 1778226101767,
+      "userId": 1764965525586,
+      "amount": 100
+    },
+    "timestamp": "2026-05-08T07:42:21.016Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778324788831,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-09T11:06:28.831Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778324929984,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-05-09T11:08:49.984Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778324953860,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-09T11:09:13.861Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778325008090,
+    "adminId": 1765453181463,
+    "action": "password_change",
+    "meta": {
+      "adminId": 1765453181463
+    },
+    "timestamp": "2026-05-09T11:10:08.090Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778325024113,
+    "adminId": 1765453181463,
+    "action": "admin_logout",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-09T11:10:24.113Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778325027984,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-09T11:10:27.984Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778327186282,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-09T11:46:26.282Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778327760272,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-05-09T11:56:00.272Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778327802676,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-05-09T11:56:42.676Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778328280390,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-05-09T12:04:40.390Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778332635027,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-05-09T13:17:15.027Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778332653177,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-09T13:17:33.177Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778337707205,
+    "adminId": 1765453181463,
+    "action": "user_deleted",
+    "meta": {
+      "userId": 1764965525586,
+      "username": "Trader_Alaga"
+    },
+    "timestamp": "2026-05-09T14:41:47.205Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778337857202,
+    "adminId": 1765453181463,
+    "action": "deposit_approved",
+    "meta": {
+      "depositId": 1778337772196,
+      "userId": 1778337681896,
+      "amount": 1000
+    },
+    "timestamp": "2026-05-09T14:44:17.202Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778349012330,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-05-09T17:50:12.330Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778349037122,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-09T17:50:37.122Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778353060129,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-09T18:57:40.129Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778358494849,
+    "adminId": 1765453181463,
+    "action": "kyc_approved",
+    "meta": {
+      "kycId": 1778358481150,
+      "userId": 1778358306561
+    },
+    "timestamp": "2026-05-09T20:28:14.849Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778358590012,
+    "adminId": 1765453181463,
+    "action": "deposit_approved",
+    "meta": {
+      "depositId": 1778358556158,
+      "userId": 1778358306561,
+      "amount": 1500
+    },
+    "timestamp": "2026-05-09T20:29:50.012Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778358721419,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1778358306561,
+      "username": "Richard tega "
+    },
+    "timestamp": "2026-05-09T20:32:01.419Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778358733730,
+    "adminId": 1765453181463,
+    "action": "secure_preview_ended",
+    "meta": {
+      "userId": 1778358306561
+    },
+    "timestamp": "2026-05-09T20:32:13.730Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778359101091,
+    "adminId": 1765453181463,
+    "action": "deposit_approved",
+    "meta": {
+      "depositId": 1778359070579,
+      "userId": 1778358306561,
+      "amount": 3000
+    },
+    "timestamp": "2026-05-09T20:38:21.091Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778359949383,
+    "adminId": 1765453181463,
+    "action": "user_balance_updated",
+    "meta": {
+      "userId": 1778358306561
+    },
+    "timestamp": "2026-05-09T20:52:29.385Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778359969968,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1778358306561,
+      "username": "Richard tega "
+    },
+    "timestamp": "2026-05-09T20:52:49.968Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778359981146,
+    "adminId": 1765453181463,
+    "action": "secure_preview_ended",
+    "meta": {
+      "userId": 1778358306561
+    },
+    "timestamp": "2026-05-09T20:53:01.146Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778360149389,
+    "adminId": 1765453181463,
+    "action": "user_balance_updated",
+    "meta": {
+      "userId": 1778358306561
+    },
+    "timestamp": "2026-05-09T20:55:49.389Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778360276755,
+    "adminId": 1765453181463,
+    "action": "user_balance_updated",
+    "meta": {
+      "userId": 1778358306561
+    },
+    "timestamp": "2026-05-09T20:57:56.755Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778360283058,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1778358306561,
+      "username": "Richard tega "
+    },
+    "timestamp": "2026-05-09T20:58:03.060Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778372351483,
+    "adminId": 1765453181463,
+    "action": "withdrawal_approved",
+    "meta": {
+      "withdrawalId": 1778364201734,
+      "userId": 1778358306561,
+      "amount": 1000
+    },
+    "timestamp": "2026-05-10T00:19:11.483Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778372438973,
+    "adminId": 1765453181463,
+    "action": "secure_preview_ended",
+    "meta": {
+      "userId": 1778358306561
+    },
+    "timestamp": "2026-05-10T00:20:38.973Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778372515535,
+    "adminId": 1765453181463,
+    "action": "user_balance_updated",
+    "meta": {
+      "userId": 1778358306561
+    },
+    "timestamp": "2026-05-10T00:21:55.535Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778412259840,
+    "adminId": 1765453181463,
+    "action": "user_password_reset",
+    "meta": {
+      "userId": 1778358306561,
+      "username": "Richard tega "
+    },
+    "timestamp": "2026-05-10T11:24:19.840Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778412429174,
+    "adminId": 1765453181463,
+    "action": "withdrawal_approved",
+    "meta": {
+      "withdrawalId": 1778412382726,
+      "userId": 1778358306561,
+      "amount": 5000
+    },
+    "timestamp": "2026-05-10T11:27:09.174Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778413574689,
+    "adminId": 1765453181463,
+    "action": "user_balance_updated",
+    "meta": {
+      "userId": 1778337681896
+    },
+    "timestamp": "2026-05-10T11:46:14.689Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778509470731,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-11T14:24:30.731Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778534600400,
+    "adminId": 1765453181463,
+    "action": "admin_logout",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-11T21:23:20.400Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778534652116,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-11T21:24:12.116Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778535236697,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-11T21:33:56.697Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778745426347,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-14T07:57:06.347Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778793996563,
+    "adminId": 1765453181463,
+    "action": "admin_logout",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-14T21:26:36.563Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778794008109,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-14T21:26:48.109Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778794058128,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-14T21:27:38.128Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778794120340,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1778632991923,
+      "username": "Bean"
+    },
+    "timestamp": "2026-05-14T21:28:40.340Z",
+    "ip": "127.0.0.1"
+  }
+]

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en" class="dark h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Withdraw Funds | Kortex Prime</title>
+
+  <link rel="icon" type="image/png" href="/img/favicon-32.png?v=20260509">
+  <link rel="shortcut icon" href="/favicon.ico?v=20260509">
+
+  <!-- Premium Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/premium-ui.css">
+  
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { 
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'glow': 'glow 2s ease-in-out infinite alternate',
+            'slide-up': 'slideUp 0.5s ease-out',
+            'fade-in': 'fadeIn 0.6s ease-out',
+            'pulse-soft': 'pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            glow: {
+              '0%': { boxShadow: '0 0 20px rgba(6, 182, 212, 0.3)' },
+              '100%': { boxShadow: '0 0 40px rgba(6, 182, 212, 0.6)' },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            pulseSoft: {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '0.7' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Premium scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+    /* Glass morphism effects */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .glass-input {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-input:focus {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(6, 182, 212, 0.6);
+      box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1), 0 0 20px rgba(6, 182, 212, 0.2);
+      transform: translateY(-1px);
+    }
+
+    /* Hover effects */
+    .hover-lift {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .hover-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.3);
+    }
+
+    /* Status badge animations */
+    .status-badge {
+      animation: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #22d3ee, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Withdraw button glow */
+    .btn-withdraw {
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-withdraw::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .btn-withdraw:hover::before {
+      left: 100%;
+    }
+    .btn-withdraw:hover {
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Select dropdown styling */
+    select.glass-input {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+      background-position: right 0.75rem center;
+      background-repeat: no-repeat;
+      background-size: 1.5em 1.5em;
+      padding-right: 2.5rem;
+    }
+
+    select.glass-input option {
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-slate-950 font-sans text-white">
+
+  <!-- Animated Background -->
+  <div class="fixed inset-0 -z-10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.2),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(34,197,94,0.15),transparent_40%),radial-gradient(circle_at_center,rgba(139,92,246,0.08),transparent_50%)]"></div>
+    <div class="absolute inset-0 bg-slate-950/90"></div>
+    
+    <!-- Animated particles -->
+    <div class="absolute top-20 left-10 w-2 h-2 bg-cyan-400/30 rounded-full animate-float"></div>
+    <div class="absolute top-40 right-20 w-3 h-3 bg-emerald-400/20 rounded-full animate-float" style="animation-delay: 2s;"></div>
+    <div class="absolute bottom-40 left-1/4 w-2 h-2 bg-blue-400/25 rounded-full animate-float" style="animation-delay: 4s;"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
+    <div class="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4">
+      <a href="/dashboard" class="flex items-center gap-3 group">
+        <div class="relative">
+          <img src="/img/logo.png?v=20260509" alt="Kortex Prime" class="h-9 w-9 rounded-xl object-contain transition group-hover:scale-110">
+          <div class="absolute -inset-1 rounded-xl bg-cyan-400/20 blur-md opacity-0 group-hover:opacity-100 transition"></div>
+        </div>
+        <div>
+          <p class="text-sm font-bold tracking-wide text-white">Kortex Prime</p>
+          <p class="text-[11px] text-slate-400">Withdraw Funds</p>
+        </div>
+      </a>
+
+      <a href="/dashboard" class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-white hover:shadow-lg hover:shadow-cyan-400/10">
+        <span class="flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          Back to Dashboard
+        </span>
+      </a>
+    </div>
+  </header>
+
+  <main class="mx-auto w-full max-w-6xl px-4 py-8">
+
+    <!-- Balance Overview -->
+    <section class="mb-6 rounded-3xl border border-white/10 glass-card p-6 shadow-2xl shadow-black/30 animate-fade-in" data-aos="fade-down" data-aos-duration="600">
+      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="mb-2 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-300">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Withdrawal Center
+          </p>
+          <h1 class="text-2xl font-black tracking-tight md:text-3xl">
+            <span class="gradient-text">Withdraw Funds</span>
+          </h1>
+          <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
+            Submit a withdrawal request and track your payout status from one place. Fast, secure, and transparent.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-emerald-400/20 bg-emerald-400/5 px-5 py-4 hover-lift">
+          <p class="text-[11px] uppercase tracking-[0.16em] text-slate-500">Total Deposit</p>
+          <p class="mt-1 font-mono text-2xl font-black text-emerald-400">$<%= Number(user.balance || 0).toFixed(2) %></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+
+      <!-- Withdrawal Form -->
+      <section class="rounded-3xl border border-white/10 glass-card p-6 shadow-2xl shadow-black/30 hover-lift" data-aos="fade-right" data-aos-duration="700">
+        <div class="mb-6">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Submit a withdrawal
+          </h2>
+          <p class="mt-1 text-sm text-slate-400">Choose your payout method and enter your payment details.</p>
+        </div>
+
+        <form action="/withdraw" method="POST" class="space-y-5">
+
+          <!-- Amount Input -->
+          <div class="animate-slide-up" style="animation-delay: 0.1s;">
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+              <span class="flex items-center gap-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Amount
+              </span>
+            </label>
+            <div class="relative">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold text-lg">$</span>
+              <input
+                type="number"
+                name="amount"
+                min="10"
+                step="0.01"
+                placeholder="0.00"
+                class="w-full rounded-2xl border border-white/10 glass-input pl-10 pr-4 py-3.5 text-sm text-white outline-none placeholder:text-slate-600 font-mono"
+                required
+              >
+            </div>
+            <p class="mt-1.5 text-[11px] text-slate-500">Minimum withdrawal: $10.00</p>
+          </div>
+
+          <!-- Payout Method -->
+          <div class="animate-slide-up" style="animation-delay: 0.2s;">
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+              <span class="flex items-center gap-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                Payout Method
+              </span>
+            </label>
+            <select
+              name="network"
+              id="network"
+              class="w-full rounded-2xl border border-white/10 glass-input px-4 py-3.5 text-sm text-white outline-none font-medium"
+            >
+              <option value="USDT TRC20">💎 USDT TRC20</option>
+              <option value="USDT ERC20">💎 USDT ERC20</option>
+              <option value="BTC">₿ Bitcoin BTC</option>
+              <option value="ETH">⟠ Ethereum ETH</option>
+              <option value="DOGE">🐕 Dogecoin</option>
+              <option value="LTC">Ł Litecoin</option>
+              <option value="CashApp">💚 Cash App</option>
+              <option value="PayPal">🔵 PayPal</option>
+              <option value="Chime">🟢 Chime</option>
+              <option value="Zelle">🟣 Zelle</option>
+              <option value="Venmo">🔷 Venmo</option>
+              <option value="Apple Pay">🍎 Apple Pay</option>
+              <option value="Google Pay">🔴 Google Pay</option>
+              <option value="BANK">🏦 Bank Transfer</option>
+            </select>
+
+            <p id="bankWarn" class="mt-2 hidden rounded-xl border border-red-400/20 bg-red-400/10 px-3 py-2 text-xs font-semibold text-red-300 animate-fade-in">
+              ⚠️ Bank transfer is not available at the moment.
+            </p>
+          </div>
+
+          <!-- Payout Details -->
+          <div id="walletBox" class="animate-slide-up" style="animation-delay: 0.3s;">
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+              <span class="flex items-center gap-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                Payout Details
+              </span>
+            </label>
+            <input
+              type="text"
+              name="wallet"
+              id="walletInput"
+              placeholder="Enter your payout details"
+              class="w-full rounded-2xl border border-white/10 glass-input px-4 py-3.5 text-sm text-white outline-none placeholder:text-slate-600"
+            >
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="btn-withdraw w-full rounded-2xl px-5 py-4 text-sm font-black text-white transition flex items-center justify-center gap-2"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Submit Withdrawal
+          </button>
+        </form>
+      </section>
+
+      <!-- Withdrawal History -->
+      <section class="rounded-3xl border border-white/10 glass-card shadow-2xl shadow-black/30" data-aos="fade-left" data-aos-duration="700">
+        <div class="border-b border-white/10 px-6 py-5">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+            Withdrawal History
+          </h2>
+          <p class="mt-1 text-sm text-slate-400">Latest withdrawal requests appear first.</p>
+        </div>
+
+        <% if (!history || history.length === 0) { %>
+          <div class="flex min-h-[350px] flex-col items-center justify-center px-6 py-12 text-center animate-fade-in">
+            <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+              <span class="text-3xl">💸</span>
+            </div>
+            <h3 class="text-lg font-bold text-white">No withdrawals yet</h3>
+            <p class="mt-2 max-w-sm text-sm leading-6 text-slate-500">
+              Your withdrawal requests will appear here after submission. Start by filling out the form.
+            </p>
+          </div>
+        <% } else { %>
+          <div class="divide-y divide-white/5 max-h-[600px] overflow-y-auto">
+            <% history.forEach((w, index) => { %>
+              <div class="p-5 transition hover:bg-white/[0.05] animate-slide-up" style="animation-delay: <%= index * 0.1 %>s">
+                <div class="mb-4 flex items-start justify-between gap-4">
+                  <div>
+                    <p class="font-mono text-xl font-black text-white">$<%= Number(w.amount).toFixed(2) %></p>
+                    <p class="mt-1 text-xs text-slate-500 flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                      <%= w.network %>
+                    </p>
+                  </div>
+
+                  <% if (w.status === 'approved') { %>
+                    <span class="status-badge rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-emerald-300 flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                      Approved
+                    </span>
+                  <% } else if (w.status === 'rejected') { %>
+                    <span class="rounded-full border border-red-400/20 bg-red-400/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-red-300 flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                      Rejected
+                    </span>
+                  <% } else { %>
+                    <span class="status-badge rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-amber-300 flex items-center gap-1">
+                      <svg class="w-3 h-3 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                      Pending
+                    </span>
+                  <% } %>
+                </div>
+
+                <div class="grid grid-cols-1 gap-3 rounded-2xl border border-white/10 bg-slate-950/50 p-4 text-xs sm:grid-cols-2">
+                  <div>
+                    <p class="text-slate-500 uppercase tracking-wide">Method</p>
+                    <p class="mt-1 font-semibold text-slate-200"><%= w.network %></p>
+                  </div>
+                  <div>
+                    <p class="text-slate-500 uppercase tracking-wide">Date</p>
+                    <p class="mt-1 font-mono font-semibold text-slate-300"><%= new Date(w.date).toLocaleString() %></p>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS animations
+    AOS.init({
+      once: true,
+      duration: 800,
+      offset: 50
+    });
+  </script>
+
+  <script>
+    const method = document.getElementById('network')
+    const warn = document.getElementById('bankWarn')
+    const walletBox = document.getElementById('walletBox')
+    const walletInput = document.getElementById('walletInput')
+
+    function updateWalletPlaceholder() {
+      const val = method.value
+
+      warn.classList.add('hidden')
+      walletBox.classList.remove('hidden')
+      walletInput.required = true
+
+      if (['USDT TRC20', 'USDT ERC20', 'BTC', 'ETH', 'DOGE', 'LTC'].includes(val)) {
+        walletInput.placeholder = 'Enter your crypto wallet address'
+      } else if (val === 'CashApp') {
+        walletInput.placeholder = 'Enter your $Cashtag'
+      } else if (val === 'PayPal') {
+        walletInput.placeholder = 'Enter your PayPal email'
+      } else if (val === 'Chime') {
+        walletInput.placeholder = 'Enter your Chime ID or email'
+      } else if (val === 'Zelle') {
+        walletInput.placeholder = 'Enter your Zelle email or phone'
+      } else if (val === 'Venmo') {
+        walletInput.placeholder = 'Enter your Venmo username'
+      } else if (val === 'Apple Pay') {
+        walletInput.placeholder = 'Enter your Apple ID email'
+      } else if (val === 'Google Pay') {
+        walletInput.placeholder = 'Enter your Google Pay email'
+      } else if (val === 'BANK') {
+        warn.classList.remove('hidden')
+        walletBox.classList.add('hidden')
+        walletInput.required = false
+      }
+    }
+
+    updateWalletPlaceholder()
+    method.addEventListener('change', updateWalletPlaceholder)
+  </script>
+
+  <!-- SweetAlert2 for notifications -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <% if (toast) { %>
+  <script>
+    Swal.fire({
+      icon: '<%= toast.type %>',
+      title: '<%= toast.message %>',
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: '#0f172a',
+      color: '#ffffff',
+      customClass: {
+        popup: 'rounded-2xl border border-white/10',
+        title: 'text-sm font-semibold'
+      },
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+  </script>
+  <% } %>
+
+  <%- include('mobile-downbar') %>
+</body>
+</html>

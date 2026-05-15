@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ sidebarOpen: false }">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard - Kortex Prime</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4F46E5',
+            'primary-dark': '#4338CA',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbar */
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    
+    /* Hide sidebar properly when closed */
+    .sidebar-closed {
+      transform: translateX(-100%);
+    }
+    
+    @media (min-width: 1024px) {
+      .sidebar-closed {
+        transform: translateX(0);
+        width: 70px;
+      }
+    }
+    
+    /* Prevent horizontal scroll */
+    body {
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 8%, rgba(79, 70, 229, 0.18), transparent 34%),
+        radial-gradient(circle at 90% 20%, rgba(14, 165, 233, 0.12), transparent 32%),
+        radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.08), transparent 38%);
+      z-index: 0;
+    }
+    body > * {
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes admin-rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes admin-gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .admin-premium-card {
+      background: linear-gradient(145deg, rgba(15,23,42,0.88), rgba(30,41,59,0.62));
+      border: 1px solid rgba(148,163,184,0.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 60px -36px rgba(15,23,42,0.95);
+      animation: admin-rise 0.5s ease both;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .admin-premium-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(129,140,248,0.48);
+      box-shadow: 0 24px 70px -34px rgba(99,102,241,0.65);
+    }
+    .admin-premium-gradient {
+      background: linear-gradient(135deg, rgba(79,70,229,0.95), rgba(124,58,237,0.9), rgba(14,165,233,0.9));
+      background-size: 180% 180%;
+      animation: admin-gradient 8s ease infinite;
+    }
+    .admin-downbar {
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+      box-shadow: 0 -18px 45px rgba(2, 6, 23, 0.45);
+    }
+    .admin-downbar svg {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+    }
+    @media (max-width: 1023px) {
+      body {
+        padding-bottom: calc(76px + env(safe-area-inset-bottom));
+      }
+    }
+  </style>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+<body class="bg-slate-950 text-white">
+  
+  <!-- Main container -->
+  <div class="flex min-h-screen">
+    <!-- Sidebar - Closed by default -->
+    <aside class="fixed lg:relative z-40 bg-slate-900 border-r border-slate-800 h-screen flex flex-col transition-all duration-300"
+           :class="sidebarOpen ? 'w-64 translate-x-0' : '-translate-x-full lg:translate-x-0 lg:w-20'">
+      
+      <!-- Logo/Brand -->
+      <div class="flex items-center px-4 py-5 border-b border-slate-800 h-16">
+        <div class="flex items-center gap-3 w-full">
+          <div class="h-10 w-10 rounded-xl border border-cyan-400/20 bg-slate-900 flex items-center justify-center flex-shrink-0">
+            <img src="/img/logo.png?v=20260509" alt="Kortex Prime" class="h-9 w-9 object-contain">
+          </div>
+          
+          <div class="overflow-hidden" x-show="sidebarOpen" x-transition>
+            <p class="text-sm font-semibold whitespace-nowrap">Admin Panel</p>
+            <p class="text-[11px] text-slate-400 whitespace-nowrap">Kortex Prime</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Navigation Menu -->
+      <nav class="mt-4 flex-1 px-3 space-y-1 text-sm overflow-y-auto scrollbar-thin">
+        <a href="/admin" class="flex items-center gap-3 px-3 py-3 rounded-xl text-white bg-primary/20 border border-primary/40">
+          <i data-lucide="layout-dashboard" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="whitespace-nowrap" x-show="sidebarOpen" x-transition>Dashboard</span>
+        </a>
+
+        <a href="/admin/users" class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white">
+          <i data-lucide="users" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="whitespace-nowrap" x-show="sidebarOpen" x-transition>Users</span>
+        </a>
+
+        <a href="/admin/deposits" class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white">
+          <i data-lucide="wallet" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="whitespace-nowrap" x-show="sidebarOpen" x-transition>Deposits</span>
+        </a>
+
+        <a href="/admin/deposit/add" class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white">
+          <i data-lucide="plus-circle" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="whitespace-nowrap" x-show="sidebarOpen" x-transition>Add Deposit</span>
+        </a>
+
+        <a href="/admin/withdrawals" class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white">
+          <i data-lucide="banknote" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="whitespace-nowrap" x-show="sidebarOpen" x-transition>Withdrawals</span>
+        </a>
+
+        <a href="/admin/packages" class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white">
+          <i data-lucide="gift" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="whitespace-nowrap" x-show="sidebarOpen" x-transition>Packages</span>
+        </a>
+
+        <a href="/admin/profile" class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white">
+          <i data-lucide="settings" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="whitespace-nowrap" x-show="sidebarOpen" x-transition>Profile</span>
+        </a>
+      </nav>
+      
+      <!-- Logout Button -->
+      <div class="px-3 py-4 border-t border-slate-800">
+        <a href="/admin-logout" 
+           class="flex items-center gap-3 px-3 py-3 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-sm font-semibold justify-center hover:from-red-700 hover:to-rose-700">
+          <i data-lucide="log-out" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="whitespace-nowrap" x-show="sidebarOpen" x-transition>Logout</span>
+        </a>
+      </div>
+    </aside>
+    
+    <!-- Main Content Area - Fixed width to prevent shifting -->
+    <div class="flex-1 flex flex-col min-h-screen w-full">
+      
+      <!-- Top Header -->
+      <header class="sticky top-0 z-30 h-16 border-b border-slate-800 bg-slate-900/95 backdrop-blur-xl flex items-center px-4 lg:px-6">
+        <div class="w-full flex items-center justify-between">
+          <!-- Left side - Toggle button and breadcrumb -->
+          <div class="flex items-center gap-4">
+            <!-- Mobile menu toggle -->
+            <button @click="sidebarOpen = !sidebarOpen"
+                    class="lg:hidden h-9 w-9 flex items-center justify-center rounded-xl bg-slate-800 border border-slate-700 hover:bg-slate-700">
+              <i data-lucide="menu" class="w-4 h-4"></i>
+            </button>
+            
+            <!-- Desktop toggle -->
+            <button @click="sidebarOpen = !sidebarOpen"
+                    class="hidden lg:flex h-9 w-9 items-center justify-center rounded-xl bg-slate-800 border border-slate-700 hover:bg-slate-700">
+              <i data-lucide="panel-left" class="w-4 h-4 transition-transform" :class="sidebarOpen ? 'rotate-180' : ''"></i>
+            </button>
+            
+            <!-- Breadcrumb/Welcome -->
+            <div class="space-y-0.5">
+              <p class="text-xs text-slate-400">Admin dashboard</p>
+              <p class="text-sm font-semibold text-slate-100">
+                Welcome <span class="text-primary">Administrator</span>
+              </p>
+            </div>
+          </div>
+          
+          <!-- Right side - Stats and weather -->
+          <div class="flex items-center gap-4">
+            <!-- Weather widget -->
+            <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700">
+              <i data-lucide="sun" class="w-4 h-4 text-amber-400"></i>
+              <span class="text-xs font-medium">27°C Clear</span>
+            </div>
+            
+            <!-- Quick stats -->
+            <div class="hidden sm:flex items-center gap-4">
+              <div class="text-right">
+                <span class="text-xs text-slate-400">Users</span>
+                <span class="block text-sm font-semibold text-slate-100"><%= users.length %></span>
+              </div>
+              
+              <div class="w-px h-6 bg-slate-700"></div>
+              
+              <div class="text-right">
+                <span class="text-xs text-slate-400">Pending</span>
+                <span class="block text-sm font-semibold text-amber-400"><%= pendingCount %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      
+      <!-- Main Content - Full width -->
+      <main class="flex-1 p-4 lg:p-6 w-full">
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
+          <!-- Users Card -->
+          <div class="admin-premium-card rounded-2xl p-4 lg:p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div class="p-2 rounded-xl bg-primary/10">
+                <i data-lucide="users" class="w-5 h-5 text-primary"></i>
+              </div>
+              <span class="text-xs px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Active</span>
+            </div>
+            <p class="text-xs text-slate-400 mb-2">Users</p>
+              <p class="text-2xl lg:text-3xl font-bold mb-1"><%= users.length %></p>       
+              <p class="text-xs text-slate-500">Total registered accounts</p>
+          </div>
+          
+          <!-- Withdrawals Card -->
+          <div class="admin-premium-card rounded-2xl p-4 lg:p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div class="p-2 rounded-xl bg-amber-500/10">
+                <i data-lucide="banknote" class="w-5 h-5 text-amber-400"></i>
+              </div>
+              <span class="text-xs px-2 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Pending</span>
+            </div>
+            <p class="text-xs text-slate-400 mb-2">Withdrawals</p>
+            <p class="text-2xl lg:text-3xl font-bold mb-1"><%= pendingWithdrawals.length %></p>
+            <p class="text-xs text-slate-500">Pending requests</p>
+          </div>
+          
+          <!-- Deposits Card -->
+          <div class="admin-premium-card rounded-2xl p-4 lg:p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div class="p-2 rounded-xl bg-emerald-500/10">
+                <i data-lucide="wallet" class="w-5 h-5 text-emerald-400"></i>
+              </div>
+              <span class="text-xs px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">$<%= Number(approvedDepositsTotal || 0).toLocaleString() %></span>
+            </div>
+            <p class="text-xs text-slate-400 mb-2">Deposits</p>
+            <p class="text-2xl lg:text-3xl font-bold mb-1"><%= deposits.length %></p>
+            <p class="text-xs text-slate-500">Total deposit records</p>
+          </div>
+          
+          <!-- KYC Card -->
+          <div class="admin-premium-card rounded-2xl p-4 lg:p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div class="p-2 rounded-xl bg-sky-500/10">
+                <i data-lucide="id-card" class="w-5 h-5 text-sky-400"></i>
+              </div>
+              <span class="text-xs px-2 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20"><%= kycRequests.length %></span>
+            </div>
+            <p class="text-xs text-slate-400 mb-2">KYC</p>
+            <p class="text-2xl lg:text-3xl font-bold mb-1"><%= pendingKyc.length %></p>
+            <p class="text-xs text-slate-500">Pending verifications</p>
+          </div>
+        </div>
+        
+        <!-- Quick Actions & Stats Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+          <!-- Quick Actions -->
+          <div class="lg:col-span-2 admin-premium-card rounded-2xl p-4 lg:p-6">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="text-sm font-semibold">Quick actions</h3>
+              <span class="text-xs text-slate-500">Frequently used tasks</span>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
+              <!-- Manual Deposit -->
+              <a href="/admin/deposit/add" class="block">
+                <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 hover:border-primary/40 hover:bg-slate-800 transition">
+                  <div class="flex items-center gap-3 mb-2">
+                    <div class="p-2 rounded-lg bg-primary/10">
+                      <i data-lucide="plus-circle" class="w-4 h-4 text-primary"></i>
+                    </div>
+                    <span class="text-sm font-medium">Manual deposit</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Add funds to user account</p>
+                </div>
+              </a>
+              
+              <!-- Review Withdrawals -->
+              <a href="/admin/withdrawals" class="block">
+                <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 hover:border-amber-500/40 hover:bg-slate-800 transition">
+                  <div class="flex items-center gap-3 mb-2">
+                    <div class="p-2 rounded-lg bg-amber-500/10">
+                      <i data-lucide="banknote" class="w-4 h-4 text-amber-400"></i>
+                    </div>
+                    <span class="text-sm font-medium">Review withdrawals</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Process pending requests</p>
+                </div>
+              </a>
+              
+              <!-- Payment Methods -->
+              <a href="/admin/deposit-methods" class="block">
+                <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 hover:border-emerald-500/40 hover:bg-slate-800 transition">
+                  <div class="flex items-center gap-3 mb-2">
+                    <div class="p-2 rounded-lg bg-emerald-500/10">
+                      <i data-lucide="sliders" class="w-4 h-4 text-emerald-400"></i>
+                    </div>
+                    <span class="text-sm font-medium">Payment methods</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Configure deposit options</p>
+                </div>
+              </a>
+              
+              <!-- KYC -->
+              <a href="/admin/kyc" class="block">
+                <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 hover:border-sky-500/40 hover:bg-slate-800 transition">
+                  <div class="flex items-center gap-3 mb-2">
+                    <div class="p-2 rounded-lg bg-sky-500/10">
+                      <i data-lucide="id-card" class="w-4 h-4 text-sky-400"></i>
+                    </div>
+                    <span class="text-sm font-medium">KYC</span>
+                  </div>
+                  <p class="text-xs text-slate-400">Verify user documents</p>
+                </div>
+              </a>
+              
+              <!-- Manage Users -->
+              <a href="/admin/users" class="block">
+                <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 hover:border-primary/40 hover:bg-slate-800 transition">
+                  <div class="flex items-center gap-3 mb-2">
+                    <div class="p-2 rounded-lg bg-primary/10">
+                      <i data-lucide="user-cog" class="w-4 h-4 text-primary"></i>
+                    </div>
+                    <span class="text-sm font-medium">Manage users</span>
+                  </div>
+                  <p class="text-xs text-slate-400">View and edit users</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Snapshot Panel -->
+          <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-4 lg:p-6">
+            <h3 class="text-sm font-semibold mb-6">Snapshot</h3>
+            
+            <div class="space-y-4">
+              <!-- Users -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="p-1.5 rounded-lg bg-primary/10">
+                    <i data-lucide="users" class="w-3.5 h-3.5 text-primary"></i>
+                  </div>
+                  <span class="text-sm text-slate-300">Users</span>
+                </div>
+                <span class="text-sm font-semibold"><%= users.length %></span>
+              </div>
+              
+              <!-- Pending Withdrawals -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="p-1.5 rounded-lg bg-amber-500/10">
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-400"></i>
+                  </div>
+                  <span class="text-sm text-slate-300">Pending withdrawals</span>
+                </div>
+                <span class="text-sm font-semibold text-amber-400"><%= pendingWithdrawals.length %></span>
+              </div>
+              
+              <!-- Total Deposits -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="p-1.5 rounded-lg bg-emerald-500/10">
+                    <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  </div>
+                  <span class="text-sm text-slate-300">Total deposits</span>
+                </div>
+                <span class="text-sm font-semibold text-emerald-400">$<%= Number(approvedDepositsTotal || 0).toLocaleString() %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <nav class="admin-downbar lg:hidden fixed inset-x-0 bottom-0 z-50 border-t border-slate-800 bg-slate-950/95 backdrop-blur-xl">
+    <div class="grid grid-cols-5 px-2 pt-2 text-[11px] font-medium">
+      <a href="/admin" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 text-indigo-300 bg-indigo-500/10">
+        <i data-lucide="layout-dashboard"></i>
+        <span class="truncate">Home</span>
+      </a>
+
+      <a href="/admin/users" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 text-slate-400 hover:text-white">
+        <i data-lucide="users"></i>
+        <span class="truncate">Users</span>
+      </a>
+
+      <a href="/admin/deposit/add" class="relative -mt-5 flex flex-col items-center gap-1 rounded-2xl px-1 py-2 text-white">
+        <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 shadow-lg shadow-indigo-500/25">
+          <i data-lucide="plus" class="w-6 h-6"></i>
+        </span>
+        <span class="truncate text-slate-200">Deposit</span>
+      </a>
+
+      <a href="/admin/withdrawals" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 text-slate-400 hover:text-white">
+        <i data-lucide="banknote"></i>
+        <span class="truncate">Withdraw</span>
+      </a>
+
+      <a href="/admin/profile" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 text-slate-400 hover:text-white">
+        <i data-lucide="settings"></i>
+        <span class="truncate">Profile</span>
+      </a>
+    </div>
+  </nav>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Initialize Lucide icons
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+      
+      // Set sidebar to closed by default
+      const sidebarState = Alpine.reactive({ sidebarOpen: false });
+      
+      // Check localStorage for saved state
+      const savedState = localStorage.getItem('adminSidebarOpen');
+      if (savedState !== null) {
+        sidebarState.sidebarOpen = savedState === 'true';
+      }
+      
+      // Save state when it changes
+      Alpine.effect(() => {
+        localStorage.setItem('adminSidebarOpen', sidebarState.sidebarOpen);
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        const sidebar = document.querySelector('aside');
+        const toggleBtn = document.querySelector('button[aria-label="Toggle sidebar"]');
+        
+        if (window.innerWidth < 1024 && 
+            sidebar.classList.contains('translate-x-0') && 
+            !sidebar.contains(event.target) && 
+            !toggleBtn.contains(event.target)) {
+          sidebarState.sidebarOpen = false;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

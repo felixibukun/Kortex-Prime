@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Login - Kortex Prime Trading Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Access your Kortex Prime trading dashboard. Trade Forex, Cryptocurrencies, Indices, and Commodities with institutional-grade tools.">
+    <meta name="keywords" content="login, trading platform, dashboard, secure login, trading account">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --kortex-primary: #0066FF;
+            --kortex-secondary: #00D4FF;
+            --kortex-accent: #7B3FE4;
+            --kortex-dark: #0A0F2B;
+            --kortex-darker: #070B1F;
+            --kortex-card: #111837;
+            --kortex-green: #00C853;
+            --kortex-red: #FF3B30;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--kortex-dark);
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(10,15,43,0.95) 0%, rgba(7,11,31,0.98) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0,102,255,0.08) 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 992px) {
+            .login-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* Left Panel - Login Form */
+        .login-form-container {
+            background: var(--kortex-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .brand-logo {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #FFFFFF;
+        }
+
+        .welcome-subtitle {
+            color: rgba(255,255,255,0.7);
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 16px 20px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--kortex-primary);
+            box-shadow: 0 0 0 3px rgba(0,102,255,0.2);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--kortex-primary);
+        }
+
+        .forgot-password {
+            color: var(--kortex-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-accent));
+            border: none;
+            border-radius: 12px;
+            padding: 18px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .login-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,102,255,0.3);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .login-btn i {
+            margin-right: 10px;
+        }
+
+        .divider {
+            text-align: center;
+            position: relative;
+            margin: 30px 0;
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .divider::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: var(--kortex-primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Right Panel - Features */
+        .features-panel {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .features-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #FFFFFF, var(--kortex-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 576px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--kortex-primary);
+            background: rgba(0,102,255,0.05);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--kortex-primary), var(--kortex-accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #FFFFFF;
+        }
+
+        .feature-description {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+        }
+
+        .security-features {
+            background: rgba(0,0,0,0.2);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .security-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .security-grid {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .security-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+
+        .security-item i {
+            color: var(--kortex-green);
+            font-size: 16px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--kortex-darker);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-text {
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            margin: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-form-container {
+                padding: 30px;
+            }
+            
+            .login-wrapper {
+                gap: 30px;
+            }
+            
+            .welcome-title {
+                font-size: 24px;
+            }
+            
+            .features-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .login-form-container {
+                padding: 20px;
+            }
+            
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #FFFFFF;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Error States */
+        .error-message {
+            color: var(--kortex-red);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-control.error {
+            border-color: var(--kortex-red);
+        }
+    </style>
+<link rel="stylesheet" href="/css/premium-ui.css">
+</head>
+<body>
+
+<div class="login-container">
+    <div class="login-wrapper">
+        <!-- Left Panel: Login Form -->
+        <div class="login-form-container">
+            <div class="login-header">
+                <div class="brand-logo">KORTEX PRIME</div>
+                <h1 class="welcome-title">Welcome Back</h1>
+                <p class="welcome-subtitle">Access your trading dashboard</p>
+            </div>
+
+            <form id="loginForm" action="/login" method="POST">
+                <div class="form-group">
+                    <label class="form-label" for="username">Email Address or Username</label>
+                    <div class="input-with-icon">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Enter your email or username" required>
+                        <i class="fas fa-user input-icon"></i>
+                    </div>
+                    <div class="error-message" id="usernameError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="input-with-icon">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                        <i class="fas fa-eye input-icon" id="togglePassword"></i>
+                    </div>
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        Remember me
+                    </label>
+                    <a href="/forgot-password" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginButton">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Access Dashboard
+                </button>
+
+                <div class="signup-link">
+                    New to trading?
+                    <a href="/signup">Create your account</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right Panel: Features -->
+        <div class="features-panel">
+            <h2 class="features-title">Trade with Confidence</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Live Markets</h3>
+                    <p class="feature-description">Real-time data and 24/7 market access for global trading opportunities.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Fast Execution</h3>
+                    <p class="feature-description">Ultra-fast trade execution with minimal latency for optimal results.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Secure Platform</h3>
+                    <p class="feature-description">Bank-level security and encryption to protect your assets and data.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Mobile Trading</h3>
+                    <p class="feature-description">Trade on-the-go with our fully-featured mobile trading application.</p>
+                </div>
+            </div>
+
+            <div class="security-features">
+                <h4 class="security-title">Security Features</h4>
+                <div class="security-grid">
+                    <div class="security-item">
+                        <i class="fas fa-lock"></i>
+                        <span>SSL Secured</span>
+                    </div>
+                    <div class="security-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>256-bit Encryption</span>
+                    </div>
+                    <div class="security-item">
+                        <i class="fas fa-certificate"></i>
+                        <span>Regulated</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p class="footer-text">© 2024 Kortex Prime. All rights reserved. | Licensed and regulated trading platform.</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForm = document.getElementById('loginForm');
+        const loginButton = document.getElementById('loginButton');
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const usernameInput = document.getElementById('username');
+        const rememberMe = document.getElementById('rememberMe');
+
+        // Toggle password visibility
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Check for saved username
+        if (localStorage.getItem('rememberMe') === 'true') {
+            const savedUsername = localStorage.getItem('username');
+            
+            if (savedUsername) {
+                usernameInput.value = savedUsername;
+                rememberMe.checked = true;
+            }
+        }
+
+        // Form validation
+        loginForm.addEventListener('submit', function(e) {
+                        
+            // Reset errors
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
+            
+            document.querySelectorAll('.form-control').forEach(el => {
+                el.classList.remove('error');
+            });
+
+            // Get form values
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+            const remember = rememberMe.checked;
+
+            let isValid = true;
+
+            // Validate username
+            if (!username) {
+                showError('usernameError', 'Please enter your email or username');
+                usernameInput.classList.add('error');
+                isValid = false;
+            }
+
+            // Validate password
+            if (!password) {
+                showError('passwordError', 'Please enter your password');
+                passwordInput.classList.add('error');
+                isValid = false;
+            } else if (password.length < 6) {
+                showError('passwordError', 'Password must be at least 6 characters');
+                passwordInput.classList.add('error');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+                return;
+            }
+
+            // Remember only the username; never store passwords in localStorage.
+            if (remember) {
+                localStorage.setItem('rememberMe', 'true');
+                localStorage.setItem('username', username);
+            } else {
+                localStorage.removeItem('rememberMe');
+                localStorage.removeItem('username');
+            }
+
+            // Show loading state
+            loginButton.innerHTML = '<span class="spinner"></span> Signing in...';
+            loginButton.disabled = true;
+        });
+
+        // Clear error on input
+        usernameInput.addEventListener('input', function() {
+            clearError('usernameError');
+            this.classList.remove('error');
+        });
+
+        passwordInput.addEventListener('input', function() {
+            clearError('passwordError');
+            this.classList.remove('error');
+        });
+
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.style.display = 'block';
+        }
+
+        function clearError(elementId) {
+            const element = document.getElementById(elementId);
+            element.textContent = '';
+            element.style.display = 'none';
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                loginForm.dispatchEvent(new Event('submit'));
+            }
+            
+            if (e.key === 'F1') {
+                e.preventDefault();
+                window.location.href = '/help';
+            }
+        });
+
+        // Auto-focus username field
+        usernameInput.focus();
+    });
+</script>
+
+</body>
+</html>
