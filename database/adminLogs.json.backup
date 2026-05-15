@@ -1445,5 +1445,26 @@
     },
     "timestamp": "2026-05-14T21:27:38.128Z",
     "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778794120340,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1778632991923,
+      "username": "Bean"
+    },
+    "timestamp": "2026-05-14T21:28:40.340Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778875976507,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-15T20:12:56.507Z",
+    "ip": "127.0.0.1"
   }
 ]

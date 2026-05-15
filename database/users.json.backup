@@ -20,7 +20,7 @@
     "phone": "+1734928291",
     "country": "US",
     "password": "$2b$12$zIHfRyEMCY7fVEr4U.Y1TOWX3h3t64IsDDbguGtW2KpKMEWn8khTm",
-    "balance": 10000,
+    "balance": 9900,
     "profit": 0,
     "bonus": 0,
     "deposit": 566.55,
@@ -29,9 +29,9 @@
     "kycStatus": "Not Verified",
     "role": "user",
     "createdAt": "2026-05-09T14:41:21.897Z",
-    "lastLoginAt": "2026-05-14T21:32:28.877Z",
+    "lastLoginAt": "2026-05-15T20:11:39.987Z",
     "lastLoginIp": "127.0.0.1",
-    "loginCount": 6
+    "loginCount": 7
   },
   {
     "id": 1778358306561,

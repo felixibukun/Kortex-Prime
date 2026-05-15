@@ -588,11 +588,10 @@ async function getRealMarketData() {
     )
     const crypto = cryptoRes.data
 
-    // Check if stock market is open (Mon–Fri, 9am–5pm ET roughly)
+    // Market open Monday to Friday, closed Saturday and Sunday
     const now = new Date()
     const day = now.getDay()
-    const hour = now.getHours()
-    const marketOpen = (day >= 1 && day <= 5) && (hour >= 9 && hour < 17)
+    const marketOpen = day >= 1 && day <= 5
 
     return {
       btcPrice: crypto.bitcoin?.usd ?? 67432.15,
@@ -628,7 +627,7 @@ async function getRealMarketData() {
       sp500Price: 5201.34,
       nasdaqPrice: 16302.76,
       dowjonesPrice: 38852.27,
-      marketOpen: true
+      marketOpen: new Date().getDay() >= 1 && new Date().getDay() <= 5
     }
   }
 }
