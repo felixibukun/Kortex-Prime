@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Deposit & Withdrawal | Kortex Prime</title>
-  
+  <title>Withdraw Funds | Kortex Prime</title>
+
+  <link rel="icon" type="image/png" href="/img/favicon-32.png?v=20260509">
+  <link rel="shortcut icon" href="/favicon.ico?v=20260509">
+
   <!-- Premium Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/premium-ui.css">
   
   <!-- AOS Animation Library -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -26,22 +28,22 @@
           },
           animation: {
             'float': 'float 6s ease-in-out infinite',
-            'float-delayed': 'float 6s ease-in-out 2s infinite',
-            'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-            'fade-in': 'fadeIn 0.8s ease-out',
-            'pulse-soft': 'pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'shimmer': 'shimmer 2s linear infinite',
             'glow': 'glow 2s ease-in-out infinite alternate',
-            'gradient-spin': 'gradientSpin 4s linear infinite',
-            'scale-in': 'scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+            'slide-up': 'slideUp 0.5s ease-out',
+            'fade-in': 'fadeIn 0.6s ease-out',
+            'pulse-soft': 'pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
           },
           keyframes: {
             float: {
-              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-              '50%': { transform: 'translateY(-20px) rotate(3deg)' },
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            glow: {
+              '0%': { boxShadow: '0 0 20px rgba(6, 182, 212, 0.3)' },
+              '100%': { boxShadow: '0 0 40px rgba(6, 182, 212, 0.6)' },
             },
             slideUp: {
-              '0%': { transform: 'translateY(30px)', opacity: '0' },
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
               '100%': { transform: 'translateY(0)', opacity: '1' },
             },
             fadeIn: {
@@ -50,24 +52,7 @@
             },
             pulseSoft: {
               '0%, 100%': { opacity: '1' },
-              '50%': { opacity: '0.6' },
-            },
-            shimmer: {
-              '0%': { backgroundPosition: '-200% 0' },
-              '100%': { backgroundPosition: '200% 0' },
-            },
-            glow: {
-              '0%': { boxShadow: '0 0 20px rgba(6, 182, 212, 0.2), 0 0 60px rgba(6, 182, 212, 0.1)' },
-              '100%': { boxShadow: '0 0 40px rgba(6, 182, 212, 0.4), 0 0 100px rgba(6, 182, 212, 0.2)' },
-            },
-            gradientSpin: {
-              '0%': { backgroundPosition: '0% 50%' },
-              '50%': { backgroundPosition: '100% 50%' },
-              '100%': { backgroundPosition: '0% 50%' },
-            },
-            scaleIn: {
-              '0%': { transform: 'scale(0.9)', opacity: '0' },
-              '100%': { transform: 'scale(1)', opacity: '1' },
+              '50%': { opacity: '0.7' },
             },
           }
         }
@@ -77,101 +62,83 @@
 
   <style>
     /* Premium scrollbar */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: rgba(2, 6, 23, 0.5); }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #06b6d4, #3b82f6); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #22d3ee, #60a5fa); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
 
-    /* Animated gradient background */
-    .bg-animated-gradient {
-      background: linear-gradient(
-        135deg,
-        #0f172a 0%,
-        #1e1b4b 25%,
-        #0f172a 50%,
-        #0c1929 75%,
-        #0f172a 100%
-      );
-      background-size: 400% 400%;
-      animation: gradientSpin 15s ease infinite;
-    }
-
-    /* Premium glass morphism */
+    /* Glass morphism effects */
     .glass-card {
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(30px) saturate(180%);
-      -webkit-backdrop-filter: blur(30px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
 
-    .glass-item {
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(20px) saturate(160%);
-      -webkit-backdrop-filter: blur(20px) saturate(160%);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    .glass-input {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-input:focus {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(6, 182, 212, 0.6);
+      box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1), 0 0 20px rgba(6, 182, 212, 0.2);
+      transform: translateY(-1px);
+    }
+
+    /* Hover effects */
+    .hover-lift {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .hover-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.3);
+    }
+
+    /* Status badge animations */
+    .status-badge {
+      animation: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #22d3ee, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Withdraw button glow */
+    .btn-withdraw {
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
     }
-
-    .glass-item::before {
+    .btn-withdraw::before {
       content: '';
       position: absolute;
       top: 0;
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.03),
-        transparent
-      );
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
       transition: left 0.5s;
     }
-
-    .glass-item:hover::before {
+    .btn-withdraw:hover::before {
       left: 100%;
     }
-
-    .glass-item:hover {
-      background: rgba(30, 41, 59, 0.7);
-      border-color: rgba(6, 182, 212, 0.3);
-      transform: translateY(-2px) translateX(2px);
-      box-shadow: 
-        0 20px 40px -15px rgba(6, 182, 212, 0.2),
-        0 0 20px rgba(6, 182, 212, 0.1);
+    .btn-withdraw:hover {
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.5);
+      transform: translateY(-2px);
     }
 
-    /* Premium glass inputs */
-    .glass-input {
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .glass-input:focus {
-      background: rgba(30, 41, 59, 0.95);
-      border-color: rgba(6, 182, 212, 0.6);
-      box-shadow: 
-        0 0 0 4px rgba(6, 182, 212, 0.1),
-        0 0 30px rgba(6, 182, 212, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      outline: none;
-      transform: scale(1.01);
-    }
-
-    /* Select dropdown */
+    /* Select dropdown styling */
     select.glass-input {
       cursor: pointer;
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2306b6d4' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
       background-position: right 0.75rem center;
       background-repeat: no-repeat;
       background-size: 1.5em 1.5em;
@@ -181,518 +148,232 @@
     select.glass-input option {
       background: #0f172a;
       color: #e2e8f0;
-      padding: 10px;
-    }
-
-    /* Gradient text */
-    .gradient-text {
-      background: linear-gradient(135deg, #22d3ee, #3b82f6, #8b5cf6);
-      background-size: 200% 200%;
-      animation: gradientSpin 4s ease infinite;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .gradient-green {
-      background: linear-gradient(135deg, #34d399, #10b981, #059669);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* Status badges with glow */
-    .badge-approved {
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #34d399;
-      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
-    }
-
-    .badge-pending {
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      color: #fbbf24;
-      animation: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-      box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
-    }
-
-    .badge-rejected {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #f87171;
-      box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
-    }
-
-    /* Hover lift effect */
-    .hover-lift {
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .hover-lift:hover {
-      transform: translateY(-4px);
-      box-shadow: 
-        0 30px 60px -20px rgba(6, 182, 212, 0.3),
-        0 0 40px rgba(6, 182, 212, 0.1);
-    }
-
-    /* Premium submit button */
-    .btn-submit {
-      background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);
-      background-size: 200% 200%;
-      animation: gradientSpin 4s ease infinite;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.4);
-    }
-    
-    .btn-submit::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transition: left 0.7s;
-    }
-    
-    .btn-submit:hover::before {
-      left: 100%;
-    }
-    
-    .btn-submit:hover {
-      box-shadow: 
-        0 20px 50px -15px rgba(6, 182, 212, 0.6),
-        0 0 30px rgba(6, 182, 212, 0.3);
-      transform: translateY(-3px);
-      letter-spacing: 0.5px;
-    }
-
-    /* File input styling */
-    .file-input-wrapper {
-      position: relative;
-    }
-    .file-input-wrapper input[type="file"] {
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .file-input-wrapper input[type="file"]::file-selector-button {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3));
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      color: #93c5fd;
-      padding: 0.6rem 1.2rem;
-      border-radius: 1rem;
-      margin-right: 1rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 600;
-      font-size: 0.8rem;
-      box-shadow: 0 2px 10px rgba(59, 130, 246, 0.2);
-    }
-    .file-input-wrapper input[type="file"]::file-selector-button:hover {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(139, 92, 246, 0.5));
-      border-color: rgba(96, 165, 250, 0.6);
-      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-      transform: scale(1.05);
-    }
-
-    /* Payment details box */
-    .payment-details-box {
-      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));
-      border: 1px solid rgba(6, 182, 212, 0.25);
-      animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 
-        0 10px 30px -10px rgba(6, 182, 212, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-
-    /* Ripple effect */
-    .ripple {
-      position: relative;
-      overflow: hidden;
-    }
-    .ripple::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      padding-top: 100%;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      opacity: 0;
-      transform: scale(1);
-    }
-    .ripple:active::after {
-      opacity: 1;
-      transform: scale(0);
-      transition: transform 0s;
     }
   </style>
 </head>
 
-<body class="min-h-screen bg-animated-gradient font-sans text-white">
+<body class="min-h-screen bg-slate-950 font-sans text-white">
 
-  <!-- Animated Background Elements -->
-  <div class="fixed inset-0 -z-10 overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.2),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(34,197,94,0.15),transparent_40%),radial-gradient(circle_at_center,rgba(139,92,246,0.1),transparent_50%)]"></div>
-    <div class="absolute inset-0 bg-slate-950/80"></div>
+  <!-- Animated Background -->
+  <div class="fixed inset-0 -z-10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(14,165,233,0.2),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(34,197,94,0.15),transparent_40%),radial-gradient(circle_at_center,rgba(139,92,246,0.08),transparent_50%)]"></div>
+    <div class="absolute inset-0 bg-slate-950/90"></div>
     
-    <!-- Floating orbs -->
-    <div class="absolute top-20 left-10 w-32 h-32 bg-cyan-400/10 rounded-full blur-3xl animate-float"></div>
-    <div class="absolute top-40 right-20 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl animate-float-delayed"></div>
-    <div class="absolute bottom-40 left-1/3 w-40 h-40 bg-emerald-400/10 rounded-full blur-3xl animate-float" style="animation-delay: 4s;"></div>
-    <div class="absolute bottom-20 right-1/4 w-36 h-36 bg-purple-400/10 rounded-full blur-3xl animate-float-delayed" style="animation-delay: 6s;"></div>
-    
-    <!-- Grid pattern overlay -->
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LCAyNTUsIDI1NSwgMC4wMykiIHN0cm9rZS13aWR0aD0iMSI+CiAgICA8cGF0aCBkPSJNMCAwaDQwdjQwSDB6Ii8+CiAgPC9nPgo8L3N2Zz4=')] opacity-50"></div>
+    <!-- Animated particles -->
+    <div class="absolute top-20 left-10 w-2 h-2 bg-cyan-400/30 rounded-full animate-float"></div>
+    <div class="absolute top-40 right-20 w-3 h-3 bg-emerald-400/20 rounded-full animate-float" style="animation-delay: 2s;"></div>
+    <div class="absolute bottom-40 left-1/4 w-2 h-2 bg-blue-400/25 rounded-full animate-float" style="animation-delay: 4s;"></div>
   </div>
 
   <!-- Header -->
-  <header class="sticky top-0 z-40 h-16 border-b border-white/5 bg-slate-950/60 backdrop-blur-3xl">
-    <div class="mx-auto flex h-full w-full max-w-6xl items-center justify-between px-4">
-      <div class="flex items-center gap-3">
-        <div class="flex items-center gap-3">
-          <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 p-0.5">
-            <div class="flex h-full w-full items-center justify-center rounded-lg bg-slate-950">
-              <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-              </svg>
-            </div>
-          </div>
-          <div>
-            <p class="text-sm font-bold tracking-wide">
-              <span class="gradient-text">Deposit & Withdrawal</span>
-            </p>
-            <p class="text-[10px] text-slate-500 tracking-wide">Kortex Prime</p>
-          </div>
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
+    <div class="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4">
+      <a href="/dashboard" class="flex items-center gap-3 group">
+        <div class="relative">
+          <img src="/img/logo.png?v=20260509" alt="Kortex Prime" class="h-9 w-9 rounded-xl object-contain transition group-hover:scale-110">
+          <div class="absolute -inset-1 rounded-xl bg-cyan-400/20 blur-md opacity-0 group-hover:opacity-100 transition"></div>
         </div>
-      </div>
+        <div>
+          <p class="text-sm font-bold tracking-wide text-white">Kortex Prime</p>
+          <p class="text-[11px] text-slate-400">Withdraw Funds</p>
+        </div>
+      </a>
 
-      <a href="/dashboard" 
-         class="group relative flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-white hover:shadow-lg hover:shadow-cyan-400/10">
-        <svg class="w-4 h-4 transition group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-        </svg>
-        Back to Dashboard
-        <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-400/0 via-cyan-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <a href="/dashboard" class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:text-white hover:shadow-lg hover:shadow-cyan-400/10">
+        <span class="flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          Back to Dashboard
+        </span>
       </a>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="mx-auto w-full max-w-6xl px-4 py-10 space-y-8">
+  <main class="mx-auto w-full max-w-6xl px-4 py-8">
 
-    <!-- Stats Bar -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" data-aos="fade-up" data-aos-duration="800">
-      <div class="glass-card rounded-2xl p-5 text-center transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center justify-center w-10 h-10 mx-auto mb-3 rounded-xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-cyan-400/30">
-          <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
+    <!-- Balance Overview -->
+    <section class="mb-6 rounded-3xl border border-white/10 glass-card p-6 shadow-2xl shadow-black/30 animate-fade-in" data-aos="fade-down" data-aos-duration="600">
+      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="mb-2 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-300">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Withdrawal Center
+          </p>
+          <h1 class="text-2xl font-black tracking-tight md:text-3xl">
+            <span class="gradient-text">Withdraw Funds</span>
+          </h1>
+          <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
+            Submit a withdrawal request and track your payout status from one place. Fast, secure, and transparent.
+          </p>
         </div>
-        <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Total Deposits</p>
-        <p class="text-2xl font-black gradient-text">
-          $<%= typeof deposits !== 'undefined' && deposits && deposits.length > 0 ? deposits.reduce((sum, d) => d.status === 'approved' ? sum + Number(d.amount) : sum, 0).toFixed(2) : '0.00' %>
-        </p>
+
+        <div class="rounded-2xl border border-emerald-400/20 bg-emerald-400/5 px-5 py-4 hover-lift">
+          <p class="text-[11px] uppercase tracking-[0.16em] text-slate-500">Available Balance</p>
+          <p class="mt-1 font-mono text-2xl font-black text-emerald-400">$<%= Number(user.balance || 0).toFixed(2) %></p>
+        </div>
       </div>
-      <div class="glass-card rounded-2xl p-5 text-center transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center justify-center w-10 h-10 mx-auto mb-3 rounded-xl bg-gradient-to-br from-amber-400/20 to-yellow-500/20 border border-amber-400/30">
-          <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-        </div>
-        <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Pending</p>
-        <p class="text-2xl font-black text-amber-400">
-          <%= typeof deposits !== 'undefined' && deposits ? deposits.filter(d => d.status === 'pending').length : 0 %>
-        </p>
-      </div>
-      <div class="glass-card rounded-2xl p-5 text-center transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center justify-center w-10 h-10 mx-auto mb-3 rounded-xl bg-gradient-to-br from-emerald-400/20 to-green-500/20 border border-emerald-400/30">
-          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-        </div>
-        <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Approved</p>
-        <p class="text-2xl font-black gradient-green">
-          <%= typeof deposits !== 'undefined' && deposits ? deposits.filter(d => d.status === 'approved').length : 0 %>
-        </p>
-      </div>
-    </div>
+    </section>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
 
-      <!-- Deposit Form -->
-      <section class="glass-card rounded-3xl p-8 shadow-2xl shadow-black/40 hover-lift" data-aos="fade-right" data-aos-duration="800">
-        
-        <!-- Header with decorative line -->
-        <div class="relative mb-8">
-          <div class="absolute -top-2 left-0 w-12 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"></div>
-          <div class="flex items-center gap-4 mb-2 mt-4">
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400/20 to-emerald-400/5 border border-emerald-400/30 shadow-lg shadow-emerald-400/10">
-              <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-              </svg>
-            </div>
-            <div>
-              <h2 class="text-2xl font-black text-white tracking-tight">Submit Deposit</h2>
-              <p class="text-xs text-slate-500 mt-1">Choose your preferred payment method</p>
-            </div>
-          </div>
+      <!-- Withdrawal Form -->
+      <section class="rounded-3xl border border-white/10 glass-card p-6 shadow-2xl shadow-black/30 hover-lift" data-aos="fade-right" data-aos-duration="700">
+        <div class="mb-6">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Submit a withdrawal
+          </h2>
+          <p class="mt-1 text-sm text-slate-400">Choose your payout method and enter your payment details.</p>
         </div>
 
-        <form action="/deposit" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form action="/withdraw" method="POST" class="space-y-5">
 
           <!-- Amount Input -->
           <div class="animate-slide-up" style="animation-delay: 0.1s;">
-            <label class="mb-3 block">
-              <span class="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-slate-400 mb-2">
-                <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+              <span class="flex items-center gap-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 Amount
               </span>
             </label>
-            <div class="relative group">
-              <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                <span class="text-slate-400 font-bold text-lg group-focus-within:text-cyan-400 transition-colors">$</span>
-                <div class="w-px h-5 bg-white/20"></div>
-              </div>
-              <input type="number"
-                     name="amount"
-                     min="1"
-                     required
-                     placeholder="0.00"
-                     class="w-full glass-input rounded-2xl pl-16 pr-4 py-4 text-base text-white placeholder:text-slate-600 font-mono font-semibold">
+            <div class="relative">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold text-lg">$</span>
+              <input
+                type="number"
+                name="amount"
+                min="10"
+                step="0.01"
+                placeholder="0.00"
+                class="w-full rounded-2xl border border-white/10 glass-input pl-10 pr-4 py-3.5 text-sm text-white outline-none placeholder:text-slate-600 font-mono"
+                required
+              >
             </div>
-            <p class="mt-2 text-[11px] text-slate-500 flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              Enter the amount you wish to deposit
-            </p>
+            <p class="mt-1.5 text-[11px] text-slate-500">Minimum withdrawal: $10.00</p>
           </div>
 
-          <!-- Method Selection -->
+          <!-- Payout Method -->
           <div class="animate-slide-up" style="animation-delay: 0.2s;">
-            <label class="mb-3 block">
-              <span class="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-slate-400 mb-2">
-                <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                </svg>
-                Payment Method
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+              <span class="flex items-center gap-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                Payout Method
               </span>
             </label>
-            <select id="methodSelect"
-                    name="method"
-                    required
-                    onchange="showDetails(this.value)"
-                    class="w-full glass-input rounded-2xl px-5 py-4 text-sm text-white font-medium">
-              <option value="">Choose payment method</option>
-              <% if (typeof depositMethods !== 'undefined' && depositMethods) { depositMethods.forEach(m => { %>
-                <option value="<%= m.name %>"><%= m.name %></option>
-              <% }) } %>
+            <select
+              name="network"
+              id="network"
+              class="w-full rounded-2xl border border-white/10 glass-input px-4 py-3.5 text-sm text-white outline-none font-medium"
+            >
+              <option value="USDT TRC20">💎 USDT TRC20</option>
+              <option value="USDT ERC20">💎 USDT ERC20</option>
+              <option value="BTC">₿ Bitcoin BTC</option>
+              <option value="ETH">⟠ Ethereum ETH</option>
+              <option value="DOGE">🐕 Dogecoin</option>
+              <option value="LTC">Ł Litecoin</option>
+              <option value="CashApp">💚 Cash App</option>
+              <option value="PayPal">🔵 PayPal</option>
+              <option value="Chime">🟢 Chime</option>
+              <option value="Zelle">🟣 Zelle</option>
+              <option value="Venmo">🔷 Venmo</option>
+              <option value="Apple Pay">🍎 Apple Pay</option>
+              <option value="Google Pay">🔴 Google Pay</option>
+              <option value="BANK">🏦 Bank Transfer</option>
             </select>
+
           </div>
 
-          <!-- Payment Details Box (Animated) -->
-          <div id="paymentBox"
-               class="hidden payment-details-box rounded-2xl p-6 animate-scale-in">
-            <div class="flex items-start justify-between gap-4 mb-4">
-              <div class="flex-1">
-                <p class="text-[11px] uppercase tracking-[0.15em] text-cyan-400 font-bold mb-3 flex items-center gap-2">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                  </svg>
-                  Payment Details
-                </p>
-                <p id="paymentText" class="text-sm text-slate-200 break-all font-mono leading-relaxed bg-slate-950/50 rounded-xl p-4 border border-white/5"></p>
-              </div>
-              <button id="copyPaymentButton"
-                      type="button"
-                      onclick="copyDetails()"
-                      class="ripple flex-shrink-0 flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400/20 to-blue-500/20 border border-cyan-400/30 px-5 py-2.5 text-xs font-bold text-cyan-300 hover:from-cyan-400/30 hover:to-blue-500/30 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-400/20 transition-all">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                </svg>
-                Copy
-              </button>
-            </div>
-            <div id="paymentQrWrap" class="hidden rounded-2xl border border-white/10 bg-slate-950/50 p-6 text-center">
-              <p class="mb-4 text-[11px] uppercase tracking-[0.15em] text-cyan-400 font-bold">Scan QR Code</p>
-              <img id="paymentQr"
-                   src=""
-                   alt="Payment QR code"
-                   class="mx-auto h-44 w-44 rounded-2xl border-2 border-white/10 bg-white object-contain p-3 shadow-lg shadow-cyan-400/10">
-              <p class="mt-3 text-[10px] text-slate-500">Use your banking app to scan the QR code</p>
-            </div>
-          </div>
-
-          <!-- Proof Upload -->
-          <div class="animate-slide-up" style="animation-delay: 0.3s;">
-            <label class="mb-3 block">
-              <span class="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-slate-400 mb-2">
-                <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                </svg>
-                Proof of Payment
+          <!-- Payout Details -->
+          <div id="walletBox" class="animate-slide-up" style="animation-delay: 0.3s;">
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+              <span class="flex items-center gap-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                Payout Details
               </span>
             </label>
-            <div class="file-input-wrapper">
-              <input type="file"
-                     name="proof"
-                     accept="image/*"
-                     required
-                     class="w-full glass-input rounded-2xl px-4 py-3.5 text-xs text-slate-400">
-            </div>
-            <p class="mt-2 text-[11px] text-slate-500 flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-              </svg>
-              Upload screenshot or photo of your payment confirmation
-            </p>
+            <input
+              type="text"
+              name="wallet"
+              id="walletInput"
+              placeholder="Enter your payout details"
+              class="w-full rounded-2xl border border-white/10 glass-input px-4 py-3.5 text-sm text-white outline-none placeholder:text-slate-600"
+            >
           </div>
 
           <!-- Submit Button -->
-          <button type="submit" class="btn-submit w-full rounded-2xl py-4 text-sm font-black text-white flex items-center justify-center gap-2 tracking-wide">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-            </svg>
-            Confirm Deposit
+          <button
+            type="submit"
+            class="btn-withdraw w-full rounded-2xl px-5 py-4 text-sm font-black text-white transition flex items-center justify-center gap-2"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Submit Withdrawal
           </button>
-
         </form>
       </section>
 
-      <!-- Deposit History -->
-      <section class="glass-card rounded-3xl p-8 shadow-2xl shadow-black/40" data-aos="fade-left" data-aos-duration="800">
-        
-        <!-- Header with decorative line -->
-        <div class="relative mb-8">
-          <div class="absolute -top-2 left-0 w-12 h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"></div>
-          <div class="flex items-center gap-4 mb-2 mt-4">
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400/20 to-cyan-400/5 border border-cyan-400/30 shadow-lg shadow-cyan-400/10">
-              <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
-              </svg>
-            </div>
-            <div>
-              <h2 class="text-2xl font-black text-white tracking-tight">Deposit History</h2>
-              <p class="text-xs text-slate-500 mt-1">Track your recent deposits</p>
-            </div>
-          </div>
-          <% if (typeof deposits !== 'undefined' && deposits && deposits.length > 0) { %>
-            <span class="inline-block mt-3 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[11px] font-bold text-slate-400">
-              <%= deposits.length %> Transaction<%= deposits.length > 1 ? 's' : '' %>
-            </span>
-          <% } %>
+      <!-- Withdrawal History -->
+      <section class="rounded-3xl border border-white/10 glass-card shadow-2xl shadow-black/30" data-aos="fade-left" data-aos-duration="700">
+        <div class="border-b border-white/10 px-6 py-5">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+            Withdrawal History
+          </h2>
+          <p class="mt-1 text-sm text-slate-400">Latest withdrawal requests appear first.</p>
         </div>
 
-        <% if (typeof deposits === 'undefined' || !deposits || deposits.length === 0) { %>
-          <!-- Premium Empty State -->
-          <div class="flex min-h-[400px] flex-col items-center justify-center py-12 text-center animate-fade-in">
-            <div class="relative mb-8">
-              <div class="flex h-24 w-24 items-center justify-center rounded-3xl border border-white/10 bg-white/5 shadow-2xl">
-                <svg class="w-12 h-12 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
-                </svg>
-              </div>
-              <div class="absolute -top-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-blue-500">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                </svg>
-              </div>
+        <% if (!history || history.length === 0) { %>
+          <div class="flex min-h-[350px] flex-col items-center justify-center px-6 py-12 text-center animate-fade-in">
+            <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+              <span class="text-3xl">💸</span>
             </div>
-            <h3 class="text-xl font-bold text-white mb-3">No deposits yet</h3>
-            <p class="max-w-sm text-sm leading-6 text-slate-500">
-              Your deposit history will appear here after your first deposit is processed. Start by submitting a deposit using the form.
+            <h3 class="text-lg font-bold text-white">No withdrawals yet</h3>
+            <p class="mt-2 max-w-sm text-sm leading-6 text-slate-500">
+              Your withdrawal requests will appear here after submission. Start by filling out the form.
             </p>
           </div>
         <% } else { %>
-          <!-- Premium History List -->
-          <div class="space-y-4 max-h-[600px] overflow-y-auto pr-2">
-            <% if (typeof deposits !== 'undefined' && deposits) { deposits.forEach((d, index) => { %>
-              <div class="glass-item rounded-2xl p-5 animate-slide-up" style="animation-delay: <%= index * 0.1 %>s">
-                
-                <!-- Status indicator line -->
-                <div class="absolute top-0 left-0 w-1 h-full rounded-l-2xl 
-                  <%= d.status === 'approved' ? 'bg-gradient-to-b from-emerald-400 to-emerald-600' : '' %>
-                  <%= d.status === 'rejected' ? 'bg-gradient-to-b from-red-400 to-red-600' : '' %>
-                  <%= d.status !== 'approved' && d.status !== 'rejected' ? 'bg-gradient-to-b from-amber-400 to-amber-600' : '' %>
-                "></div>
-                
-                <div class="ml-3">
-                  <!-- Top Row -->
-                  <div class="flex items-start justify-between gap-4 mb-4">
-                    <div>
-                      <p class="font-mono text-xl font-black text-white">$<%= Number(d.amount).toFixed(2) %></p>
-                      <p class="mt-1.5 text-xs text-slate-500 flex items-center gap-2">
-                        <span class="flex items-center gap-1.5">
-                          <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                          </svg>
-                          <%= d.method %>
-                        </span>
-                      </p>
-                    </div>
-
-                    <% if (d.status === 'approved') { %>
-                      <span class="badge-approved inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                        </svg>
-                        Approved
-                      </span>
-                    <% } else if (d.status === 'rejected') { %>
-                      <span class="badge-rejected inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                        Rejected
-                      </span>
-                    <% } else { %>
-                      <span class="badge-pending inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider">
-                        <div class="w-3.5 h-3.5 rounded-full border-2 border-amber-400 border-t-transparent animate-spin"></div>
-                        Pending
-                      </span>
-                    <% } %>
+          <div class="divide-y divide-white/5 max-h-[600px] overflow-y-auto">
+            <% history.forEach((w, index) => { %>
+              <div class="p-5 transition hover:bg-white/[0.05] animate-slide-up" style="animation-delay: <%= index * 0.1 %>s">
+                <div class="mb-4 flex items-start justify-between gap-4">
+                  <div>
+                    <p class="font-mono text-xl font-black text-white">$<%= Number(w.amount).toFixed(2) %></p>
+                    <p class="mt-1 text-xs text-slate-500 flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                      <%= w.network %>
+                    </p>
                   </div>
 
-                  <!-- Details Grid -->
-                  <div class="grid grid-cols-2 gap-4 rounded-xl bg-slate-950/50 p-4 text-xs border border-white/5">
-                    <div>
-                      <p class="text-slate-500 uppercase tracking-wider mb-1.5 font-semibold">Date</p>
-                      <p class="font-mono font-semibold text-slate-300"><%= new Date(d.createdAt).toLocaleString() %></p>
-                    </div>
-                    <div>
-                      <p class="text-slate-500 uppercase tracking-wider mb-1.5 font-semibold">Proof</p>
-                      <% if (d.proofUrl) { %>
-                        <a href="<%= d.proofUrl %>" target="_blank" class="inline-flex items-center gap-1.5 text-blue-400 hover:text-blue-300 font-bold transition hover:scale-105">
-                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                          </svg>
-                          View Proof
-                        </a>
-                      <% } else { %>
-                        <span class="text-slate-600">—</span>
-                      <% } %>
-                    </div>
-                  </div>
-
-                  <% if (d.adminNote) { %>
-                    <div class="mt-3 rounded-xl bg-amber-400/5 border border-amber-400/20 p-3">
-                      <p class="text-[10px] uppercase tracking-wider text-amber-400 font-bold mb-1">Admin Note</p>
-                      <p class="text-xs text-slate-400 font-mono"><%= d.adminNote %></p>
-                    </div>
+                  <% if (w.status === 'approved') { %>
+                    <span class="status-badge rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-emerald-300 flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                      Approved
+                    </span>
+                  <% } else if (w.status === 'rejected') { %>
+                    <span class="rounded-full border border-red-400/20 bg-red-400/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-red-300 flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                      Rejected
+                    </span>
+                  <% } else { %>
+                    <span class="status-badge rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-amber-300 flex items-center gap-1">
+                      <svg class="w-3 h-3 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                      Pending
+                    </span>
                   <% } %>
                 </div>
+
+                <div class="grid grid-cols-1 gap-3 rounded-2xl border border-white/10 bg-slate-950/50 p-4 text-xs sm:grid-cols-2">
+                  <div>
+                    <p class="text-slate-500 uppercase tracking-wide">Method</p>
+                    <p class="mt-1 font-semibold text-slate-200"><%= w.network %></p>
+                  </div>
+                  <div>
+                    <p class="text-slate-500 uppercase tracking-wide">Date</p>
+                    <p class="mt-1 font-mono font-semibold text-slate-300"><%= new Date(w.date).toLocaleString() %></p>
+                  </div>
+                </div>
               </div>
-            <% }) } %>
-            
+            <% }) %>
           </div>
         <% } %>
-
       </section>
 
     </div>
@@ -701,125 +382,73 @@
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    // Initialize AOS animations
     AOS.init({
       once: true,
       duration: 800,
-      offset: 50,
-      easing: 'ease-out-cubic'
+      offset: 50
     });
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
   <script>
-    const methods = <%- JSON.stringify(typeof depositMethods !== 'undefined' ? depositMethods : []) %>
+    const method = document.getElementById('network')
+    const walletBox = document.getElementById('walletBox')
+    const walletInput = document.getElementById('walletInput')
 
-    function showDetails(name) {
-      const box = document.getElementById('paymentBox')
-      const text = document.getElementById('paymentText')
-      const select = document.getElementById('methodSelect')
-      const qrWrap = document.getElementById('paymentQrWrap')
-      const qr = document.getElementById('paymentQr')
-      const copyButton = document.getElementById('copyPaymentButton')
+    function updateWalletPlaceholder() {
+      const val = method.value
 
-      box.classList.add('hidden')
-      text.textContent = ''
-      qrWrap.classList.add('hidden')
-      qr.removeAttribute('src')
-      qr.alt = 'Payment QR code'
-      copyButton.classList.add('hidden')
+      walletBox.classList.remove('hidden')
+      walletInput.required = true
 
-      if (!name) return
-
-      const method = methods.find(m => m.name === name)
-      if (!method) return
-
-      if (method.available === false) {
-        Swal.fire({
-          icon: 'info',
-          title: 'Not Available',
-          text: method.message || 'This payment method is not available at the moment.',
-          background: '#0f172a',
-          color: '#ffffff',
-          customClass: {
-            popup: 'rounded-2xl border border-white/10 shadow-2xl',
-            title: 'text-lg font-bold'
-          }
-        })
-        select.value = ''
-        return
-      }
-
-      const details = method.wallet || method.details || ''
-
-      if (details || method.qrImage) {
-        text.textContent = details || 'Scan the QR code below to complete your payment.'
-        copyButton.classList.toggle('hidden', !details)
-
-        if (method.qrImage) {
-          qr.src = method.qrImage
-          qr.alt = `${method.name} payment QR code`
-          qrWrap.classList.remove('hidden')
-        }
-
-        box.classList.remove('hidden')
+      if (['USDT TRC20', 'USDT ERC20', 'BTC', 'ETH', 'DOGE', 'LTC'].includes(val)) {
+        walletInput.placeholder = 'Enter your crypto wallet address'
+      } else if (val === 'CashApp') {
+        walletInput.placeholder = 'Enter your $Cashtag'
+      } else if (val === 'PayPal') {
+        walletInput.placeholder = 'Enter your PayPal email'
+      } else if (val === 'Chime') {
+        walletInput.placeholder = 'Enter your Chime ID or email'
+      } else if (val === 'Zelle') {
+        walletInput.placeholder = 'Enter your Zelle email or phone'
+      } else if (val === 'Venmo') {
+        walletInput.placeholder = 'Enter your Venmo username'
+      } else if (val === 'Apple Pay') {
+        walletInput.placeholder = 'Enter your Apple ID email'
+      } else if (val === 'Google Pay') {
+        walletInput.placeholder = 'Enter your Google Pay email'
+      } else if (val === 'BANK') {
+        walletInput.placeholder = 'Enter your bank account details'
       }
     }
 
-    function copyDetails() {
-      const text = document.getElementById('paymentText').textContent
-      if (!text) return
-      
-      navigator.clipboard.writeText(text).then(() => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 2500,
-          timerProgressBar: true,
-          background: '#0f172a',
-          color: '#ffffff',
-          customClass: {
-            popup: 'rounded-2xl border border-cyan-400/30 shadow-2xl',
-            title: 'text-sm font-bold'
-          },
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        })
-        
-        Toast.fire({
-          icon: 'success',
-          title: 'Payment details copied!'
-        })
-      })
-    }
+    updateWalletPlaceholder()
+    method.addEventListener('change', updateWalletPlaceholder)
   </script>
+
+  <!-- SweetAlert2 for notifications -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <% if (toast) { %>
   <script>
-    const Toast = Swal.mixin({
+    Swal.fire({
+      icon: '<%= toast.type %>',
+      title: '<%= toast.message %>',
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
-      timer: 4000,
+      timer: 3000,
       timerProgressBar: true,
       background: '#0f172a',
       color: '#ffffff',
       customClass: {
-        popup: 'rounded-2xl border border-white/10 shadow-2xl',
+        popup: 'rounded-2xl border border-white/10',
         title: 'text-sm font-semibold'
       },
       didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
-    })
-    
-    Toast.fire({
-      icon: '<%= toast.type %>',
-      title: '<%= toast.message %>'
     })
   </script>
   <% } %>

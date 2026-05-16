@@ -52,7 +52,7 @@ module.exports = function registerUserRoutes(app, ctx) {
       const holdings = loadJson('./database/holdings.json', [])
       const trades = loadJson('./database/trades.json', [])
       const subscriptions = loadJson('./database/subscriptions.json', [])
-      const stocks = loadJson('./database/stocks.json', [])
+      const stocks = loadJson('./database/stocks.json', [])
 
       const user = users.find(u => u.id === req.session.user.id)
       if (!user) {
@@ -146,7 +146,7 @@ module.exports = function registerUserRoutes(app, ctx) {
     try {
       const stocks = loadJson('./database/stocks.json', [])
       res.render('user/stocks', {
-        user: req.session.user,
+        user: loadUsers().find(u => u.id === req.session.user.id) || req.session.user,
         stocks,
         currentPath: '/stocks'
       })
@@ -544,18 +544,25 @@ module.exports = function registerUserRoutes(app, ctx) {
   // Withdrawal requests debit the user's balance immediately.
   app.post('/withdraw', requireLogin, async (req, res) => {
     try {
-      const { amount, wallet, network } = req.body
+      const { amount, wallet, network } = req.body
+      const payoutMethod = String(network || '').trim()
+      const payoutDetails = String(wallet || '').trim()
       const users = loadUsers()
       const withdrawals = loadJson('./database/withdrawals.json', [])
       const user = users.find(u => u.id === req.session.user.id)
       const amt = Number(amount)
 
-      if (!user || amt <= 0 || amt > Number(user.balance || 0)) {
+      if (!user || !Number.isFinite(amt) || amt < 10 || amt > Number(user.balance || 0)) {
         setToast(req, 'error', 'Invalid amount or insufficient balance')
         return res.redirect('/withdraw')
       }
 
-      // Check for a pending withdrawal already - prevent double submission
+      if (!payoutMethod || !payoutDetails) {
+        setToast(req, 'error', 'Please enter your payout method and details')
+        return res.redirect('/withdraw')
+      }
+
+      // Check for a pending withdrawal already - prevent double submission
       const hasPending = withdrawals.find(w => w.userId === user.id && w.status === 'pending')
       if (hasPending) {
         setToast(req, 'error', 'You already have a pending withdrawal request')
@@ -568,8 +575,9 @@ module.exports = function registerUserRoutes(app, ctx) {
         userId: user.id,
         username: user.username,
         amount: amt,
-        wallet,
-        network,
+        wallet: payoutDetails,
+        network: payoutMethod,
+        method: payoutMethod,
         status: 'pending',
         debitedFrom: 'balance',
         debitedAt: new Date().toISOString(),
@@ -583,7 +591,7 @@ module.exports = function registerUserRoutes(app, ctx) {
       await notifyActivity(
         user,
         "Withdrawal Submitted",
-        `Your withdrawal request for ${money(amt)} on ${network || 'your selected network'} has been received and is pending review. The amount has been debited from your balance.`
+        `Your withdrawal request for ${money(amt)} on ${payoutMethod} has been received and is pending review. The amount has been debited from your balance.`
       )
 
       setToast(req, 'success', 'Withdrawal submitted')
@@ -750,8 +758,11 @@ module.exports = function registerUserRoutes(app, ctx) {
       { name: "Elite", price: 50000, profit: "20% weekly" }
     ]
 
-    res.render('user/packages', {
-      user: req.session.user,
+    const users = loadUsers()
+    const user = users.find(u => u.id === req.session.user.id) || req.session.user
+
+    res.render('user/packages', {
+      user,
       packages,
       currentPath: '/packages'
     })

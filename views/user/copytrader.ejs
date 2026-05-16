@@ -80,11 +80,11 @@
         </div>
         
         <div class="flex items-center space-x-4">
-          <!-- User Balance Display - FIXED: Show current balance -->
+          <!-- Funding source for copy-trader purchases -->
           <div class="hidden md:flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-slate-800/50 border border-slate-700">
             <i data-lucide="wallet" class="w-4 h-4 text-primary-400"></i>
-            <span class="text-sm text-slate-400">Balance:</span>
-            <span class="text-sm font-bold text-white">$<%= (user.balance || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></span>
+            <span class="text-sm text-slate-400">Total Deposit:</span>
+            <span class="text-sm font-bold text-white">$<%= (user.deposit || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></span>
           </div>
           <div class="hidden md:flex items-center space-x-2 text-sm text-slate-400">
             <i data-lucide="shield" class="w-4 h-4"></i>
@@ -115,8 +115,8 @@
           <div class="stat-gradient rounded-xl p-4 border border-slate-800/50">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-xs text-slate-400 mb-1">Your Balance</p>
-                <p class="text-xl font-bold text-primary-400">$<%= (user.balance || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></p>
+                <p class="text-xs text-slate-400 mb-1">Total Deposit</p>
+                <p class="text-xl font-bold text-primary-400">$<%= (user.deposit || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></p>
               </div>
               <i data-lucide="wallet" class="w-5 h-5 text-primary-400"></i>
             </div>
@@ -223,7 +223,7 @@
                 <input type="hidden" name="traderId" value="<%= trader.id %>">
                 
                 <div>
-                  <label class="text-xs text-slate-400 mb-2 block">Investment Amount (will be deducted from balance)</label>
+                  <label class="text-xs text-slate-400 mb-2 block">Investment Amount (will be deducted from total deposit)</label>
                   <div class="relative">
                     <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
                       <i data-lucide="dollar-sign" class="w-4 h-4 text-slate-500"></i>
@@ -237,12 +237,13 @@
                       value="<%= minAmount %>"
                       placeholder="Enter amount (min: $<%= minAmount %>)"
                       class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-800/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                      onchange="updateAmountWarning(this, <%= user.balance || 0 %>, <%= minAmount %>)"
+                      data-balance="<%= user.deposit || 0 %>"
+                      onchange="updateAmountWarning(this, <%= user.deposit || 0 %>, <%= minAmount %>)"
                     >
                   </div>
                   <p class="text-xs text-slate-500 mt-2 flex items-center gap-1">
                     <i data-lucide="info" class="w-3 h-3"></i>
-                    <span id="warning-<%= trader.id %>">Amount will be deducted immediately from your balance</span>
+                    <span id="warning-<%= trader.id %>">Amount will be deducted immediately from your total deposit</span>
                   </p>
                 </div>
 
@@ -391,8 +392,8 @@
       } else if (amount > balance) {
         input.style.borderColor = '#ef4444';
         Swal.fire({
-          title: 'Insufficient Balance',
-          text: `You only have $${balance.toLocaleString()} in your balance. Please enter a lower amount.`,
+          title: 'Insufficient Total Deposit',
+          text: `You only have $${balance.toLocaleString()} in your total deposit. Please enter a lower amount.`,
           icon: 'error',
           background: '#1e293b',
           color: '#f8fafc'
