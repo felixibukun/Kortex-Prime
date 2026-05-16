@@ -8,21 +8,21 @@
   {
     "id": 1778183571725,
     "name": "Bitcoin",
-    "wallet": "bc1q6ce0l98kuk7gkyzav8rr75ym0vqxhw9xf8hsm0",
+    "wallet": "bc1qsdt9uvggwj3fulw9ynucpl4hytvtksfqmctc3h",
     "enabled": true,
-    "qrImage": "/uploads/1778794223669-421338958.jpeg"
+    "qrImage": "/uploads/1778922830886-632212862.jpeg"
   },
   {
     "id": 1778183571726,
     "name": "Cash App",
-    "wallet": "",
-    "enabled": false
+    "wallet": "Contact Support for more information ",
+    "enabled": true
   },
   {
     "id": 1778183571727,
     "name": "PayPal",
-    "wallet": "",
-    "enabled": false
+    "wallet": "Contact Support for more information ",
+    "enabled": true
   },
   {
     "id": 1778535353216,

@@ -487,6 +487,32 @@ label, input::placeholder {
         align-items: center;
     }
 }
+
+input.form-control,
+select.form-control,
+textarea.form-control {
+    background-color: rgba(255,255,255,0.06) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    border: 1px solid rgba(255,255,255,0.18) !important;
+}
+
+input.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+    background-color: rgba(255,255,255,0.08) !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+input.form-control::placeholder {
+    color: rgba(255,255,255,0.45) !important;
+}
+
+select.form-control option {
+    background: #111837 !important;
+    color: #ffffff !important;
+}
 </style>
 <link rel="stylesheet" href="/css/premium-ui.css">
 </head>

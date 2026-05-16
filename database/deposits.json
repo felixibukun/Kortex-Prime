@@ -31,5 +31,15 @@
     "proofUrl": "/uploads/1778337772191-995940513.jpeg",
     "createdAt": "2026-05-09T14:42:52.196Z",
     "approvedAt": "2026-05-09T14:44:17.198Z"
+  },
+  {
+    "id": 1778927635128,
+    "userId": 1778337681896,
+    "username": "Alaga",
+    "amount": 10,
+    "method": "Bitcoin",
+    "status": "pending",
+    "proofUrl": "/uploads/1778927635125-315764452.jpeg",
+    "createdAt": "2026-05-16T10:33:55.128Z"
   }
 ]
