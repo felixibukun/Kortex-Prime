@@ -864,8 +864,24 @@ module.exports = function registerUserRoutes(app, ctx) {
   })
 
   app.get('/transactions-history', requireLogin, (req, res) => {
-    const deposits = loadJson('./database/deposits.json', []).filter(x => x.userId === req.session.user.id)
-    const withdrawals = loadJson('./database/withdrawals.json', []).filter(x => x.userId === req.session.user.id)
+    const deposits = loadJson('./database/deposits.json', [])
+      .filter(x => x.userId === req.session.user.id)
+      .map(x => ({
+        ...x,
+        type: 'deposit',
+        label: 'Deposit',
+        method: x.method || x.network || x.walletType || 'Deposit',
+        date: x.createdAt || x.date || x.timestamp || x.id
+      }))
+    const withdrawals = loadJson('./database/withdrawals.json', [])
+      .filter(x => x.userId === req.session.user.id)
+      .map(x => ({
+        ...x,
+        type: 'withdrawal',
+        label: 'Withdrawal',
+        method: x.method || x.network || x.walletType || 'Withdrawal',
+        date: x.date || x.createdAt || x.timestamp || x.id
+      }))
     const transactions = [...deposits, ...withdrawals].sort((a, b) =>
       recordTime(b) - recordTime(a)
     )

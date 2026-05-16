@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Funding History | Kortex Prime</title>
+  <title>Transaction History | Kortex Prime</title>
   
   <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -190,7 +190,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
           </svg>
           <p class="text-sm font-bold tracking-wide">
-            <span class="gradient-text">Funding History</span>
+            <span class="gradient-text">Transaction History</span>
           </p>
         </div>
       </div>
@@ -211,7 +211,7 @@
     <!-- Stats Overview -->
     <div class="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4" data-aos="fade-up" data-aos-duration="600">
       <div class="glass-card rounded-2xl p-4 hover-lift">
-        <p class="text-[11px] uppercase tracking-[0.15em] text-slate-500">Funding Records</p>
+        <p class="text-[11px] uppercase tracking-[0.15em] text-slate-500">Transaction Records</p>
         <p class="mt-1 font-mono text-xl font-bold text-white">
           <%= transactions ? transactions.length : 0 %>
         </p>
@@ -236,7 +236,7 @@
       </div>
     </div>
 
-    <!-- Funding History Card -->
+    <!-- Transaction History Card -->
     <div class="glass-card rounded-3xl p-6 shadow-2xl shadow-black/30" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
       
       <!-- Header -->
@@ -246,14 +246,14 @@
             <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            Funding Records
+            Transaction Records
           </h2>
           <p class="mt-1 text-xs text-slate-500">Complete history of deposits and withdrawals</p>
         </div>
         
         <% if (transactions && transactions.length > 0) { %>
           <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold text-slate-400">
-            <%= transactions.length %> funding record<%= transactions.length > 1 ? 's' : '' %>
+            <%= transactions.length %> transaction record<%= transactions.length > 1 ? 's' : '' %>
           </span>
         <% } %>
       </div>
@@ -266,9 +266,9 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
             </svg>
           </div>
-          <h3 class="text-lg font-bold text-white mb-2">No funding records yet</h3>
+          <h3 class="text-lg font-bold text-white mb-2">No transaction records yet</h3>
           <p class="max-w-sm text-sm leading-6 text-slate-500">
-            Deposits and withdrawals will appear here. Start by funding your account or making a withdrawal.
+            Deposits and withdrawals will appear here. Start with a deposit or make a withdrawal.
           </p>
           <div class="mt-6 flex gap-3">
             <a href="/deposit-withdrawal" class="inline-flex items-center gap-2 rounded-xl bg-emerald-400/10 border border-emerald-400/20 px-5 py-2.5 text-sm font-semibold text-emerald-300 hover:bg-emerald-400/20 transition">
@@ -287,7 +287,7 @@
         </div>
       <% } else { %>
 
-        <!-- Funding Records List -->
+        <!-- Transaction Records List -->
         <div class="space-y-3">
           <% transactions.forEach((t, index) => { 
             const type = (t.type || '').toLowerCase();
@@ -381,7 +381,7 @@
         <div class="mt-6 rounded-2xl border border-white/5 bg-slate-900/50 p-4">
           <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p class="text-xs text-slate-500">
-              Showing <%= transactions.length %> funding record<%= transactions.length > 1 ? 's' : '' %>
+              Showing <%= transactions.length %> transaction record<%= transactions.length > 1 ? 's' : '' %>
             </p>
             <div class="flex gap-6">
               <div>
