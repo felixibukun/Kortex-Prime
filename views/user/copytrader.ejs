@@ -9,9 +9,18 @@
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <style>
-    .gradient-bg {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-    }
+    html,
+body {
+  min-height: 100%;
+  background: #020617 !important;
+}
+
+.gradient-bg {
+  background:
+    radial-gradient(circle at 12% 6%, rgba(14, 165, 233, 0.14), transparent 30%),
+    radial-gradient(circle at 86% 12%, rgba(37, 99, 235, 0.12), transparent 32%),
+    linear-gradient(135deg, #020617 0%, #06111f 48%, #020617 100%) !important;
+}
     .card-glow:hover {
       box-shadow: 0 0 30px rgba(79, 70, 229, 0.15);
     }
@@ -65,7 +74,7 @@
   </script>
 <link rel="stylesheet" href="/css/premium-ui.css">
 </head>
-<body class="min-h-screen gradient-bg text-white" x-data="{ selectedTrader: null, investmentAmount: 500 }">
+<body class="min-h-screen bg-slate-950 text-white" x-data="{ selectedTrader: null, investmentAmount: 500 }">
   <div class="min-h-screen flex flex-col">
     <!-- Premium Header -->
     <header class="h-16 border-b border-slate-800/50 bg-slate-950/40 backdrop-blur-2xl flex items-center sticky top-0 z-50">
@@ -99,7 +108,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 py-8 animate-fade-in">
+    <main class="flex-1 pb-32 pt-8 animate-fade-in">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header Section -->
         <div class="mb-8">

@@ -38,13 +38,19 @@
 
   <style>
     html { scroll-behavior: smooth; }
-    body {
-      background:
-        radial-gradient(circle at 12% 6%, rgba(14, 165, 233, 0.18), transparent 28%),
-        radial-gradient(circle at 86% 12%, rgba(99, 102, 241, 0.16), transparent 30%),
-        linear-gradient(135deg, #020617 0%, #071224 48%, #090d1d 100%);
-      min-height: 100vh;
-    }
+    html,
+body {
+  min-height: 100%;
+  background: #020617 !important;
+}
+
+body {
+  background:
+    radial-gradient(circle at 12% 6%, rgba(14, 165, 233, 0.14), transparent 30%),
+    radial-gradient(circle at 86% 12%, rgba(37, 99, 235, 0.12), transparent 32%),
+    linear-gradient(135deg, #020617 0%, #06111f 48%, #020617 100%) !important;
+  color: #ffffff;
+}
     .premium-shell {
       background: rgba(11, 18, 36, 0.74);
       border: 1px solid rgba(148, 163, 184, 0.16);
@@ -88,7 +94,7 @@
   </style>
 </head>
 
-<body class="font-sans text-white">
+<body class="min-h-screen bg-slate-950 font-sans text-white">
   <%
     const displayName = user.name || user.username || 'Account Holder';
     const initials = displayName.slice(0, 1).toUpperCase();
@@ -116,7 +122,7 @@
     </div>
   </header>
 
-  <main class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:py-10">
+  <main class="mx-auto w-full max-w-7xl px-4 pb-32 pt-8 sm:px-6 lg:py-10">
     <section class="mb-6 premium-shell rounded-[28px] p-6 sm:p-8">
       <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>

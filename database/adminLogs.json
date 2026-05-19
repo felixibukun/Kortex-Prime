@@ -1490,5 +1490,25 @@
     },
     "timestamp": "2026-05-16T09:08:20.724Z",
     "ip": "127.0.0.1"
+  },
+  {
+    "id": 1779024885587,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-17T13:34:45.587Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1779155428226,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-19T01:50:28.226Z",
+    "ip": "127.0.0.1"
   }
 ]

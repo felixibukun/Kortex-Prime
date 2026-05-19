@@ -2227,6 +2227,26 @@ footer {
     max-width: 122px;
   }
 }
+.scroll-top-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 96px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--blue2));
+  color: #000;
+  font-size: 18px;
+  z-index: 9000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0,144,255,0.35);
+}
+
+.scroll-top-btn.show {
+  display: flex;
+}
 </style>
 </head>
 
@@ -2537,7 +2557,7 @@ footer {
     </div>
   </div>
   <div class="vs-img reveal reveal-delay-1">
-    <img src="https://images.unsplash.com/photo-1642790551116-18e150f248e5?w=800&q=80" alt="Charts and analysis">
+    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Charts and analysis" onerror="this.src='https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80'">
     <div class="vs-overlay">
       <div class="vs-label">Advanced Analytics</div>
       <div class="vs-sub">AI-powered market insights</div>
@@ -3055,6 +3075,10 @@ footer {
   </div>
 </footer>
 
+<button id="scrollTopBtn" class="scroll-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
 <!-- ============================================================
      SCRIPTS
      ============================================================ -->
@@ -3385,7 +3409,7 @@ const cryptoImages = [
   'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&q=80',
   'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&q=80',
   'https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?w=600&q=80',
-  'https://images.unsplash.com/photo-1642790551116-18e150f248e5?w=600&q=80',
+  'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80',
   'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80'
 ];
 
@@ -3509,7 +3533,14 @@ function loadNews(topic) {
 // Init news
 loadNews('crypto');
 setInterval(() => loadNews(currentTopic), 10 * 60 * 1000);
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+window.addEventListener('scroll', () => {
+  if (!scrollTopBtn) return;
+  scrollTopBtn.classList.toggle('show', window.scrollY > 500);
+});
 
 </script>
+
 </body>
 </html>

@@ -277,6 +277,14 @@
     </a>
 
     <div class="pt-6 mt-6 border-t border-slate-800">
+      <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300 mt-2">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform">
+    <path d="M3 10.5 12 3l9 7.5"></path>
+    <path d="M5 10v10h14V10"></path>
+    <path d="M9 20v-6h6v6"></path>
+  </svg>
+  <span class="font-medium">Back to Home</span>
+</a>
       <a href="/support" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:bg-slate-800/50 group hover-lift text-slate-300">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
         <span class="font-medium">Support</span>
@@ -792,8 +800,8 @@
 </div>
 
 <!-- Mobile Downbar -->
-<nav class="mobile-downbar md:hidden fixed inset-x-0 bottom-0 z-50 border-t border-slate-800 bg-slate-950/95 backdrop-blur-xl">
-  <div class="grid grid-cols-5 px-2 pt-2 text-[11px] font-medium">
+<nav class="mobile-downbar md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-slate-800 bg-slate-950/95 backdrop-blur-xl w-full">
+  <div class="grid grid-cols-5 px-1 pt-2 text-[10px] font-medium w-full">
     <a href="/dashboard" class="flex flex-col items-center gap-1 rounded-xl px-1 py-2 <%= currentPath === '/dashboard' ? 'text-blue-300 bg-blue-500/10' : 'text-slate-400 hover:text-white' %>">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
       <span class="truncate">Home</span>

@@ -1478,5 +1478,27 @@
     },
     "timestamp": "2026-05-15T20:13:04.834Z",
     "ip": "127.0.0.1"
+  },
+  {
+    "id": 1778922500724,
+    "adminId": 1765453181463,
+    "action": "withdrawal_approved",
+    "meta": {
+      "withdrawalId": 1778876021249,
+      "userId": 1778337681896,
+      "amount": 100
+    },
+    "timestamp": "2026-05-16T09:08:20.724Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1779024885587,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-17T13:34:45.587Z",
+    "ip": "127.0.0.1"
   }
 ]
