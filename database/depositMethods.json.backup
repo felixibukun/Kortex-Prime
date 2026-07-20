@@ -8,9 +8,9 @@
   {
     "id": 1778183571725,
     "name": "Bitcoin",
-    "wallet": "bc1qsdt9uvggwj3fulw9ynucpl4hytvtksfqmctc3h",
+    "wallet": "bc1qhdgxe6jmeu6alz6l0xuzz63z4m7029uk5yn2tl",
     "enabled": true,
-    "qrImage": "/uploads/1778922830886-632212862.jpeg"
+    "qrImage": "/uploads/1783462149781-918871698.jpeg"
   },
   {
     "id": 1778183571726,
@@ -21,7 +21,7 @@
   {
     "id": 1778183571727,
     "name": "PayPal",
-    "wallet": "Contact Support for more information ",
+    "wallet": "umoruv07@gmail.com ",
     "enabled": true
   },
   {

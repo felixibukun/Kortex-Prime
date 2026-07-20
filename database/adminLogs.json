@@ -1510,5 +1510,334 @@
     },
     "timestamp": "2026-05-19T01:50:28.226Z",
     "ip": "127.0.0.1"
+  },
+  {
+    "id": 1779245714918,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-20T02:55:14.918Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1779390762462,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-21T19:12:42.462Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1779683244504,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-25T04:27:24.504Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1779697711801,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-25T08:28:31.801Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1779920661325,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-27T22:24:21.325Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1780039141290,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-29T07:19:01.290Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1780092164451,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-05-29T22:02:44.451Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1780603499412,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-06-04T20:04:59.412Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1780605646357,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-06-04T20:40:46.357Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1780651573817,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-06-05T09:26:13.817Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1780752319734,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-06-06T13:25:19.734Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1782393221796,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-06-25T13:13:41.796Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1782406139138,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-06-25T16:48:59.138Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1783461978847,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-07-07T22:06:18.847Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1783518507096,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-07-08T13:48:27.096Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1783694943373,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-07-10T14:49:03.373Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784295008125,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-07-17T13:30:08.125Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784298454205,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-07-17T14:27:34.206Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784426302015,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-07-19T01:58:22.015Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784513221011,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-07-20T02:07:01.011Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784513403617,
+    "adminId": 1765453181463,
+    "action": "user_password_reset",
+    "meta": {
+      "userId": 1784349532776,
+      "username": "brigecel "
+    },
+    "timestamp": "2026-07-20T02:10:03.617Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784513855338,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-07-20T02:17:35.338Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784514032929,
+    "adminId": 1765453181463,
+    "action": "user_password_reset",
+    "meta": {
+      "userId": 1778358306561,
+      "username": "Richard tega "
+    },
+    "timestamp": "2026-07-20T02:20:32.929Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784514048418,
+    "adminId": 1765453181463,
+    "action": "user_deleted",
+    "meta": {
+      "userId": 1784349532776,
+      "username": "brigecel "
+    },
+    "timestamp": "2026-07-20T02:20:48.418Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784514611900,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1778337681896,
+      "username": "Alaga"
+    },
+    "timestamp": "2026-07-20T02:30:11.900Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784515611941,
+    "adminId": 1765453181463,
+    "action": "admin_impersonated_user",
+    "meta": {
+      "userId": 1778358306561,
+      "username": "Richard tega "
+    },
+    "timestamp": "2026-07-20T02:46:51.941Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784515648055,
+    "adminId": null,
+    "action": "failed_admin_login",
+    "meta": {
+      "username": "Admin",
+      "ip": "127.0.0.1"
+    },
+    "timestamp": "2026-07-20T02:47:28.055Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784515665618,
+    "adminId": 1765453181463,
+    "action": "admin_login_success",
+    "meta": {
+      "username": "admin"
+    },
+    "timestamp": "2026-07-20T02:47:45.618Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784515732348,
+    "adminId": 1765453181463,
+    "action": "user_password_reset",
+    "meta": {
+      "userId": 1778358306561,
+      "username": "Richard tega "
+    },
+    "timestamp": "2026-07-20T02:48:52.348Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784515810846,
+    "adminId": 1765453181463,
+    "action": "secure_preview_ended",
+    "meta": {
+      "userId": 1778358306561
+    },
+    "timestamp": "2026-07-20T02:50:10.846Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784515890607,
+    "adminId": 1765453181463,
+    "action": "user_deleted",
+    "meta": {
+      "userId": 1784514474385,
+      "username": "Felix "
+    },
+    "timestamp": "2026-07-20T02:51:30.607Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 1784515895868,
+    "adminId": 1765453181463,
+    "action": "user_deleted",
+    "meta": {
+      "userId": 1784514220669,
+      "username": "brigecel"
+    },
+    "timestamp": "2026-07-20T02:51:35.868Z",
+    "ip": "127.0.0.1"
   }
 ]
